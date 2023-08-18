@@ -1,8 +1,11 @@
 
 #include "logindao.h"
+#include "databasemanager.h"
+#include "sha256.h"
+
 #include <QSqlDatabase>
 #include <QSqlQuery>
-#include "databasemanager.h"
+
 
 
 LoginDao::LoginDao(QSqlDatabase& database) : mDatabase(database)
@@ -12,28 +15,22 @@ LoginDao::LoginDao(QSqlDatabase& database) : mDatabase(database)
 
 bool LoginDao::login(QString name, QString password)
 {
-    QSqlQuery query(mDatabase);
-    //query.prepare("SELECT password FROM login WHERE name = '" + name + "';");
+    SHA256 temp = SHA256(password);
+    password = temp.hash();
 
-    query.exec("SELECT password FROM login WHERE name = '" + name + "'");
-    DatabaseManager::debugQuery(query);
-    query.next();
-    QString result =  query.value(0).toString();
-
-    if (password == result)
+    if (password == LoginDao::searchLogin(name))
         return true;
     return false;
 }
-/*
+
 QString LoginDao::searchLogin(QString name)
 {
 
-
     QSqlQuery query(mDatabase);
-    query.prepare("SELECT password FROM login WHERE name = (:name)");
-    query.bindValue(":name", name);
-    query.exec();
+    query.exec("SELECT password FROM login WHERE name = '" + name + "'");
     DatabaseManager::debugQuery(query);
+    query.next();
+
     return query.value(0).toString();
 }
-*/
+

@@ -13,13 +13,15 @@ SOURCES += \
     login.cpp \
     logindao.cpp \
     main.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    sha256.cpp
 
 HEADERS += \
     databasemanager.h \
     login.h \
     logindao.h \
-    mainwindow.h
+    mainwindow.h \
+    sha256.h
 
 FORMS += \
     login.ui \

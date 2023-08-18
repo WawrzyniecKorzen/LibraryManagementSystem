@@ -35,7 +35,7 @@ void DatabaseManager::init()
     QSqlQuery query(*mDatabase);
     query.exec("CREATE TABLE login (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, password TEXT)");
     DatabaseManager::debugQuery(query);
-    query.exec("INSERT INTO login (name, password) VALUES('admin', 'test')");
+    query.exec("INSERT INTO login (name, password) VALUES('admin', '9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08')");
     DatabaseManager::debugQuery(query);
 }
 

@@ -15,7 +15,7 @@ public:
 
     bool login(QString name, QString password);
 
-    //QString searchLogin(QString name);
+    QString searchLogin(QString name);
 
 private:
     QSqlDatabase& mDatabase;
