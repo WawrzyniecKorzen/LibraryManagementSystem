@@ -12,6 +12,7 @@ class LoginDao
 {
 public:
     LoginDao(QSqlDatabase& database);
+    ~LoginDao();
 
     bool login(QString name, QString password);
 

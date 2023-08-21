@@ -23,6 +23,8 @@ private slots:
 
     void on_singInButton_clicked();
 
+
+
 private:
     Ui::Login *ui;
     DatabaseManager& mDb;

@@ -5,6 +5,7 @@
 #include <QString>
 #include <memory>
 #include "logindao.h"
+#include "userdao.h"
 
 
 class QSqlQuery;
@@ -32,6 +33,7 @@ private:
 
 public:
     LoginDao loginDao;
+    UserDao userDao;
 };
 
 #endif // DATABASEMANAGER_H

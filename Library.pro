@@ -14,14 +14,18 @@ SOURCES += \
     logindao.cpp \
     main.cpp \
     mainwindow.cpp \
-    sha256.cpp
+    sha256.cpp \
+    user.cpp \
+    userdao.cpp
 
 HEADERS += \
     databasemanager.h \
     login.h \
     logindao.h \
     mainwindow.h \
-    sha256.h
+    sha256.h \
+    user.h \
+    userdao.h
 
 FORMS += \
     login.ui \

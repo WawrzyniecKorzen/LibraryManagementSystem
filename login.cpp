@@ -3,6 +3,7 @@
 
 #include "databasemanager.h"
 #include <QMessageBox>
+#include "mainwindow.h"
 
 Login::Login(QWidget *parent) :
     QDialog(parent),
@@ -13,6 +14,7 @@ Login::Login(QWidget *parent) :
 
     ui->setupUi(this);
     ui->passwordInput->setEchoMode(QLineEdit::Password);
+
 }
 
 Login::~Login()
@@ -34,8 +36,14 @@ void Login::on_singInButton_clicked()
     bool result = mDb.loginDao.login(ui->loginInput->text(), ui->passwordInput->text());
     if (result)
     {
+        qDebug() << "login successfull!";
+        MainWindow* w = new MainWindow(nullptr, mDb);
+        w->logUser(ui->loginInput->text());
+        w->setLabels();
+        w->show();
         this->close();
-        this->setResult(QDialog::Accepted);
+
+
     }
     else
     {
@@ -43,4 +51,6 @@ void Login::on_singInButton_clicked()
         on_clearButton_clicked();
     }
 }
+
+
 

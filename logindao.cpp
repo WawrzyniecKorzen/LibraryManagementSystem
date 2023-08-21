@@ -13,6 +13,11 @@ LoginDao::LoginDao(QSqlDatabase& database) : mDatabase(database)
 
 }
 
+LoginDao::~LoginDao()
+{
+
+}
+
 bool LoginDao::login(QString name, QString password)
 {
     SHA256 temp = SHA256(password);
