@@ -16,7 +16,8 @@ SOURCES += \
     mainwindow.cpp \
     sha256.cpp \
     user.cpp \
-    userdao.cpp
+    userdao.cpp \
+    userdatawidget.cpp
 
 HEADERS += \
     databasemanager.h \
@@ -25,13 +26,18 @@ HEADERS += \
     mainwindow.h \
     sha256.h \
     user.h \
-    userdao.h
+    userdao.h \
+    userdatawidget.h
 
 FORMS += \
     login.ui \
-    mainwindow.ui
+    mainwindow.ui \
+    userdatawidget.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+RESOURCES += \
+    resources.qrc

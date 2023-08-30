@@ -8,6 +8,7 @@
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
+    a.setWindowIcon(QIcon(":/resources/resources/book-icon.png"));
 
     Login dialog;
     dialog.show();

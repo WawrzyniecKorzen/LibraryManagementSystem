@@ -5,7 +5,7 @@
 #include <QMainWindow>
 #include "user.h"
 #include "databasemanager.h"
-
+#include "userdatawidget.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -21,12 +21,14 @@ public:
     ~MainWindow();
 
     void logUser(QString name);
-    void setLabels();
+    User* passUser();
+
 
 private:
     Ui::MainWindow *ui;
     DatabaseManager& mDb;
     User* user;
+    UserDataWidget* userWidget;
 };
 
 #endif // MAINWINDOW_H

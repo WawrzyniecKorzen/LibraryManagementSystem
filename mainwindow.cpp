@@ -1,7 +1,10 @@
 
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include "userdatawidget.h"
+
 #include <QDebug>
+#include <QHBoxLayout>
 
 MainWindow::MainWindow(QWidget *parent, DatabaseManager& database )
     :  QMainWindow(parent),
@@ -10,11 +13,12 @@ MainWindow::MainWindow(QWidget *parent, DatabaseManager& database )
     user(new User)
 {
 
-
+    userWidget = new UserDataWidget(this, user);
     ui->setupUi(this);
 
-    setLabels();
 
+
+    ui->centralwidget->layout()->addWidget(userWidget);
     qDebug() << "main window created with id " << user->getId();
 }
 
@@ -27,13 +31,15 @@ MainWindow::~MainWindow()
 void MainWindow::logUser(QString name)
 {
     user = mDb.userDao.getUserData(name);
+    userWidget->setUser(user);
+    userWidget->update();
+    this->repaint();
 }
 
-void MainWindow::setLabels()
+User *MainWindow::passUser()
 {
-    ui->idLabel->setText(QString("Id: %1").arg(user->getId()));
-    ui->nameLabel->setText("Name: " + user->getName());
-    ui->statusLabel->setText(QString("Status: %1").arg(user->getStatus()));
+    return user;
 }
+
 
 

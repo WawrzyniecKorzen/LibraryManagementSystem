@@ -39,7 +39,7 @@ void Login::on_singInButton_clicked()
         qDebug() << "login successfull!";
         MainWindow* w = new MainWindow(nullptr, mDb);
         w->logUser(ui->loginInput->text());
-        w->setLabels();
+
         w->show();
         this->close();
 
