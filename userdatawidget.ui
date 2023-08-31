@@ -51,6 +51,13 @@
     </layout>
    </item>
    <item>
+    <widget class="QLabel" name="logo">
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+   </item>
+   <item>
     <layout class="QHBoxLayout" name="buttons">
      <item>
       <widget class="QPushButton" name="changePassButton">

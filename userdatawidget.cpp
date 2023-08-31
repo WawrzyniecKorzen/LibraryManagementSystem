@@ -4,6 +4,7 @@
 #include "changepassworddialog.h"
 #include "login.h"
 #include <QDebug>
+#include <QPixmap>
 
 UserDataWidget::UserDataWidget(QWidget *parent, User* us) :
     QWidget(parent),
@@ -11,6 +12,9 @@ UserDataWidget::UserDataWidget(QWidget *parent, User* us) :
     user(us)
 {
     ui->setupUi(this);
+    QPixmap pictureLogo(":/resources/resources/book-icon.png");
+    ui->logo->setPixmap(pictureLogo);
+    ui->logo->setAlignment(Qt::AlignHCenter | Qt::AlignVCenter);
     connect(ui->logOutButton, &QPushButton::clicked, this, &UserDataWidget::logOut);
     qDebug() << "user widget created with id " << user->getId();
 }

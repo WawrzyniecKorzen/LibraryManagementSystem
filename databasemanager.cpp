@@ -34,6 +34,8 @@ void DatabaseManager::init()
 {
     initialiseLogin();
     initialiseBook();
+    initialiseAuthor();
+    initialiseBookAuthor();
 }
 
 void DatabaseManager::initialiseLogin()
@@ -56,15 +58,42 @@ void DatabaseManager::initialiseBook()
     query.exec("CREATE TABLE book (id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT, publicationYear INTEGER, copies INTEGER)");
     DatabaseManager::debugQuery(query);
     query.exec("INSERT INTO book (title, publicationYear, copies) "
-               "VALUES('The Lord Of The Rings', '2000', '5')");
+               "VALUES('The Lord Of The Rings', 2000, 5)");
     DatabaseManager::debugQuery(query);
     query.exec("INSERT INTO book (title, publicationYear, copies) "
-               "VALUES('Silmarilion', '2002', '3')");
+               "VALUES('Silmarillion', 2002, 3)");
     DatabaseManager::debugQuery(query);
     query.exec("INSERT INTO book (title, publicationYear, copies) "
-               "VALUES('Surely Youre Joking, Mr. Feynman!: Adventures of a Curious Character ', '2018', '10')");
+               "VALUES('Surely Youre Joking, Mr. Feynman!: Adventures of a Curious Character', 2018, 10)");
 
     DatabaseManager::debugQuery(query);
+}
+
+void DatabaseManager::initialiseBookAuthor()
+{
+    QSqlQuery query(*mDatabase);
+    query.exec("CREATE TABLE bookAuthor (id INTEGER PRIMARY KEY AUTOINCREMENT, bookID INT, authorID INT)");
+    DatabaseManager::debugQuery(query);
+    query.exec("INSERT INTO bookAuthor (bookID, authorID) "
+               "VALUES(1, 1)");
+    query.exec("INSERT INTO bookAuthor (bookID, authorID) "
+               "VALUES(2, 1)");
+    query.exec("INSERT INTO bookAuthor (bookID, authorID) "
+               "VALUES(3, 2)");
+    DatabaseManager::debugQuery(query);
+}
+
+void DatabaseManager::initialiseAuthor()
+{
+    QSqlQuery query(*mDatabase);
+    query.exec("CREATE TABLE author (id INTEGER PRIMARY KEY AUTOINCREMENT, firstName TEXT, lastName TEXT)");
+    DatabaseManager::debugQuery(query);
+    query.exec("INSERT INTO author (firstName, lastName) "
+               "VALUES('John R. R.', 'Tolkien')");
+    query.exec("INSERT INTO author (firstName, lastName) "
+               "VALUES('Richard.', 'Feynman')");
+    DatabaseManager::debugQuery(query);
+
 }
 
 DatabaseManager::DatabaseManager(const QString &path) :
