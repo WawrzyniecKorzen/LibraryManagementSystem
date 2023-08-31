@@ -9,6 +9,7 @@ CONFIG += c++17
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    changepassworddialog.cpp \
     databasemanager.cpp \
     login.cpp \
     logindao.cpp \
@@ -20,6 +21,7 @@ SOURCES += \
     userdatawidget.cpp
 
 HEADERS += \
+    changepassworddialog.h \
     databasemanager.h \
     login.h \
     logindao.h \
@@ -30,6 +32,7 @@ HEADERS += \
     userdatawidget.h
 
 FORMS += \
+    changepassworddialog.ui \
     login.ui \
     mainwindow.ui \
     userdatawidget.ui

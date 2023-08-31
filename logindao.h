@@ -16,7 +16,11 @@ public:
 
     bool login(QString name, QString password);
 
+
     QString searchLogin(QString name);
+    bool checkPassword(int id, QString pass);
+    void changePassword(int id, QString newPassword);
+
 
 private:
     QSqlDatabase& mDatabase;

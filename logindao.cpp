@@ -39,3 +39,25 @@ QString LoginDao::searchLogin(QString name)
     return query.value(0).toString();
 }
 
+bool LoginDao::checkPassword(int id, QString pass)
+{
+    QSqlQuery query(mDatabase);
+    query.exec("SELECT password FROM login WHERE id = "+ QString::number(id));
+    DatabaseManager::debugQuery(query);
+    query.next();
+
+    QString password = query.value(0).toString();
+    qDebug() << password;
+    if (SHA256(pass).hash() == password)
+        return true;
+    return false;
+
+}
+
+void LoginDao::changePassword(int id, QString newPassword)
+{
+    QSqlQuery query(mDatabase);
+    query.exec("UPDATE login SET password ='" + SHA256(newPassword).hash() +"' WHERE id = " + QString::number(id));
+    DatabaseManager::debugQuery(query);
+}
+

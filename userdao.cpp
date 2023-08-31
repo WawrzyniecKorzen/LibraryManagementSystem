@@ -24,6 +24,34 @@ User *UserDao::getUserData(QString name)
     qDebug() << query.value("id").toInt();
     user->setId(query.value("id").toInt());
     user->setName(query.value("name").toString());
+
+    user->setJoined(UserDao::toQDate(query.value("joined").toString()));
     user->setStatus(query.value("status").toInt());
     return user;
+}
+
+QDate UserDao::toQDate(QString date)
+{
+    int year, month, day = 0;
+    QString temp;
+    for (int i = 0; i < 2; i++)
+    {
+        temp.append(date[i]);
+    }
+    day = temp.toInt();
+    temp.clear();
+    for (int i = 3; i < 5; i++)
+    {
+        temp.append(date[i]);
+    }
+    month = temp.toInt();
+    temp.clear();
+    for (int i = 6; i < 10; i++)
+    {
+        temp.append(date[i]);
+    }
+    year = temp.toInt();
+    temp.clear();
+
+    return QDate(year, month, day);
 }

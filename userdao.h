@@ -12,7 +12,8 @@ public:
     ~UserDao();
 
     User *getUserData(QString name);
-
+private:
+    QDate toQDate(QString date);
 private:
     QSqlDatabase& mDatabase;
 };

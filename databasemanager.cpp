@@ -4,6 +4,7 @@
 #include <QDebug>
 #include <QSqlError>
 #include <QSqlQuery>
+#include <QDate>
 
 
 
@@ -31,14 +32,14 @@ void DatabaseManager::debugQuery(const QSqlQuery &query)
 
 void DatabaseManager::init()
 {
-
+    QDate date = QDate::currentDate();
     QSqlQuery query(*mDatabase);
-    query.exec("CREATE TABLE login (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, password TEXT, status INTEGER)");
+    query.exec("CREATE TABLE login (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, password TEXT, joined TEXT, status INTEGER)");
     DatabaseManager::debugQuery(query);
-    query.exec("INSERT INTO login (name, password, status) "
-               "VALUES('admin', '9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08', '0')");
-    query.exec("INSERT INTO login (name, password, status) "
-               "VALUES('user', '9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08', '1')");
+    query.exec("INSERT INTO login (name, password, joined, status) "
+               "VALUES('admin', '9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08','" + date.toString("dd.MM.yyyy") + "','0')");
+    query.exec("INSERT INTO login (name, password, joined, status) "
+               "VALUES('user', '9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08','" + date.toString("dd.MM.yyyy") + "', '1')");
     DatabaseManager::debugQuery(query);
 }
 

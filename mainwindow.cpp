@@ -5,6 +5,7 @@
 
 #include <QDebug>
 #include <QHBoxLayout>
+#include <QPushButton>
 
 MainWindow::MainWindow(QWidget *parent, DatabaseManager& database )
     :  QMainWindow(parent),
@@ -19,6 +20,8 @@ MainWindow::MainWindow(QWidget *parent, DatabaseManager& database )
 
 
     ui->centralwidget->layout()->addWidget(userWidget);
+
+    QObject::connect(userWidget, &UserDataWidget::logOutClicked, this, &MainWindow::logOut);
     qDebug() << "main window created with id " << user->getId();
 }
 
@@ -26,6 +29,7 @@ MainWindow::~MainWindow()
 {
     delete ui;
     delete user;
+    qDebug() << "main window destroyed ";
 }
 
 void MainWindow::logUser(QString name)
@@ -35,6 +39,15 @@ void MainWindow::logUser(QString name)
     userWidget->update();
     this->repaint();
 }
+
+void MainWindow::logOut()
+{
+    this->close();
+}
+
+
+
+
 
 User *MainWindow::passUser()
 {

@@ -4,7 +4,7 @@
 
 
 
-User::User(int id, QString name, int status) : id(id), name(name), status(status)
+User::User(int id, QString name, QDate date, int status) : id(id), name(name), joined(date), status(status)
 {
 
 }
@@ -24,6 +24,11 @@ void User::setName(QString text)
     name = text;
 }
 
+void User::setJoined(QDate date)
+{
+    joined = date;
+}
+
 void User::setStatus(int s)
 {
     status = s;
@@ -37,6 +42,11 @@ int User::getId()
 QString User::getName()
 {
     return name;
+}
+
+QDate User::getJoined()
+{
+    return joined;
 }
 
 int User::getStatus()

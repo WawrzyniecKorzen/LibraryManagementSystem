@@ -21,6 +21,8 @@ public:
     ~MainWindow();
 
     void logUser(QString name);
+    void logOut();
+
     User* passUser();
 
 

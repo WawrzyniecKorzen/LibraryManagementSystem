@@ -4,6 +4,7 @@
 #include <QWidget>
 #include "user.h"
 
+
 namespace Ui {
 class UserDataWidget;
 }
@@ -18,10 +19,19 @@ public:
 
     void setUser(User* us);
     void update();
+    void logOut();
+
+signals:
+    void logOutClicked();
+
+private slots:
+    void on_changePassButton_clicked();
 
 private:
     Ui::UserDataWidget *ui;
+
     User* user;
+
 };
 
 #endif // USERDATAWIDGET_H
