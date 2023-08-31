@@ -32,6 +32,12 @@ void DatabaseManager::debugQuery(const QSqlQuery &query)
 
 void DatabaseManager::init()
 {
+    initialiseLogin();
+    initialiseBook();
+}
+
+void DatabaseManager::initialiseLogin()
+{
     QDate date = QDate::currentDate();
     QSqlQuery query(*mDatabase);
     query.exec("CREATE TABLE login (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, password TEXT, joined TEXT, status INTEGER)");
@@ -40,6 +46,24 @@ void DatabaseManager::init()
                "VALUES('admin', '9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08','" + date.toString("dd.MM.yyyy") + "','0')");
     query.exec("INSERT INTO login (name, password, joined, status) "
                "VALUES('user', '9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08','" + date.toString("dd.MM.yyyy") + "', '1')");
+    DatabaseManager::debugQuery(query);
+}
+
+void DatabaseManager::initialiseBook()
+{
+
+    QSqlQuery query(*mDatabase);
+    query.exec("CREATE TABLE book (id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT, publicationYear INTEGER, copies INTEGER)");
+    DatabaseManager::debugQuery(query);
+    query.exec("INSERT INTO book (title, publicationYear, copies) "
+               "VALUES('The Lord Of The Rings', '2000', '5')");
+    DatabaseManager::debugQuery(query);
+    query.exec("INSERT INTO book (title, publicationYear, copies) "
+               "VALUES('Silmarilion', '2002', '3')");
+    DatabaseManager::debugQuery(query);
+    query.exec("INSERT INTO book (title, publicationYear, copies) "
+               "VALUES('Surely Youre Joking, Mr. Feynman!: Adventures of a Curious Character ', '2018', '10')");
+
     DatabaseManager::debugQuery(query);
 }
 

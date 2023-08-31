@@ -22,6 +22,10 @@ public:
 
     static void debugQuery(const QSqlQuery& query);
     void init();
+    void initialiseLogin();
+    void initialiseBook();
+    void initialiseBookAuthor();
+    void initialiseAuthor();
 
 protected:
     DatabaseManager(const QString& path = FILENAME);
