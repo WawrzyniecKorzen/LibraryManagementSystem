@@ -7,8 +7,8 @@
 
 
 
-Book::Book(int id_num, QString booktitle, QString authorName, int publication, int noCopies) :
-    id(id_num), title(booktitle), author(authorName), publicationYear(publication), copies(noCopies)
+Book::Book(int id_num, QString booktitle, QString first, QString last, int publication, int noCopies) :
+    id(id_num), title(booktitle), authorFirstName(first), authorLastName(last), publicationYear(publication), copies(noCopies)
 {
 
 }
@@ -23,10 +23,17 @@ void Book::setTitle(QString booktitle)
     title = booktitle;
 }
 
-void Book::setAuthor(QString authorName)
+void Book::setAuthorFirstName(QString first)
 {
-    author = authorName;
+    authorFirstName = first;
 }
+
+void Book::setAuthorLastName(QString last)
+{
+    authorLastName = last;
+}
+
+
 
 void Book::setPublicationYear(int publication)
 {
@@ -50,7 +57,7 @@ QString Book::getTitle()
 
 QString Book::getAuthor()
 {
-    return author;
+    return QString(authorFirstName + " " + authorLastName);
 }
 
 int Book::getPublicationYear()

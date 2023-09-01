@@ -5,15 +5,17 @@
 
 #include <QString>
 
+
 class Book
 {
 public:
-    Book(int id_num = -1, QString booktitle = "", QString authorName = "", int publication = -1, int noCopies = -1);
+    Book(int id_num = -1, QString booktitle = "", QString first = "", QString last = "", int publication = -1, int noCopies = -1);
     ~Book();
 
     void setId(int id_num);
     void setTitle(QString booktitle);
-    void setAuthor(QString authorName);
+    void setAuthorFirstName(QString first);
+    void setAuthorLastName(QString last);
     void setPublicationYear(int publication);
     void setCopies(int noCopies);
 
@@ -30,7 +32,8 @@ public:
 private:
     int id;
     QString title;
-    QString author;
+    QString authorFirstName;
+    QString authorLastName;
     int publicationYear;
     int copies;
 };
