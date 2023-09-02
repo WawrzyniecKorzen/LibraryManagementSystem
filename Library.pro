@@ -13,6 +13,7 @@ SOURCES += \
     bookdao.cpp \
     changepassworddialog.cpp \
     databasemanager.cpp \
+    librarydatawidget.cpp \
     login.cpp \
     logindao.cpp \
     main.cpp \
@@ -27,6 +28,7 @@ HEADERS += \
     bookdao.h \
     changepassworddialog.h \
     databasemanager.h \
+    librarydatawidget.h \
     login.h \
     logindao.h \
     mainwindow.h \
@@ -37,6 +39,7 @@ HEADERS += \
 
 FORMS += \
     changepassworddialog.ui \
+    librarydatawidget.ui \
     login.ui \
     mainwindow.ui \
     userdatawidget.ui

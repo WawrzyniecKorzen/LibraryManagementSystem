@@ -16,10 +16,11 @@ MainWindow::MainWindow(QWidget *parent, DatabaseManager& database )
 
     userWidget = new UserDataWidget(this, user);
     ui->setupUi(this);
-
+    libraryWidget = new libraryDataWidget();
 
 
     ui->centralwidget->layout()->addWidget(userWidget);
+    ui->centralwidget->layout()->addWidget(libraryWidget);
 
     QObject::connect(userWidget, &UserDataWidget::logOutClicked, this, &MainWindow::logOut);
     qDebug() << "main window created with id " << user->getId();
