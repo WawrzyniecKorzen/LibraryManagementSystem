@@ -98,7 +98,7 @@ void DatabaseManager::initialiseAuthor()
 
 DatabaseManager::DatabaseManager(const QString &path) :
     mDatabase(new QSqlDatabase(QSqlDatabase::addDatabase("QSQLITE"))),
-    loginDao(*mDatabase), userDao(*mDatabase)
+    loginDao(*mDatabase), userDao(*mDatabase), bookDao(*mDatabase)
 {
     mDatabase->setDatabaseName(path);
 

@@ -10,6 +10,7 @@ CONFIG += c++17
 
 SOURCES += \
     book.cpp \
+    bookdao.cpp \
     changepassworddialog.cpp \
     databasemanager.cpp \
     login.cpp \
@@ -23,6 +24,7 @@ SOURCES += \
 
 HEADERS += \
     book.h \
+    bookdao.h \
     changepassworddialog.h \
     databasemanager.h \
     login.h \
