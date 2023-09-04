@@ -4,6 +4,7 @@
 
 #include "book.h"
 #include <QSqlDatabase>
+#include <vector>
 
 
 class BookDao
@@ -13,6 +14,7 @@ public:
     ~BookDao();
 
     Book *getBookDataTitle(QString title);
+    std::vector<QString> getBookTitles();
 
 private:
     QSqlDatabase& mDatabase;

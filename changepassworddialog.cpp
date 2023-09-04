@@ -2,6 +2,7 @@
 #include "ui_changepassworddialog.h"
 
 #include <QMessageBox>
+#include <QDebug>
 
 ChangePasswordDialog::ChangePasswordDialog(QWidget *parent, User* us) :
     QDialog(parent),
@@ -22,6 +23,7 @@ ChangePasswordDialog::ChangePasswordDialog(QWidget *parent, User* us) :
 ChangePasswordDialog::~ChangePasswordDialog()
 {
     delete ui;
+    qDebug() << "change password dialog deleted";
 }
 
 void ChangePasswordDialog::onChangeButton()
@@ -43,6 +45,7 @@ void ChangePasswordDialog::onChangeButton()
             {
                 mDb.loginDao.changePassword(user->getId(),ui->newEdit->text());
                 this->close();
+                this->deleteLater();
             }
             else
             {
@@ -64,4 +67,5 @@ void ChangePasswordDialog::onClearButton()
 void ChangePasswordDialog::onCancelButton()
 {
     this->close();
+    this->deleteLater();
 }

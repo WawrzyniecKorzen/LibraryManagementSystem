@@ -18,7 +18,7 @@ BookDao::~BookDao()
 Book *BookDao::getBookDataTitle(QString title)
 {
     QSqlQuery query(mDatabase);
-    query.exec("SELECT * FROM books "
+    query.exec("SELECT * FROM book "
                "INNER JOIN bookAuthor ON book.id = bookAuthor.bookID "
                "INNER JOIN author ON bookAuthor.authorID  = author.id "
                "WHERE title = '" + title + "'");
@@ -35,4 +35,18 @@ Book *BookDao::getBookDataTitle(QString title)
 
     //missing author;
     return book;
+}
+
+std::vector<QString> BookDao::getBookTitles()
+{
+    std::vector<QString> titles;
+
+    QSqlQuery query(mDatabase);
+    query.exec("SELECT title FROM book LIMIT 5");
+    while (query.next())
+    {
+        titles.push_back(query.value("title").toString());
+    }
+    return titles;
+
 }

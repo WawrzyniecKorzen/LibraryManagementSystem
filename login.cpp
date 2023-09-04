@@ -14,12 +14,14 @@ Login::Login(QWidget *parent) :
 
     ui->setupUi(this);
     ui->passwordInput->setEchoMode(QLineEdit::Password);
+    //this->setAttribute(Qt::WA_DeleteOnClose);
 
 }
 
 Login::~Login()
 {
     delete ui;
+    qDebug() << "login deleted";
 }
 
 
@@ -42,8 +44,7 @@ void Login::on_singInButton_clicked()
 
         w->show();
         this->close();
-
-
+        this->deleteLater();
     }
     else
     {

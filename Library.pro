@@ -11,6 +11,7 @@ CONFIG += c++17
 SOURCES += \
     book.cpp \
     bookdao.cpp \
+    bookwidget.cpp \
     changepassworddialog.cpp \
     databasemanager.cpp \
     librarydatawidget.cpp \
@@ -26,6 +27,7 @@ SOURCES += \
 HEADERS += \
     book.h \
     bookdao.h \
+    bookwidget.h \
     changepassworddialog.h \
     databasemanager.h \
     librarydatawidget.h \
@@ -38,6 +40,7 @@ HEADERS += \
     userdatawidget.h
 
 FORMS += \
+    bookwidget.ui \
     changepassworddialog.ui \
     librarydatawidget.ui \
     login.ui \

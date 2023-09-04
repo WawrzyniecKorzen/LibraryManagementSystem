@@ -16,7 +16,7 @@ MainWindow::MainWindow(QWidget *parent, DatabaseManager& database )
 
     userWidget = new UserDataWidget(this, user);
     ui->setupUi(this);
-    libraryWidget = new libraryDataWidget();
+    libraryWidget = new libraryDataWidget(this, mDb);
 
 
     ui->centralwidget->layout()->addWidget(userWidget);
@@ -44,6 +44,7 @@ void MainWindow::logUser(QString name)
 void MainWindow::logOut()
 {
     this->close();
+    this->deleteLater();
 }
 
 
