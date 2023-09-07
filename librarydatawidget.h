@@ -27,7 +27,8 @@ private:
     Ui::libraryDataWidget *ui;
     DatabaseManager& mDatabase;
     std::vector<Book*> books;
-    QVBoxLayout* layout;
+    //QVBoxLayout* layout;
+    QWidget* mWidget;
 };
 
 #endif // LIBRARYDATAWIDGET_H

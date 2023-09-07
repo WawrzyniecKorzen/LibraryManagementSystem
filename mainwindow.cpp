@@ -6,6 +6,7 @@
 #include <QDebug>
 #include <QHBoxLayout>
 #include <QPushButton>
+#include <QScrollArea>
 
 MainWindow::MainWindow(QWidget *parent, DatabaseManager& database )
     :  QMainWindow(parent),
@@ -17,11 +18,14 @@ MainWindow::MainWindow(QWidget *parent, DatabaseManager& database )
     userWidget = new UserDataWidget(this, user);
     ui->setupUi(this);
     libraryWidget = new libraryDataWidget(this, mDb);
+    //libraryWidget->setSizePolicy(QSizePolicy::Fixed, );
 
 
     ui->centralwidget->layout()->addWidget(userWidget);
     ui->centralwidget->layout()->addWidget(libraryWidget);
 
+
+    this->show();
     QObject::connect(userWidget, &UserDataWidget::logOutClicked, this, &MainWindow::logOut);
     qDebug() << "main window created with id " << user->getId();
 }

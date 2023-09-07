@@ -3,6 +3,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QScrollArea>
 #include "user.h"
 #include "databasemanager.h"
 #include "userdatawidget.h"
@@ -33,6 +34,7 @@ private:
     User* user;
     UserDataWidget* userWidget;
     libraryDataWidget* libraryWidget;
+    QScrollArea* scroll;
 };
 
 #endif // MAINWINDOW_H
