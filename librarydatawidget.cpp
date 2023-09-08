@@ -15,11 +15,36 @@ libraryDataWidget::libraryDataWidget(QWidget *parent, DatabaseManager& database)
 {
     ui->setupUi(this);
 
+
+
+    tabBar = new QWidget(this);
+    QHBoxLayout* tabLayout = new QHBoxLayout(tabBar);
+    tabBar->setLayout(tabLayout);
+
+    QPushButton* myBooks = new QPushButton(tabBar);
+    myBooks->setText("My Books");
+    myBooks->setCheckable(true);
+    myBooks->setChecked(true);
+    myBooks->setAutoExclusive(true);
+    tabBar->layout()->addWidget(myBooks);
+
+    QPushButton* mySearch = new QPushButton(tabBar);
+    mySearch->setText("My Search");
+    mySearch->setCheckable(true);
+    mySearch->setAutoExclusive(true);
+    tabBar->layout()->addWidget(mySearch);
+
+    tabLayout->addStretch();
+
+
+    QVBoxLayout* lay = qobject_cast<QVBoxLayout*>(this->layout());
+    lay->insertWidget(0, tabBar);
+
     mWidget = new QWidget(this);
-    mWidget->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding);
+    mWidget->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::MinimumExpanding);
     mWidget->setLayout(new QVBoxLayout(mWidget));
-    ui->scrollArea->setWidget(mWidget);
-    QPushButton* button = new QPushButton(this);
+
+    QPushButton* button = new QPushButton(mWidget);
     button->setText("button");
     mWidget->layout()->addWidget(button);
 
@@ -28,7 +53,8 @@ libraryDataWidget::libraryDataWidget(QWidget *parent, DatabaseManager& database)
     BookWidget* bookWidget = new BookWidget(this, book);
 
     mWidget->layout()->addWidget(bookWidget);
-
+    ui->scrollArea->setWidgetResizable(true);
+    ui->scrollArea->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
 
     std::vector<QString> titles = mDatabase.bookDao.getBookTitles();
@@ -46,6 +72,7 @@ libraryDataWidget::libraryDataWidget(QWidget *parent, DatabaseManager& database)
         mWidget->layout()->addWidget(book);
     }
     demo();
+    ui->scrollArea->setWidget(mWidget);
 
     this->show();
 

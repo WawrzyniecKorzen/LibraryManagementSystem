@@ -28,6 +28,7 @@ private:
     DatabaseManager& mDatabase;
     std::vector<Book*> books;
     //QVBoxLayout* layout;
+    QWidget* tabBar;
     QWidget* mWidget;
 };
 
