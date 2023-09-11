@@ -17,7 +17,11 @@ MainWindow::MainWindow(QWidget *parent, DatabaseManager& database )
 
     userWidget = new UserDataWidget(this, user);
     ui->setupUi(this);
+
     libraryWidget = new libraryDataWidget(this, mDb);
+
+
+
     //libraryWidget->setSizePolicy(QSizePolicy::Fixed, );
     userWidget->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
     libraryWidget->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);

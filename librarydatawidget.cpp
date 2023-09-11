@@ -15,7 +15,7 @@ libraryDataWidget::libraryDataWidget(QWidget *parent, DatabaseManager& database)
 {
     ui->setupUi(this);
 
-
+    stackedPanel = new QStackedWidget(this);
 
     tabBar = new QWidget(this);
     QHBoxLayout* tabLayout = new QHBoxLayout(tabBar);
@@ -44,10 +44,6 @@ libraryDataWidget::libraryDataWidget(QWidget *parent, DatabaseManager& database)
     mWidget->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::MinimumExpanding);
     mWidget->setLayout(new QVBoxLayout(mWidget));
 
-    QPushButton* button = new QPushButton(mWidget);
-    button->setText("button");
-    mWidget->layout()->addWidget(button);
-
 
     Book* book = new Book(0, "Wojna peloponeska", "Tukidydes", "Grek", 2010, 2);
     BookWidget* bookWidget = new BookWidget(this, book);
@@ -72,7 +68,18 @@ libraryDataWidget::libraryDataWidget(QWidget *parent, DatabaseManager& database)
         mWidget->layout()->addWidget(book);
     }
     demo();
-    ui->scrollArea->setWidget(mWidget);
+
+    searchWidget = new QWidget(this);
+    searchWidget->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::MinimumExpanding);
+    searchWidget->setLayout(new QVBoxLayout(searchWidget));
+
+
+    stackedPanel->addWidget(mWidget);
+    stackedPanel->addWidget(searchWidget);
+    ui->scrollArea->setWidget(stackedPanel);
+
+    QObject::connect(myBooks, &QPushButton::clicked, this, &libraryDataWidget::onMyBooks);
+    QObject::connect(mySearch, &QPushButton::clicked, this, &libraryDataWidget::onMySearch);
 
     this->show();
 
@@ -100,4 +107,15 @@ void libraryDataWidget::demo()
 
 
 
+}
+
+void libraryDataWidget::onMyBooks()
+{
+    stackedPanel->setCurrentWidget(mWidget);
+
+}
+
+void libraryDataWidget::onMySearch()
+{
+    stackedPanel->setCurrentWidget(searchWidget);
 }

@@ -5,6 +5,7 @@
 #include <memory>
 #include <vector>
 #include <QVBoxLayout>
+#include <QStackedWidget>
 
 #include "book.h"
 #include "databasemanager.h"
@@ -23,13 +24,17 @@ public:
 
     void demo();
 
+    void onMyBooks();
+    void onMySearch();
+
 private:
     Ui::libraryDataWidget *ui;
     DatabaseManager& mDatabase;
     std::vector<Book*> books;
-    //QVBoxLayout* layout;
+    QStackedWidget* stackedPanel;
     QWidget* tabBar;
     QWidget* mWidget;
+    QWidget* searchWidget;
 };
 
 #endif // LIBRARYDATAWIDGET_H
