@@ -3,7 +3,7 @@
 #include "ui_mainwindow.h"
 #include "userdatawidget.h"
 
-#include <QDebug>
+
 #include <QHBoxLayout>
 #include <QPushButton>
 #include <QScrollArea>
@@ -32,14 +32,12 @@ MainWindow::MainWindow(QWidget *parent, DatabaseManager& database )
 
     this->show();
     QObject::connect(userWidget, &UserDataWidget::logOutClicked, this, &MainWindow::logOut);
-    qDebug() << "main window created with id " << user->getId();
 }
 
 MainWindow::~MainWindow()
 {
     delete ui;
     delete user;
-    qDebug() << "main window destroyed ";
 }
 
 void MainWindow::logUser(QString name)

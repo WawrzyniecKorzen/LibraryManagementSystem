@@ -15,6 +15,7 @@ UserDataWidget::UserDataWidget(QWidget *parent, User* us) :
     QPixmap pictureLogo(":/resources/resources/book-icon.png");
     ui->logo->setPixmap(pictureLogo);
     ui->logo->setAlignment(Qt::AlignHCenter | Qt::AlignVCenter);
+
     connect(ui->logOutButton, &QPushButton::clicked, this, &UserDataWidget::logOut);
     qDebug() << "user widget created with id " << user->getId();
 }

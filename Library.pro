@@ -19,6 +19,7 @@ SOURCES += \
     logindao.cpp \
     main.cpp \
     mainwindow.cpp \
+    searchwidget.cpp \
     sha256.cpp \
     user.cpp \
     userdao.cpp \
@@ -34,6 +35,7 @@ HEADERS += \
     login.h \
     logindao.h \
     mainwindow.h \
+    searchwidget.h \
     sha256.h \
     user.h \
     userdao.h \
@@ -45,6 +47,7 @@ FORMS += \
     librarydatawidget.ui \
     login.ui \
     mainwindow.ui \
+    searchwidget.ui \
     userdatawidget.ui
 
 # Default rules for deployment.

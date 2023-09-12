@@ -9,6 +9,7 @@
 
 #include "book.h"
 #include "databasemanager.h"
+#include "searchwidget.h"
 
 namespace Ui {
 class libraryDataWidget;
@@ -34,7 +35,7 @@ private:
     QStackedWidget* stackedPanel;
     QWidget* tabBar;
     QWidget* mWidget;
-    QWidget* searchWidget;
+    SearchWidget* searchWidget;
 };
 
 #endif // LIBRARYDATAWIDGET_H

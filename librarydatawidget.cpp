@@ -69,7 +69,7 @@ libraryDataWidget::libraryDataWidget(QWidget *parent, DatabaseManager& database)
     }
     demo();
 
-    searchWidget = new QWidget(this);
+    searchWidget = new SearchWidget(this, mDatabase);
     searchWidget->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::MinimumExpanding);
     searchWidget->setLayout(new QVBoxLayout(searchWidget));
 
