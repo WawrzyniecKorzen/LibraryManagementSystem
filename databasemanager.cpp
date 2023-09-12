@@ -96,6 +96,34 @@ void DatabaseManager::initialiseAuthor()
 
 }
 
+std::vector<QString> DatabaseManager::findBookTitles(QString title)
+{
+    std::vector<QString> titles;
+    QSqlQuery query(*mDatabase);
+    query.exec("SELECT title FROM book WHERE title LIKE '%" + title + "%'");
+    DatabaseManager::debugQuery(query);
+    while(query.next())
+        titles.push_back(query.value("title").toString());
+
+    return titles;
+}
+
+std::vector<QString> DatabaseManager::findBookAuthors(QString name)
+{
+    std::vector<QString> titles;
+    QSqlQuery query(*mDatabase);
+    query.exec("SELECT title FROM book "
+                                     "INNER JOIN bookAuthor ON book.id = bookAuthor.bookID "
+                                     "INNER JOIN author ON bookAuthor.authorID  = author.id "
+                                     "WHERE author.firstName LIKE '%" + name + "%' OR author.lastName LIKE '%" + name + "%'");
+    DatabaseManager::debugQuery(query);
+
+    while(query.next())
+        titles.push_back(query.value("title").toString());
+
+    return titles;
+}
+
 DatabaseManager::DatabaseManager(const QString &path) :
     mDatabase(new QSqlDatabase(QSqlDatabase::addDatabase("QSQLITE"))),
     loginDao(*mDatabase), userDao(*mDatabase), bookDao(*mDatabase)

@@ -60,6 +60,13 @@
    </item>
   </layout>
  </widget>
+ <tabstops>
+  <tabstop>titleEdit</tabstop>
+  <tabstop>authorEdit</tabstop>
+  <tabstop>searchButton</tabstop>
+  <tabstop>titleRadio</tabstop>
+  <tabstop>authorRadio</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>

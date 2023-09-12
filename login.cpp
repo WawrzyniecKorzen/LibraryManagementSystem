@@ -14,7 +14,7 @@ Login::Login(QWidget *parent) :
 
     ui->setupUi(this);
     ui->passwordInput->setEchoMode(QLineEdit::Password);
-    //this->setAttribute(Qt::WA_DeleteOnClose);
+    ui->loginInput->setFocus();
 
 }
 

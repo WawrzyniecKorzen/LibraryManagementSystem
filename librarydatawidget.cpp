@@ -7,6 +7,7 @@
 #include <QScrollArea>
 #include <QDebug>
 #include <QPushButton>
+#include <QSpacerItem>
 
 libraryDataWidget::libraryDataWidget(QWidget *parent, DatabaseManager& database) :
     QWidget(parent),
@@ -41,7 +42,7 @@ libraryDataWidget::libraryDataWidget(QWidget *parent, DatabaseManager& database)
     lay->insertWidget(0, tabBar);
 
     mWidget = new QWidget(this);
-    mWidget->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::MinimumExpanding);
+    mWidget->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding);
     mWidget->setLayout(new QVBoxLayout(mWidget));
 
 
@@ -49,10 +50,13 @@ libraryDataWidget::libraryDataWidget(QWidget *parent, DatabaseManager& database)
     BookWidget* bookWidget = new BookWidget(this, book);
 
     mWidget->layout()->addWidget(bookWidget);
+    QSpacerItem* spacer = new QSpacerItem(0,0, QSizePolicy::Expanding, QSizePolicy::Expanding);
+    mWidget->layout()->addItem(spacer);
+
     ui->scrollArea->setWidgetResizable(true);
     ui->scrollArea->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
-
+    /*
     std::vector<QString> titles = mDatabase.bookDao.getBookTitles();
     for (QString& title : titles)
     {
@@ -63,12 +67,11 @@ libraryDataWidget::libraryDataWidget(QWidget *parent, DatabaseManager& database)
     {
         BookWidget* book = new BookWidget(this, *it);
 
-        //book->setSizePolicy(QSizePolicy ::Fixed , QSizePolicy ::MinimumExpanding );
-        //book->resize();
+
         mWidget->layout()->addWidget(book);
     }
     demo();
-
+    */
     searchWidget = new SearchWidget(this, mDatabase);
     searchWidget->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::MinimumExpanding);
     searchWidget->setLayout(new QVBoxLayout(searchWidget));

@@ -7,6 +7,7 @@
 #include "logindao.h"
 #include "userdao.h"
 #include "bookdao.h"
+#include <vector>
 
 
 class QSqlQuery;
@@ -27,6 +28,9 @@ public:
     void initialiseBook();
     void initialiseBookAuthor();
     void initialiseAuthor();
+
+    std::vector<QString> findBookTitles(QString title);
+    std::vector<QString> findBookAuthors(QString name);
 
 protected:
     DatabaseManager(const QString& path = FILENAME);
