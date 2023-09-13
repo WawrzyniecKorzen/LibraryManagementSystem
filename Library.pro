@@ -19,6 +19,7 @@ SOURCES += \
     logindao.cpp \
     main.cpp \
     mainwindow.cpp \
+    person.cpp \
     searchwidget.cpp \
     sha256.cpp \
     user.cpp \
@@ -35,6 +36,7 @@ HEADERS += \
     login.h \
     logindao.h \
     mainwindow.h \
+    person.h \
     searchwidget.h \
     sha256.h \
     user.h \

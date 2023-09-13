@@ -65,6 +65,8 @@ void DatabaseManager::initialiseBook()
     DatabaseManager::debugQuery(query);
     query.exec("INSERT INTO book (title, publicationYear, copies) "
                "VALUES('Surely Youre Joking, Mr. Feynman!: Adventures of a Curious Character', 2018, 10)");
+    query.exec("INSERT INTO book (title, publicationYear, copies) "
+               "VALUES('An Introduction To Quantum Field Theory', 1995, 1)");
 
     DatabaseManager::debugQuery(query);
 }
@@ -80,6 +82,10 @@ void DatabaseManager::initialiseBookAuthor()
                "VALUES(2, 1)");
     query.exec("INSERT INTO bookAuthor (bookID, authorID) "
                "VALUES(3, 2)");
+    query.exec("INSERT INTO bookAuthor (bookID, authorID) "
+               "VALUES(4, 3)");
+    query.exec("INSERT INTO bookAuthor (bookID, authorID) "
+               "VALUES(4, 4)");
     DatabaseManager::debugQuery(query);
 }
 
@@ -91,7 +97,11 @@ void DatabaseManager::initialiseAuthor()
     query.exec("INSERT INTO author (firstName, lastName) "
                "VALUES('John R. R.', 'Tolkien')");
     query.exec("INSERT INTO author (firstName, lastName) "
-               "VALUES('Richard.', 'Feynman')");
+               "VALUES('Richard', 'Feynman')");
+    query.exec("INSERT INTO author (firstName, lastName) "
+               "VALUES('Michael E.', 'Peskin')");
+    query.exec("INSERT INTO author (firstName, lastName) "
+               "VALUES('Daniel V.', 'Schroeder')");
     DatabaseManager::debugQuery(query);
 
 }
@@ -110,6 +120,8 @@ std::vector<QString> DatabaseManager::findBookTitles(QString title)
 
 std::vector<QString> DatabaseManager::findBookAuthors(QString name)
 {
+    //TODO - what happens when someone writes first AND last names!
+
     std::vector<QString> titles;
     QSqlQuery query(*mDatabase);
     query.exec("SELECT title FROM book "

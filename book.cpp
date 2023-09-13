@@ -4,11 +4,8 @@
 
 
 
-
-
-
-Book::Book(int id_num, QString booktitle, QString first, QString last, int publication, int noCopies) :
-    id(id_num), title(booktitle), authorFirstName(first), authorLastName(last), publicationYear(publication), copies(noCopies)
+Book::Book(int id_num, QString booktitle, std::vector<Person> author, int publication, int noCopies) :
+    id(id_num), title(booktitle), authors(author), publicationYear(publication), copies(noCopies)
 {
 
 }
@@ -23,15 +20,12 @@ void Book::setTitle(QString booktitle)
     title = booktitle;
 }
 
-void Book::setAuthorFirstName(QString first)
+void Book::setAuthor(Person author)
 {
-    authorFirstName = first;
+    authors.push_back(author);
 }
 
-void Book::setAuthorLastName(QString last)
-{
-    authorLastName = last;
-}
+
 
 
 
@@ -57,7 +51,17 @@ QString Book::getTitle()
 
 QString Book::getAuthor()
 {
-    return QString(authorFirstName + " " + authorLastName);
+    if (authors.size() == 1)
+        return authors[0].getFullName();
+
+    QString result;
+    for (auto it = authors.begin(); it != authors.end() -1; it++)
+    {
+        result += (*it).getFullName();
+        result += ", ";
+    }
+    result += (authors.end() -1)->getFullName();
+    return result;
 }
 
 int Book::getPublicationYear()

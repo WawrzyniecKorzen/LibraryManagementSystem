@@ -46,7 +46,11 @@ libraryDataWidget::libraryDataWidget(QWidget *parent, DatabaseManager& database)
     mWidget->setLayout(new QVBoxLayout(mWidget));
 
 
-    Book* book = new Book(0, "Wojna peloponeska", "Tukidydes", "Grek", 2010, 2);
+    Book* book = new Book();
+    book->setTitle("Wojna peloponeska");
+    book->setPublicationYear(2010);
+    book->setAuthor(Person("Tukidydes", "Grek"));
+    book->setCopies(2);
     BookWidget* bookWidget = new BookWidget(this, book);
 
     mWidget->layout()->addWidget(bookWidget);

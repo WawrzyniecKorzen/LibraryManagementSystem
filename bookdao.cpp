@@ -19,8 +19,6 @@ Book *BookDao::getBookDataTitle(QString title)
 {
     QSqlQuery query(mDatabase);
     query.exec("SELECT * FROM book "
-               "INNER JOIN bookAuthor ON book.id = bookAuthor.bookID "
-               "INNER JOIN author ON bookAuthor.authorID  = author.id "
                "WHERE title = '" + title + "'");
     DatabaseManager::debugQuery(query);
     query.next();
@@ -30,10 +28,21 @@ Book *BookDao::getBookDataTitle(QString title)
     book->setTitle(query.value("title").toString());
     book->setPublicationYear(query.value("publicationYear").toInt());
     book->setCopies(query.value("copies").toInt());
-    book->setAuthorFirstName(query.value("firstName").toString());
-    book->setAuthorLastName(query.value("lastName").toString());
 
-    //missing author;
+    query.exec("SELECT firstName, lastName FROM book "
+                        "INNER JOIN bookAuthor ON book.id = bookAuthor.bookID "
+                        "INNER JOIN author ON bookAuthor.authorID  = author.id "
+                        "WHERE title = '" + title + "'");
+    while (query.next())
+        {
+        Person p;
+        QString temp = query.value("firstName").toString();
+        p.setFirstName(temp);
+        temp = query.value("lastName").toString();
+        p.setLastName(temp);
+        book->setAuthor(p);
+        }
+
     return book;
 }
 
