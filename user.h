@@ -4,6 +4,9 @@
 #include <QString>
 #include <QDate>
 
+enum class AccountType {
+    Admin, Member
+};
 
 class User
 {
@@ -13,7 +16,7 @@ public:
     {
         Administrator, RegularUser
     };
-    User(int id = -1, QString name = "", QDate date = QDate(0,0,0), int status = -1);
+    User(int id = -1, QString name = "", QDate date = QDate(0,0,0), AccountType status = AccountType(-1));
     ~User();
 
     void setId(int num);
@@ -24,13 +27,13 @@ public:
     int getId();
     QString getName();
     QDate getJoined();
-    int getStatus();
+    AccountType getStatus();
 
 private:
     int id;
     QString name;
     QDate joined;
-    int status;
+    AccountType status;
 
 };
 

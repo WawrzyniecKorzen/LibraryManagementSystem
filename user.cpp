@@ -4,7 +4,7 @@
 
 
 
-User::User(int id, QString name, QDate date, int status) : id(id), name(name), joined(date), status(status)
+User::User(int id, QString name, QDate date, AccountType status) : id(id), name(name), joined(date), status(status)
 {
 
 }
@@ -31,7 +31,7 @@ void User::setJoined(QDate date)
 
 void User::setStatus(int s)
 {
-    status = s;
+    status = AccountType(s);
 }
 
 int User::getId()
@@ -48,8 +48,7 @@ QDate User::getJoined()
 {
     return joined;
 }
-
-int User::getStatus()
+AccountType User::getStatus()
 {
     return status;
 }

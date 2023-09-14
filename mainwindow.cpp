@@ -18,16 +18,11 @@ MainWindow::MainWindow(QWidget *parent, DatabaseManager& database )
     userWidget = new UserDataWidget(this, user);
     ui->setupUi(this);
 
-    libraryWidget = new libraryDataWidget(this, mDb);
 
-
-
-    //libraryWidget->setSizePolicy(QSizePolicy::Fixed, );
     userWidget->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
-    libraryWidget->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+
 
     ui->centralwidget->layout()->addWidget(userWidget);
-    ui->centralwidget->layout()->addWidget(libraryWidget);
 
 
     this->show();
@@ -45,6 +40,11 @@ void MainWindow::logUser(QString name)
     user = mDb.userDao.getUserData(name);
     userWidget->setUser(user);
     userWidget->update();
+
+    if (user->getStatus()==AccountType::Member)
+        setMemberAccount();
+    else if (user->getStatus()==AccountType::Admin)
+        setAdminAccount();
     this->repaint();
 }
 
@@ -52,6 +52,18 @@ void MainWindow::logOut()
 {
     this->close();
     this->deleteLater();
+}
+
+void MainWindow::setMemberAccount()
+{
+    libraryWidget = new libraryDataWidget(this, mDb);
+    libraryWidget->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+    ui->centralwidget->layout()->addWidget(libraryWidget);
+}
+
+void MainWindow::setAdminAccount()
+{
+
 }
 
 

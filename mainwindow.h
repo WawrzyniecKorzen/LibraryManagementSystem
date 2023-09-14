@@ -25,6 +25,8 @@ public:
 
     void logUser(QString name);
     void logOut();
+    void setMemberAccount();\
+    void setAdminAccount();
 
     User* passUser();
 
