@@ -1,6 +1,10 @@
 #include "adduserdialog.h"
 #include "ui_adduserdialog.h"
 
+#include <QRandomGenerator>
+
+static char characters[36] = "abcdefghijklmnoprqstuwxyz0123456789";
+
 AddUserDialog::AddUserDialog(QWidget *parent, DatabaseManager& database) :
     QDialog(parent),
     ui(new Ui::AddUserDialog), mDatabase(database)
@@ -10,6 +14,7 @@ AddUserDialog::AddUserDialog(QWidget *parent, DatabaseManager& database) :
 
     QObject::connect(ui->clearButton, &QPushButton::clicked, this, &AddUserDialog::onClear);
     QObject::connect(ui->cancelButton, &QPushButton::clicked, this, &AddUserDialog::onCancel);
+    QObject::connect(ui->generatButton, &QPushButton::clicked, this, &AddUserDialog::onGenerate);
     this->setModal(true);
 }
 
@@ -39,5 +44,9 @@ void AddUserDialog::onCancel()
 
 void AddUserDialog::onGenerate()
 {
-
+    int length = 8;
+    QString password;
+    for (int i = 0; i < length; i++)
+        password.append(characters[QRandomGenerator::global()->bounded(36)]);
+    ui->passwordEdit->setText(password);
 }
