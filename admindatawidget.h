@@ -36,6 +36,9 @@ public slots:
     void onUsers();
     void onBooks();
 
+    void onAdd();
+    void onAddUser();
+
 private:
     Ui::AdminDataWidget *ui;
     DatabaseManager& mDatabase;

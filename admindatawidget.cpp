@@ -1,5 +1,6 @@
 #include "admindatawidget.h"
 #include "ui_admindatawidget.h"
+#include "adduserdialog.h"
 
 #include <QPushButton>
 #include <QDebug>
@@ -109,6 +110,8 @@ void AdminDataWidget::setToolBar()
     toolLayout->addItem(spacer);
     toolBar->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Minimum);
 
+    QObject::connect(addButton, &QPushButton::clicked, this, &AdminDataWidget::onAdd);
+
 }
 
 AdminDataWidget::WidgetMode AdminDataWidget::getMode()
@@ -128,4 +131,16 @@ void AdminDataWidget::onBooks()
     stackedPanel->setCurrentWidget(bookSearch);
 
 
+}
+
+void AdminDataWidget::onAdd()
+{
+    if (mode == WidgetMode::Users)
+        onAddUser();
+}
+
+void AdminDataWidget::onAddUser()
+{
+    AddUserDialog* dialog = new AddUserDialog(this, mDatabase);
+    dialog->show();
 }
