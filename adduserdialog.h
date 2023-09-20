@@ -17,9 +17,17 @@ public:
     explicit AddUserDialog(QWidget *parent, DatabaseManager& database);
     ~AddUserDialog();
 
+public slots:
+    void onAddUser();
+    void onClear();
+    void onCancel();
+    void onGenerate();
+
 private:
     Ui::AddUserDialog *ui;
     DatabaseManager& mDatabase;
 };
+
+
 
 #endif // ADDUSERDIALOG_H
