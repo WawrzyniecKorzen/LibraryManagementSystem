@@ -1,23 +1,18 @@
-
 #ifndef USERDAO_H
 #define USERDAO_H
 
-#include "user.h"
-
 #include <QSqlDatabase>
-#include <vector>
-
+#include "user.h"
 
 class UserDao
 {
 public:
-    UserDao(QSqlDatabase &database);
+    UserDao(QSqlDatabase& database);
     ~UserDao();
 
-    std::vector<QString> getUserNames(QString name);
-    User* getUserData(QString name);
-
-
+    User *getUserData(QString name);
+private:
+    QDate toQDate(QString date);
 private:
     QSqlDatabase& mDatabase;
 };
