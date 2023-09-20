@@ -26,6 +26,6 @@ void UsersAdminWidget::onSearchUser()
     if (ui->userNameEdit->text().isEmpty())
         return;
     std::vector<QString> users;
-    users = mDatabase.findUserName(ui->userNameEdit->text());
+    users = mDatabase.userDao.getUserNames(ui->userNameEdit->text());
     ui->userNameEdit->clear();
 }

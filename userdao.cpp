@@ -30,6 +30,19 @@ User *UserDao::getUserData(QString name)
     return user;
 }
 
+std::vector<QString> UserDao::getUserNames(QString name)
+{
+    QSqlQuery query(mDatabase);
+    std::vector<QString> users;
+
+    query.exec("SELECT name FROM login WHERE name LIKE '%" + name + "%'");
+    DatabaseManager::debugQuery(query);
+    while(query.next())
+        users.push_back(query.value("name").toString());
+
+    return users;
+}
+
 QDate UserDao::toQDate(QString date)
 {
     int year, month, day = 0;

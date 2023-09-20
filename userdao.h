@@ -2,6 +2,8 @@
 #define USERDAO_H
 
 #include <QSqlDatabase>
+#include <vector>
+
 #include "user.h"
 
 class UserDao
@@ -11,6 +13,8 @@ public:
     ~UserDao();
 
     User *getUserData(QString name);
+    std::vector<QString> getUserNames(QString name);
+
 private:
     QDate toQDate(QString date);
 private:
