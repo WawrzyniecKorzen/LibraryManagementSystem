@@ -15,6 +15,9 @@ public:
     User *getUserData(QString name);
     std::vector<QString> getUserNames(QString name);
 
+    void addUser(User* user, QString password);
+    void removeUser(int id);
+
 private:
     QDate toQDate(QString date);
 private:

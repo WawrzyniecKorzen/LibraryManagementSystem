@@ -1,6 +1,7 @@
 
 #include "userdao.h"
 #include "databasemanager.h"
+#include "sha256.h"
 #include <QSqlQuery>
 
 
@@ -41,6 +42,26 @@ std::vector<QString> UserDao::getUserNames(QString name)
         users.push_back(query.value("name").toString());
 
     return users;
+}
+
+void UserDao::addUser(User *user, QString password)
+{
+    QDate date = QDate::currentDate();
+    password = SHA256(password).hash();
+    QSqlQuery query(mDatabase);
+    query.exec("INSERT INTO login (name, password, joined, status) "
+               "VALUES('" + user->getName() + "', '" + password + "', '" + date.toString("dd.MM.yyyy") + "', "
+                                                                                              "'" + user->getStatus() + "')");
+    DatabaseManager::debugQuery(query);
+}
+
+void UserDao::removeUser(int id)
+{
+    QSqlQuery query(mDatabase);
+    query.prepare("DELETE FROM login WHERE id = (:id)");
+    query.bindValue(":id", id);
+    query.exec();
+    DatabaseManager::debugQuery(query);
 }
 
 QDate UserDao::toQDate(QString date)

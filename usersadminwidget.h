@@ -17,6 +17,8 @@ public:
     explicit UsersAdminWidget(QWidget *parent, DatabaseManager& database);
     ~UsersAdminWidget();
 
+    void setUserList();
+
 public slots:
     void onSearchUser();
 
@@ -24,6 +26,7 @@ private:
     Ui::UsersAdminWidget *ui;
     DatabaseManager& mDatabase;
     QWidget* tabBar;
+    QWidget* userList;
 };
 
 #endif // USERSADMINWIDGET_H

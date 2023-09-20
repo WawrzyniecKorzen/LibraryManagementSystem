@@ -64,7 +64,7 @@ void SearchWidget::onAuthorRadio()
 
 void SearchWidget::setBookList()
 {
-    bookList =     bookList = new QWidget(this);
+    bookList = new QWidget(this);
     bookList->setLayout(new QVBoxLayout());
     ui->verticalLayout->insertWidget(1, bookList);
 }

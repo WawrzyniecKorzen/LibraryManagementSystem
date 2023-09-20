@@ -1,22 +1,24 @@
 #ifndef USERWIDGET_H
 #define USERWIDGET_H
+#include "user.h"
 
 #include <QWidget>
 
 namespace Ui {
-class userWidget;
+class UserWidget;
 }
 
-class userWidget : public QWidget
+class UserWidget : public QWidget
 {
     Q_OBJECT
 
 public:
-    explicit userWidget(QWidget *parent = nullptr);
-    ~userWidget();
+    explicit UserWidget(QWidget *parent = nullptr, User* user = nullptr);
+    ~UserWidget();
 
 private:
-    Ui::userWidget *ui;
+    Ui::UserWidget *ui;
+    User* mUser;
 };
 
 #endif // USERWIDGET_H

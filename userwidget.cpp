@@ -1,14 +1,16 @@
 #include "userwidget.h"
 #include "ui_userwidget.h"
 
-userWidget::userWidget(QWidget *parent) :
+UserWidget::UserWidget(QWidget *parent, User* user) :
     QWidget(parent),
-    ui(new Ui::userWidget)
+    ui(new Ui::UserWidget), mUser(user)
 {
     ui->setupUi(this);
+    ui->userName->setText(mUser->getName());
+    ui->joinedDate->setText(mUser->getJoined().toString(("dd.MM.yyyy")));
 }
 
-userWidget::~userWidget()
+UserWidget::~UserWidget()
 {
     delete ui;
 }
