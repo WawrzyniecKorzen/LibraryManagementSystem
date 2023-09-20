@@ -2,6 +2,8 @@
 #include "ui_adduserdialog.h"
 
 #include <QRandomGenerator>
+#include <QMessageBox>
+#include <QDebug>
 
 static char characters[36] = "abcdefghijklmnoprqstuwxyz0123456789";
 
@@ -12,6 +14,7 @@ AddUserDialog::AddUserDialog(QWidget *parent, DatabaseManager& database) :
     ui->setupUi(this);
     ui->memberRadioButton->setChecked(true);
 
+    QObject::connect(ui->addUserButton, &QPushButton::clicked, this, &AddUserDialog::onAddUser);
     QObject::connect(ui->clearButton, &QPushButton::clicked, this, &AddUserDialog::onClear);
     QObject::connect(ui->cancelButton, &QPushButton::clicked, this, &AddUserDialog::onCancel);
     QObject::connect(ui->generatButton, &QPushButton::clicked, this, &AddUserDialog::onGenerate);
@@ -25,7 +28,8 @@ AddUserDialog::~AddUserDialog()
 
 void AddUserDialog::onAddUser()
 {
-
+    if(ui->userNameEdit->text().isEmpty() || ui->passwordEdit->text().isEmpty() || ui->repeatEdit->text().isEmpty())
+        QMessageBox::warning(this, "Empty input line", "One or more input lines are empty. Please fill the missing input", QMessageBox::Ok);
 }
 
 void AddUserDialog::onClear()
