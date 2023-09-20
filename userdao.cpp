@@ -3,6 +3,7 @@
 #include "databasemanager.h"
 #include "sha256.h"
 #include <QSqlQuery>
+#include <QString>
 
 
 UserDao::UserDao(QSqlDatabase &database) : mDatabase(database)
@@ -50,8 +51,8 @@ void UserDao::addUser(User *user, QString password)
     password = SHA256(password).hash();
     QSqlQuery query(mDatabase);
     query.exec("INSERT INTO login (name, password, joined, status) "
-               "VALUES('" + user->getName() + "', '" + password + "', '" + date.toString("dd.MM.yyyy") + "', "
-                                                                                              "'" + user->getStatus() + "')");
+               "VALUES('" + user->getName() + "', '" + password + "', '"+ date.toString("dd.MM.yyyy") + "', "
+               "'" + QString::number((int)(user->getStatus())) + "')");
     DatabaseManager::debugQuery(query);
 }
 
