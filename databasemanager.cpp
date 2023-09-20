@@ -136,6 +136,8 @@ std::vector<QString> DatabaseManager::findBookAuthors(QString name)
     return titles;
 }
 
+
+
 DatabaseManager::DatabaseManager(const QString &path) :
     mDatabase(new QSqlDatabase(QSqlDatabase::addDatabase("QSQLITE"))),
     loginDao(*mDatabase), userDao(*mDatabase), bookDao(*mDatabase)

@@ -63,7 +63,8 @@ void MainWindow::setMemberAccount()
 
 void MainWindow::setAdminAccount()
 {
-
+    adminWidget = new AdminDataWidget(this, mDb);
+    ui->centralwidget->layout()->addWidget(adminWidget);
 }
 
 

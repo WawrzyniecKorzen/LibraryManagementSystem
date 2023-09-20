@@ -9,6 +9,7 @@
 #include "databasemanager.h"
 #include "userdatawidget.h"
 #include "librarydatawidget.h"
+#include "admindatawidget.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -37,6 +38,7 @@ private:
     User* user;
     UserDataWidget* userWidget;
     libraryDataWidget* libraryWidget;
+    AdminDataWidget* adminWidget;
 
 
 };

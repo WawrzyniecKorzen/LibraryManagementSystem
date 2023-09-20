@@ -29,6 +29,8 @@ SearchWidget::~SearchWidget()
 void SearchWidget::onSearchButton()
 {
     qDebug() << "search button clicked with title: " << ui->titleEdit->text() << " and author: " << ui->authorEdit->text();
+    if (ui->titleEdit->text().isEmpty())
+        return;
     std::vector<QString> titles;
     if (ui->titleRadio->isChecked())
         titles = mDatabase.findBookTitles(ui->titleEdit->text());

@@ -32,6 +32,7 @@ public:
     std::vector<QString> findBookTitles(QString title);
     std::vector<QString> findBookAuthors(QString name);
 
+
 protected:
     DatabaseManager(const QString& path = FILENAME);
     DatabaseManager& operator=(const DatabaseManager& rhs);

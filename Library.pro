@@ -9,6 +9,7 @@ CONFIG += c++17
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    admindatawidget.cpp \
     book.cpp \
     bookdao.cpp \
     bookwidget.cpp \
@@ -24,9 +25,12 @@ SOURCES += \
     sha256.cpp \
     user.cpp \
     userdao.cpp \
-    userdatawidget.cpp
+    userdatawidget.cpp \
+    usersadminwidget.cpp \
+    userwidget.cpp
 
 HEADERS += \
+    admindatawidget.h \
     book.h \
     bookdao.h \
     bookwidget.h \
@@ -41,16 +45,21 @@ HEADERS += \
     sha256.h \
     user.h \
     userdao.h \
-    userdatawidget.h
+    userdatawidget.h \
+    usersadminwidget.h \
+    userwidget.h
 
 FORMS += \
+    admindatawidget.ui \
     bookwidget.ui \
     changepassworddialog.ui \
     librarydatawidget.ui \
     login.ui \
     mainwindow.ui \
     searchwidget.ui \
-    userdatawidget.ui
+    userdatawidget.ui \
+    usersadminwidget.ui \
+    userwidget.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

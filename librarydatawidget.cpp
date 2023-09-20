@@ -60,25 +60,10 @@ libraryDataWidget::libraryDataWidget(QWidget *parent, DatabaseManager& database)
     ui->scrollArea->setWidgetResizable(true);
     ui->scrollArea->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
-    /*
-    std::vector<QString> titles = mDatabase.bookDao.getBookTitles();
-    for (QString& title : titles)
-    {
-        books.push_back(mDatabase.bookDao.getBookDataTitle(title));
-    }
 
-    for (auto it = books.begin(); it != books.end(); it++)
-    {
-        BookWidget* book = new BookWidget(this, *it);
-
-
-        mWidget->layout()->addWidget(book);
-    }
-    demo();
-    */
     searchWidget = new SearchWidget(this, mDatabase);
     searchWidget->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::MinimumExpanding);
-    searchWidget->setLayout(new QVBoxLayout(searchWidget));
+
 
 
     stackedPanel->addWidget(mWidget);
