@@ -15,6 +15,7 @@ public:
     User *getUserData(QString name);
     std::vector<QString> getUserNames(QString name);
 
+    bool findUserName(QString name);
     void addUser(User* user, QString password);
     void removeUser(int id);
 

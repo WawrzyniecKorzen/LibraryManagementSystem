@@ -30,6 +30,22 @@ void AddUserDialog::onAddUser()
 {
     if(ui->userNameEdit->text().isEmpty() || ui->passwordEdit->text().isEmpty() || ui->repeatEdit->text().isEmpty())
         QMessageBox::warning(this, "Empty input line", "One or more input lines are empty. Please fill the missing input", QMessageBox::Ok);
+    //check more problems:
+    //too short name
+    //too short password
+    //password and repeat do not match
+    if(mDatabase.userDao.findUserName(ui->userNameEdit->text()))
+    {
+        QMessageBox::warning(this, "User name error", "This user name is already used. Try another one!", QMessageBox::Ok);
+        ui->userNameEdit->clear();
+    }
+
+    if(ui->passwordEdit->text() != ui->repeatEdit->text())
+    {
+        QMessageBox::warning(this, "Password error", "Password and repeated passwords do not match. Try again!", QMessageBox::Ok);
+        ui->passwordEdit->clear();
+        ui->repeatEdit->clear();
+    }
 }
 
 void AddUserDialog::onClear()

@@ -45,6 +45,16 @@ std::vector<QString> UserDao::getUserNames(QString name)
     return users;
 }
 
+bool UserDao::findUserName(QString name)
+{
+    bool result = false;
+    QSqlQuery query(mDatabase);
+    query.exec("SELECT id FROM login WHERE name = '" + name + "'");
+    if (query.next())
+        result = true;
+    return result;
+}
+
 void UserDao::addUser(User *user, QString password)
 {
     QDate date = QDate::currentDate();

@@ -95,6 +95,17 @@
    </item>
   </layout>
  </widget>
+ <tabstops>
+  <tabstop>userNameEdit</tabstop>
+  <tabstop>passwordEdit</tabstop>
+  <tabstop>repeatEdit</tabstop>
+  <tabstop>addUserButton</tabstop>
+  <tabstop>clearButton</tabstop>
+  <tabstop>cancelButton</tabstop>
+  <tabstop>adminRadioButton</tabstop>
+  <tabstop>memberRadioButton</tabstop>
+  <tabstop>generatButton</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>
