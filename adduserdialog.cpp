@@ -52,7 +52,20 @@ void AddUserDialog::onAddUser()
         return;
     }
 
-    //userdao add user
+    AccountType status;
+    if (ui->memberRadioButton->isChecked())
+        status = AccountType::Member;
+    else
+        status = AccountType::Admin;
+    QDate date = QDate::currentDate();
+    User* user = new User();
+    user->setName(ui->userNameEdit->text());
+    user->setJoined(date);
+    user->setStatus(status);
+
+    mDatabase.userDao.addUser(user, ui->passwordEdit->text());
+    onCancel();
+
 }
 
 void AddUserDialog::onClear()

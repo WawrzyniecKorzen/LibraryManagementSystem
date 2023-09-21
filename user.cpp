@@ -34,6 +34,11 @@ void User::setStatus(int s)
     status = AccountType(s);
 }
 
+void User::setStatus(AccountType type)
+{
+    status = type;
+}
+
 int User::getId()
 {
     return id;

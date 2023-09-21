@@ -23,6 +23,7 @@ public:
     void setName(QString text);
     void setJoined(QDate date);
     void setStatus(int s);
+    void setStatus(AccountType type);
 
     int getId();
     QString getName();
