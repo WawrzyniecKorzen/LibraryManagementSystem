@@ -44,6 +44,9 @@ public slots:
     void onAdd();
     void onAddUser();
 
+    void onRemove();
+    void onRemoveUser();
+
 private:
     Ui::AdminDataWidget *ui;
     DatabaseManager& mDatabase;

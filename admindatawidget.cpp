@@ -4,6 +4,7 @@
 
 #include <QPushButton>
 #include <QDebug>
+#include <QMessageBox>
 
 AdminDataWidget::AdminDataWidget(QWidget *parent, DatabaseManager& database) :
     QWidget(parent),
@@ -80,30 +81,18 @@ void AdminDataWidget::setToolBar()
 
     QPushButton* searchButton = new QPushButton(toolBar);
     searchButton->setText("Search");
-    //searchButton->setCheckable(true);
-    //searchButton->setChecked(true);
-    //searchButton->setAutoExclusive(true);
     toolLayout->addWidget(searchButton);
 
     QPushButton* editButton = new QPushButton(toolBar);
     editButton->setText("Edit");
-    //editButton->setCheckable(true);
-    //editButton->setChecked(false);
-    //editButton->setAutoExclusive(true);
     toolLayout->addWidget(editButton);
 
     QPushButton* addButton = new QPushButton(toolBar);
     addButton->setText("Add");
-    //addButton->setCheckable(true);
-    //addButton->setChecked(false);
-    //addButton->setAutoExclusive(true);
     toolLayout->addWidget(addButton);
 
     QPushButton* removeButton = new QPushButton(toolBar);
     removeButton->setText("Remove");
-    //removeButton->setCheckable(true);
-    //removeButton->setChecked(false);
-    //removeButton->setAutoExclusive(true);
     toolLayout->addWidget(removeButton);
 
     QSpacerItem* spacer = new QSpacerItem(0,0, QSizePolicy::Expanding, QSizePolicy::Expanding);
@@ -111,6 +100,7 @@ void AdminDataWidget::setToolBar()
     toolBar->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Minimum);
 
     QObject::connect(addButton, &QPushButton::clicked, this, &AdminDataWidget::onAdd);
+    QObject::connect(removeButton, &QPushButton::clicked, this, &AdminDataWidget::onRemove);
 
 }
 
@@ -143,4 +133,21 @@ void AdminDataWidget::onAddUser()
 {
     AddUserDialog* dialog = new AddUserDialog(this, mDatabase);
     dialog->show();
+}
+
+void AdminDataWidget::onRemove()
+{
+    if (mode == WidgetMode::Users)
+        onRemoveUser();
+}
+
+void AdminDataWidget::onRemoveUser()
+{
+
+
+    User* user = usersWidget->findPickedUser();
+    if (user->getName() != "admin")
+        mDatabase.userDao.removeUser(user->getId());
+    else
+        QMessageBox::warning(this, "Cannot do that!", "You cannot remove admin account!", QMessageBox::Ok);
 }

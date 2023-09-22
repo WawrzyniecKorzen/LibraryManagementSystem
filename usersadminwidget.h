@@ -24,7 +24,9 @@ public:
     void addUserWidget(User *user);
 
     std::vector<QRadioButton*> widgetList;
-    QHash<QRadioButton*, UserWidget*> userListMap;
+    QHash<QRadioButton*, User*> userListMap;
+
+    User *findPickedUser();
 
 public slots:
     void onSearchUser();

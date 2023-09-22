@@ -42,7 +42,22 @@ void UsersAdminWidget::addUserWidget(User *user)
     listLayout->addLayout(layout);
 
     widgetList.push_back(radio);
-    userListMap.insert(radio, userWidget);
+    userListMap.insert(radio, user);
+}
+
+User *UsersAdminWidget::findPickedUser()
+{
+    QRadioButton* radio;
+    for (QRadioButton* button : widgetList)
+    {
+        if (button->isChecked())
+        {
+            radio = button;
+            break;
+        }
+    }
+
+    return userListMap.value(radio);
 }
 
 void UsersAdminWidget::onSearchUser()
