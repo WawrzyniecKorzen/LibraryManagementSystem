@@ -2,6 +2,7 @@
 #define USERSADMINWIDGET_H
 
 #include <QWidget>
+#include <QMap>
 
 #include "databasemanager.h"
 
@@ -27,6 +28,7 @@ private:
     DatabaseManager& mDatabase;
     QWidget* tabBar;
     QWidget* userList;
+
 };
 
 #endif // USERSADMINWIDGET_H
