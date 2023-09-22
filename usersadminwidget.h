@@ -2,9 +2,11 @@
 #define USERSADMINWIDGET_H
 
 #include <QWidget>
-#include <QMap>
+#include <QRadioButton>
+#include <QHash>
 
 #include "databasemanager.h"
+#include "userwidget.h"
 
 namespace Ui {
 class UsersAdminWidget;
@@ -19,6 +21,10 @@ public:
     ~UsersAdminWidget();
 
     void setUserList();
+    void addUserWidget(User *user);
+
+    std::vector<QRadioButton*> widgetList;
+    QHash<QRadioButton*, UserWidget*> userListMap;
 
 public slots:
     void onSearchUser();
@@ -26,7 +32,6 @@ public slots:
 private:
     Ui::UsersAdminWidget *ui;
     DatabaseManager& mDatabase;
-    QWidget* tabBar;
     QWidget* userList;
 
 };

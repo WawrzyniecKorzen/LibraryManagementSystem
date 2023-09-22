@@ -48,7 +48,7 @@ void Login::on_singInButton_clicked()
     }
     else
     {
-        int ret = QMessageBox::warning(this, "Sign in error","Signing in unsuccefful, try again!", QMessageBox::Ok);
+        QMessageBox::warning(this, "Sign in error","Signing in unsuccefful, try again!", QMessageBox::Ok);
         on_clearButton_clicked();
     }
 }

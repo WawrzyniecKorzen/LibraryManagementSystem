@@ -4,10 +4,14 @@
 #include <QWidget>
 #include <QStackedWidget>
 #include <QScrollArea>
+#include <vector>
+#include <QRadioButton>
+#include <QHash>
 
 #include "databasemanager.h"
 #include "usersadminwidget.h"
 #include "searchwidget.h"
+#include "userwidget.h"
 
 namespace Ui {
 class AdminDataWidget;
@@ -29,6 +33,7 @@ public:
     enum class WidgetMode {
         Users, Books
     };
+
 
     WidgetMode getMode();
 

@@ -1,11 +1,12 @@
 #include "usersadminwidget.h"
 #include "ui_usersadminwidget.h"
-#include "userwidget.h"
+
 
 #include <QPushButton>
 #include <vector>
 #include <QDebug>
 #include <QVBoxLayout>
+
 
 UsersAdminWidget::UsersAdminWidget(QWidget *parent, DatabaseManager& database) :
     QWidget(parent),
@@ -26,8 +27,22 @@ UsersAdminWidget::~UsersAdminWidget()
 void UsersAdminWidget::setUserList()
 {
     userList = new QWidget(this);
-    userList->setLayout(new QVBoxLayout());
+    userList->setLayout(new QVBoxLayout(userList));
     ui->verticalLayout->insertWidget(1,userList);
+}
+
+void UsersAdminWidget::addUserWidget(User *user)
+{
+    QHBoxLayout* layout = new QHBoxLayout(userList);
+    QRadioButton* radio = new QRadioButton(userList);
+    UserWidget* userWidget = new UserWidget(userList, user);
+    layout->addWidget(radio);
+    layout->addWidget(userWidget);
+    QVBoxLayout* listLayout = qobject_cast<QVBoxLayout*>(userList->layout());
+    listLayout->addLayout(layout);
+
+    widgetList.push_back(radio);
+    userListMap.insert(radio, userWidget);
 }
 
 void UsersAdminWidget::onSearchUser()
@@ -40,13 +55,16 @@ void UsersAdminWidget::onSearchUser()
     ui->userNameEdit->clear();
     delete userList;
 
+    widgetList.clear();
+    userListMap.clear();
+
     setUserList();
 
     for (QString& userName : users)
     {
         qDebug() << "found user: " << userName;
         User* user = mDatabase.userDao.getUserData(userName);
-        UserWidget* userWidget = new UserWidget(userList, user);
-        userList->layout()->addWidget(userWidget);
+        addUserWidget(user);
+
     }
 }
