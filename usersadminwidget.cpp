@@ -42,7 +42,7 @@ void UsersAdminWidget::addUserWidget(User *user)
     listLayout->addLayout(layout);
 
     widgetList.push_back(radio);
-    userListMap.insert(radio, user);
+    userListMap.insert(radio, userWidget);
 }
 
 User *UsersAdminWidget::findPickedUser()
@@ -57,7 +57,30 @@ User *UsersAdminWidget::findPickedUser()
         }
     }
 
-    return userListMap.value(radio);
+    return userListMap.value(radio)->getUser();
+}
+
+void UsersAdminWidget::removePickedUser()
+{
+    QRadioButton* radio;
+    int i;
+    for (i = 0; i < widgetList.size(); i++)
+    {
+        if (widgetList[i]->isChecked())
+        {
+            radio = widgetList[i];
+
+            break;
+        }
+    }
+    widgetList.erase(widgetList.begin()+i);
+    UserWidget* userWidget = userListMap.value(radio);
+    userListMap.remove(radio);
+    radio->hide();
+    userWidget->hide();
+
+    radio->deleteLater();
+    userWidget->deleteLater();
 }
 
 void UsersAdminWidget::onSearchUser()

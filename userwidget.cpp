@@ -14,3 +14,8 @@ UserWidget::~UserWidget()
 {
     delete ui;
 }
+
+User *UserWidget::getUser()
+{
+    return mUser;
+}

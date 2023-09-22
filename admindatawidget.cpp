@@ -143,11 +143,13 @@ void AdminDataWidget::onRemove()
 
 void AdminDataWidget::onRemoveUser()
 {
-
-
     User* user = usersWidget->findPickedUser();
+
     if (user->getName() != "admin")
+    {
         mDatabase.userDao.removeUser(user->getId());
+        usersWidget->removePickedUser();
+    }
     else
         QMessageBox::warning(this, "Cannot do that!", "You cannot remove admin account!", QMessageBox::Ok);
 }

@@ -15,6 +15,7 @@ class UserWidget : public QWidget
 public:
     explicit UserWidget(QWidget *parent = nullptr, User* user = nullptr);
     ~UserWidget();
+    User *getUser();
 
 private:
     Ui::UserWidget *ui;
