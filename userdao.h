@@ -6,6 +6,9 @@
 
 #include "user.h"
 
+const int USERNAME_MIN = 5;
+const int USERNAME_MAX = 20;
+
 class UserDao
 {
 public:
@@ -17,7 +20,10 @@ public:
 
     bool findUserName(QString name);
     void addUser(User* user, QString password);
+    void changeUserName(int id, QString newName);
     void removeUser(int id);
+
+    bool checkNameLength(QString name);
 
 private:
     QDate toQDate(QString date);

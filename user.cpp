@@ -57,3 +57,4 @@ AccountType User::getStatus()
 {
     return status;
 }
+

@@ -2,6 +2,7 @@
 #include "ui_edituserdialog.h"
 
 #include "changepassworddialog.h"
+#include "changelogindialog.h"
 
 EditUserDialog::EditUserDialog(QWidget *parent, DatabaseManager& database, User* user, User* admin) :
     QDialog(parent),
@@ -22,7 +23,8 @@ EditUserDialog::~EditUserDialog()
 
 void EditUserDialog::onChangeLogin()
 {
-
+    ChangeLoginDialog* login = new ChangeLoginDialog(this, mDatabase, mUser);
+    login->show();
 }
 
 void EditUserDialog::onChangePassowrd()

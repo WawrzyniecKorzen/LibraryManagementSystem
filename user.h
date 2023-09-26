@@ -4,6 +4,7 @@
 #include <QString>
 #include <QDate>
 
+
 enum class AccountType {
     Admin, Member
 };
@@ -29,6 +30,7 @@ public:
     QString getName();
     QDate getJoined();
     AccountType getStatus();
+
 
 private:
     int id;

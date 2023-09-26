@@ -66,6 +66,18 @@ void UserDao::addUser(User *user, QString password)
     DatabaseManager::debugQuery(query);
 }
 
+void UserDao::changeUserName(int id, QString newName)
+{
+
+    QSqlQuery query(mDatabase);
+    query.prepare("UPDATE login SET name = (:newName) WHERE id = (:id)");
+    query.bindValue(":newName", newName);
+    query.bindValue(":id", id);
+    query.exec();
+    DatabaseManager::debugQuery(query);
+
+}
+
 void UserDao::removeUser(int id)
 {
     QSqlQuery query(mDatabase);
@@ -73,6 +85,13 @@ void UserDao::removeUser(int id)
     query.bindValue(":id", id);
     query.exec();
     DatabaseManager::debugQuery(query);
+}
+
+bool UserDao::checkNameLength(QString name)
+{
+    if (name.size() >= USERNAME_MIN &&  name.size() <= USERNAME_MAX)
+        return true;
+    return false;
 }
 
 QDate UserDao::toQDate(QString date)
