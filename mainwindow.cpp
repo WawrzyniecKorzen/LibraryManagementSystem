@@ -8,7 +8,7 @@
 #include <QPushButton>
 #include <QScrollArea>
 
-MainWindow::MainWindow(QWidget *parent, DatabaseManager& database )
+MainWindow::MainWindow(QWidget *parent)
     :  QMainWindow(parent),
      ui(new Ui::MainWindow),
     mDb(DatabaseManager::instance()),
@@ -17,7 +17,7 @@ MainWindow::MainWindow(QWidget *parent, DatabaseManager& database )
 
     userWidget = new UserDataWidget(this, user);
     ui->setupUi(this);
-
+    this->setWindowTitle("The Library");
 
     userWidget->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
 
@@ -63,7 +63,7 @@ void MainWindow::setMemberAccount()
 
 void MainWindow::setAdminAccount()
 {
-    adminWidget = new AdminDataWidget(this, mDb);
+    adminWidget = new AdminDataWidget(this, mDb, user);
     ui->centralwidget->layout()->addWidget(adminWidget);
 }
 

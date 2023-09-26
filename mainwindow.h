@@ -21,7 +21,7 @@ class MainWindow : public QMainWindow
     Q_OBJECT
 
 public:
-    MainWindow( QWidget *parent, DatabaseManager& database);
+    MainWindow( QWidget *parent);
     ~MainWindow();
 
     void logUser(QString name);

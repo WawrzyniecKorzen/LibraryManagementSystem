@@ -47,7 +47,7 @@ void UserDataWidget::logOut()
 
 void UserDataWidget::on_changePassButton_clicked()
 {
-    ChangePasswordDialog* dialog = new ChangePasswordDialog(nullptr, user);
+    ChangePasswordDialog* dialog = new ChangePasswordDialog(nullptr, user, user);
     dialog->show();
 }
 

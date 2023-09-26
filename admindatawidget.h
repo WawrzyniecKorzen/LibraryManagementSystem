@@ -24,7 +24,7 @@ class AdminDataWidget : public QWidget
     Q_OBJECT
 
 public:
-    explicit AdminDataWidget(QWidget *parent, DatabaseManager& database);
+    explicit AdminDataWidget(QWidget *parent, DatabaseManager& database, User* user);
     ~AdminDataWidget();
 
     void setTabBar();
@@ -53,6 +53,7 @@ public slots:
 private:
     Ui::AdminDataWidget *ui;
     DatabaseManager& mDatabase;
+    User* mAdmin;
     QStackedWidget* stackedPanel;
     QWidget* tabBar;
     QWidget* toolBar;

@@ -4,13 +4,14 @@
 #include <QMessageBox>
 #include <QDebug>
 
-ChangePasswordDialog::ChangePasswordDialog(QWidget *parent, User* us) :
+ChangePasswordDialog::ChangePasswordDialog(QWidget *parent, User* user, User* logged) :
     QDialog(parent),
     ui(new Ui::ChangePasswordDialog),
-    mDb(DatabaseManager::instance()),
-    user(us)
+    mDatabase(DatabaseManager::instance()),
+    mUser(user), mLoggedUser(logged)
 {
     ui->setupUi(this);
+    this->setWindowTitle("Change password");
     ui->oldEdit->setEchoMode(QLineEdit::Password);
     ui->changeButton->setDefault(true);
 
@@ -30,20 +31,20 @@ void ChangePasswordDialog::onChangeButton()
 {
     if((ui->oldEdit->text().isEmpty()) || (ui->newEdit->text().isEmpty()) || (ui->repeatEdit->text().isEmpty()))
     {
-        int ret = QMessageBox::warning(this, "Change password error", "Cannot change password - one of edits is empty!", QMessageBox::Ok);
+        QMessageBox::warning(this, "Change password error", "Cannot change password - one of edits is empty!", QMessageBox::Ok);
     }
     else
     {
-        if (!(mDb.loginDao.checkPassword(user->getId(), ui->oldEdit->text())))
+        if (!(mDatabase.loginDao.checkPassword(mLoggedUser->getId(), ui->oldEdit->text())))
         {
-            int ret = QMessageBox::warning(this, "Change password error","Wrong password, try again!", QMessageBox::Ok);
+            QMessageBox::warning(this, "Change password error","Wrong password, try again!", QMessageBox::Ok);
             onClearButton();
         }
         else
         {
             if (ui->newEdit->text() == ui->repeatEdit->text())
             {
-                mDb.loginDao.changePassword(user->getId(),ui->newEdit->text());
+                mDatabase.loginDao.changePassword(mUser->getId(),ui->newEdit->text());
                 this->close();
                 this->deleteLater();
             }
@@ -68,4 +69,9 @@ void ChangePasswordDialog::onCancelButton()
 {
     this->close();
     this->deleteLater();
+}
+
+void ChangePasswordDialog::setAdminMode()
+{
+    ui->oldPassLabel->setText("Admin password: ");
 }

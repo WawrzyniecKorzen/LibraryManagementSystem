@@ -12,6 +12,7 @@ AddUserDialog::AddUserDialog(QWidget *parent, DatabaseManager& database) :
     ui(new Ui::AddUserDialog), mDatabase(database)
 {
     ui->setupUi(this);
+    this->setWindowTitle("Add user");
     ui->memberRadioButton->setChecked(true);
 
     QObject::connect(ui->addUserButton, &QPushButton::clicked, this, &AddUserDialog::onAddUser);

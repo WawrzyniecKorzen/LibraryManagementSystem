@@ -7,9 +7,9 @@
 #include <QDebug>
 #include <QMessageBox>
 
-AdminDataWidget::AdminDataWidget(QWidget *parent, DatabaseManager& database) :
+AdminDataWidget::AdminDataWidget(QWidget *parent, DatabaseManager& database, User* user) :
     QWidget(parent),
-    ui(new Ui::AdminDataWidget), mDatabase(database)
+    ui(new Ui::AdminDataWidget), mDatabase(database), mAdmin(user)
 {
     ui->setupUi(this);
 
@@ -149,7 +149,7 @@ void AdminDataWidget::onEditUser()
     User* user = usersWidget->findPickedUser();
     if (user !=nullptr)
     {
-        EditUserDialog* dialog = new EditUserDialog(this, mDatabase, user);
+        EditUserDialog* dialog = new EditUserDialog(this, mDatabase, user, mAdmin);
         dialog->show();
     }
 }
@@ -166,8 +166,14 @@ void AdminDataWidget::onRemoveUser()
 
     if (user->getName() != "admin")
     {
-        mDatabase.userDao.removeUser(user->getId());
-        usersWidget->removePickedUser();
+        QString message = "Are you sure to remove " + user->getName() + " user?";
+        int decision = QMessageBox::question(this, "Removing an user", message, QMessageBox::Abort | QMessageBox::Ok);
+        qDebug() << "return: " << decision;
+        if (decision == QMessageBox::Ok)
+        {
+            mDatabase.userDao.removeUser(user->getId());
+            usersWidget->removePickedUser();
+        }
     }
     else
         QMessageBox::warning(this, "Cannot do that!", "You cannot remove admin account!", QMessageBox::Ok);

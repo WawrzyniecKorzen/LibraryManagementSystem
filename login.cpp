@@ -11,10 +11,10 @@ Login::Login(QWidget *parent) :
     mDb(DatabaseManager::instance())
 {
 
-
     ui->setupUi(this);
     ui->passwordInput->setEchoMode(QLineEdit::Password);
     ui->loginInput->setFocus();
+     this->setWindowTitle("Login into the Library");
 
 }
 
@@ -39,7 +39,7 @@ void Login::on_singInButton_clicked()
     if (result)
     {
         qDebug() << "login successfull!";
-        MainWindow* w = new MainWindow(nullptr, mDb);
+        MainWindow* w = new MainWindow(nullptr);
         w->logUser(ui->loginInput->text());
 
         w->show();
