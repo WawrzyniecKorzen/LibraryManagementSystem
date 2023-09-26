@@ -44,6 +44,9 @@ public slots:
     void onAdd();
     void onAddUser();
 
+    void onEdit();
+    void onEditUser();
+
     void onRemove();
     void onRemoveUser();
 

@@ -1,6 +1,7 @@
 #include "admindatawidget.h"
 #include "ui_admindatawidget.h"
 #include "adduserdialog.h"
+#include "edituserdialog.h"
 
 #include <QPushButton>
 #include <QDebug>
@@ -99,6 +100,7 @@ void AdminDataWidget::setToolBar()
     toolLayout->addItem(spacer);
     toolBar->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Minimum);
 
+    QObject::connect(editButton, &QPushButton::clicked, this, &AdminDataWidget::onEdit);
     QObject::connect(addButton, &QPushButton::clicked, this, &AdminDataWidget::onAdd);
     QObject::connect(removeButton, &QPushButton::clicked, this, &AdminDataWidget::onRemove);
 
@@ -133,6 +135,23 @@ void AdminDataWidget::onAddUser()
 {
     AddUserDialog* dialog = new AddUserDialog(this, mDatabase);
     dialog->show();
+}
+
+void AdminDataWidget::onEdit()
+{
+    if (mode == WidgetMode::Users)
+        onEditUser();
+}
+
+void AdminDataWidget::onEditUser()
+{
+    qDebug() << "edit user picked";
+    User* user = usersWidget->findPickedUser();
+    if (user !=nullptr)
+    {
+        EditUserDialog* dialog = new EditUserDialog(this, mDatabase, user);
+        dialog->show();
+    }
 }
 
 void AdminDataWidget::onRemove()

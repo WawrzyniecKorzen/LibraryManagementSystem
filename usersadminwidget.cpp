@@ -47,6 +47,13 @@ void UsersAdminWidget::addUserWidget(User *user)
 
 User *UsersAdminWidget::findPickedUser()
 {
+    qDebug() << "list size: "<<widgetList.size();
+
+    if (widgetList.size() == 0)
+    {
+        qDebug() << "null pointer passed";
+        return nullptr;
+    }
     QRadioButton* radio;
     for (QRadioButton* button : widgetList)
     {
