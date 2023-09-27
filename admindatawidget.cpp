@@ -2,6 +2,7 @@
 #include "ui_admindatawidget.h"
 #include "adduserdialog.h"
 #include "edituserdialog.h"
+#include "editbookdialog.h"
 #include "addbookdialog.h"
 
 #include <QPushButton>
@@ -150,6 +151,8 @@ void AdminDataWidget::onEdit()
 {
     if (mode == WidgetMode::Users)
         onEditUser();
+    else
+        onEditBook();
 }
 
 void AdminDataWidget::onEditUser()
@@ -159,6 +162,16 @@ void AdminDataWidget::onEditUser()
     if (user !=nullptr)
     {
         EditUserDialog* dialog = new EditUserDialog(this, mDatabase, user, mAdmin);
+        dialog->show();
+    }
+}
+
+void AdminDataWidget::onEditBook()
+{
+    Book* book = bookSearch->findPickedBook();
+    if (book != nullptr)
+    {
+        EditBookDialog* dialog = new EditBookDialog(this, mDatabase, book, mAdmin);
         dialog->show();
     }
 }
