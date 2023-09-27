@@ -59,3 +59,76 @@ std::vector<QString> BookDao::getBookTitles()
     return titles;
 
 }
+
+void BookDao::addBook(Book book)
+{
+
+    QSqlQuery query(mDatabase);
+    query.exec("INSERT INTO book (title, publicationYear, copies) "
+               "VALUES('" + book.getTitle() + "', '" + QString::number(book.getPublicationYear()) + "', '"+ QString::number(book.getCopies()) + "')");
+    DatabaseManager::debugQuery(query);
+    query.clear();
+
+    query.exec("SELECT id FROM book WHERE title ='" + book.getTitle() + "'");
+    query.next();
+    book.setId(query.value("id").toInt());
+
+    int authorID = Id::NOT_EXIST;
+    std::vector<Person> authors = book.getAuthors();
+    for (Person& author : authors)
+    {
+        authorID = checkAuthorExists(author);
+
+        if (authorID ==Id::NOT_EXIST)
+            authorID = addAuthor(author);
+
+        addBookAuthor(book.getId(), authorID);
+
+    }
+
+}
+
+int BookDao::checkAuthorExists(Person author)
+{
+    int result = Id::NOT_EXIST;
+
+    QSqlQuery query(mDatabase);
+
+    query.exec("SELECT id FROM author WHERE firstName = '" + author.getFirstName() + "' AND lastName = '" + author.getLastName() + "'");
+
+    while (query.next())
+    {
+        qDebug() << "inner loop! " << query.value("id").toInt();
+        result = query.value("id").toInt();
+    }
+    qDebug() << "obtained id: " << result;
+    DatabaseManager::debugQuery(query);
+    return result;
+}
+
+int BookDao::addAuthor(Person author)
+{
+    QSqlQuery query(mDatabase);
+    query.prepare("INSERT INTO author (firstName, lastName) "
+                  "VALUES ((:first), (:last))");
+    query.bindValue(":first", author.getFirstName());
+    query.bindValue(":last", author.getLastName());
+    query.exec();
+    DatabaseManager::debugQuery(query);
+
+    int id = checkAuthorExists(author);
+    qDebug() << "add author id = " << id;
+    return id;
+}
+
+void BookDao::addBookAuthor(int bookID, int authorID)
+{
+    QSqlQuery query(mDatabase);
+    query.prepare("INSERT INTO bookAuthor (bookID, authorID)"
+                  "VALUES ((:book), (:author))");
+    query.bindValue(":book", bookID);
+    query.bindValue(":author", authorID);
+    query.exec();
+    DatabaseManager::debugQuery(query);
+
+}

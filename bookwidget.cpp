@@ -10,7 +10,7 @@ BookWidget::BookWidget(QWidget *parent, Book *book) :
     ui->setupUi(this);
     ui->titleLabel->setText(mBook->getTitle());
     ui->titleLabel->setWordWrap(true);
-    ui->authorName->setText(mBook->getAuthor());
+    ui->authorName->setText(mBook->printAuthor());
     ui->publicationNumber->setText(QString::number(mBook->getPublicationYear()));
     ui->copiesNumber->setText(QString::number(mBook->getCopies()));
 

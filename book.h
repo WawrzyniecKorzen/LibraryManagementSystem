@@ -22,7 +22,8 @@ public:
 
     int getId();
     QString getTitle();
-    QString getAuthor();
+    QString printAuthor();
+    std::vector<Person> getAuthors();
     int getPublicationYear();
     int getCopies();
 

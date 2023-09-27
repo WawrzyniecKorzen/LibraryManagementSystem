@@ -29,6 +29,16 @@ void Person::setLastName(QString last)
     lastName = last;
 }
 
+QString Person::getFirstName()
+{
+    return firstName;
+}
+
+QString Person::getLastName()
+{
+    return lastName;
+}
+
 QString Person::getFullName()
 {
     return firstName + " " + lastName;

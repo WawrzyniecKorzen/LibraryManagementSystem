@@ -2,6 +2,7 @@
 #include "ui_admindatawidget.h"
 #include "adduserdialog.h"
 #include "edituserdialog.h"
+#include "addbookdialog.h"
 
 #include <QPushButton>
 #include <QDebug>
@@ -129,11 +130,19 @@ void AdminDataWidget::onAdd()
 {
     if (mode == WidgetMode::Users)
         onAddUser();
+    else
+        onAddBook();
 }
 
 void AdminDataWidget::onAddUser()
 {
     AddUserDialog* dialog = new AddUserDialog(this, mDatabase);
+    dialog->show();
+}
+
+void AdminDataWidget::onAddBook()
+{
+    AddBookDialog* dialog = new AddBookDialog(this, mDatabase);
     dialog->show();
 }
 

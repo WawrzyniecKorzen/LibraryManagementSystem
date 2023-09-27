@@ -16,6 +16,8 @@ public:
 
     void setFirstName(QString first);
     void setLastName(QString last);
+    QString getFirstName();
+    QString getLastName();
 
     QString getFullName();
 

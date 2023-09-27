@@ -29,17 +29,25 @@ SearchWidget::~SearchWidget()
 void SearchWidget::onSearchButton()
 {
     qDebug() << "search button clicked with title: " << ui->titleEdit->text() << " and author: " << ui->authorEdit->text();
-    if (ui->titleEdit->text().isEmpty())
-        return;
+
     std::vector<QString> titles;
-    if (ui->titleRadio->isChecked())
+    if (ui->titleRadio->isChecked())    
+    {
+        if (ui->titleEdit->text().isEmpty())
+            return;
         titles = mDatabase.findBookTitles(ui->titleEdit->text());
+    }
     else
+    {
+        if (ui->authorEdit->text().isEmpty())
+            return;
+        qDebug() << "search button else branch";
         titles = mDatabase.findBookAuthors(ui->authorEdit->text());
+    }
     delete bookList;
 
     setBookList();
-    for (auto title : titles)
+    for (QString& title : titles)
     {
         qDebug() << "found book: " << title;
         Book* book = mDatabase.bookDao.getBookDataTitle(title);

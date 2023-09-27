@@ -43,6 +43,7 @@ public slots:
 
     void onAdd();
     void onAddUser();
+    void onAddBook();
 
     void onEdit();
     void onEditUser();

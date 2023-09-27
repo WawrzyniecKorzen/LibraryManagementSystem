@@ -10,6 +10,11 @@ Book::Book(int id_num, QString booktitle, std::vector<Person> author, int public
 
 }
 
+Book::~Book()
+{
+
+}
+
 void Book::setId(int id_num)
 {
     id = id_num;
@@ -49,7 +54,7 @@ QString Book::getTitle()
     return title;
 }
 
-QString Book::getAuthor()
+QString Book::printAuthor()
 {
     if (authors.size() == 1)
         return authors[0].getFullName();
@@ -62,6 +67,11 @@ QString Book::getAuthor()
     }
     result += (authors.end() -1)->getFullName();
     return result;
+}
+
+std::vector<Person> Book::getAuthors()
+{
+    return authors;
 }
 
 int Book::getPublicationYear()
