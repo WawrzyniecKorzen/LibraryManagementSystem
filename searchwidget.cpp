@@ -47,13 +47,15 @@ void SearchWidget::onSearchButton()
     delete bookList;
 
     setBookList();
+
     for (QString& title : titles)
     {
-        qDebug() << "found book: " << title;
+
         Book* book = mDatabase.bookDao.getBookDataTitle(title);
-        BookWidget* bookWidget = new BookWidget(bookList, book);
-        bookList->layout()->addWidget(bookWidget);
+        addBookWidget(book);
+
     }
+
     ui->titleEdit->clear();
     ui->authorEdit->clear();
 }
@@ -75,4 +77,64 @@ void SearchWidget::setBookList()
     bookList = new QWidget(this);
     bookList->setLayout(new QVBoxLayout());
     ui->verticalLayout->insertWidget(1, bookList);
+
+    widgetList.clear();
+    bookListMap.clear();
+}
+
+void SearchWidget::addBookWidget(Book *book)
+{
+    QHBoxLayout* layout = new QHBoxLayout(bookList);
+    QRadioButton* radio = new QRadioButton(bookList);
+    BookWidget* bookWidget = new BookWidget(bookList, book);
+    layout->addWidget(radio);
+    layout->addWidget(bookWidget);
+    QVBoxLayout* listLayout = qobject_cast<QVBoxLayout*>(bookList->layout());
+    listLayout->addLayout(layout);
+
+    widgetList.push_back(radio);
+    bookListMap.insert(radio, bookWidget);
+}
+
+Book *SearchWidget::findPickedBook()
+{
+    if (widgetList.size() == 0)
+    {
+        return nullptr;
+    }
+    QRadioButton* radio;
+    for (QRadioButton* button : widgetList)
+    {
+        if (button->isChecked())
+        {
+            radio = button;
+            break;
+        }
+    }
+
+    return bookListMap.value(radio)->getBook();
+}
+
+void SearchWidget::removePickedBook()
+{
+
+    QRadioButton* radio;
+    int i;
+    for (i = 0; i < widgetList.size(); i++)
+    {
+        if (widgetList[i]->isChecked())
+        {
+            radio = widgetList[i];
+
+            break;
+        }
+    }
+    widgetList.erase(widgetList.begin()+i);
+    BookWidget* bookWidget = bookListMap.value(radio);
+    bookListMap.remove(radio);
+    radio->hide();
+    bookWidget->hide();
+
+    radio->deleteLater();
+    bookWidget->deleteLater();
 }

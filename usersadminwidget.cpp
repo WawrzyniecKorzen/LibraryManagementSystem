@@ -92,7 +92,6 @@ void UsersAdminWidget::removePickedUser()
 
 void UsersAdminWidget::onSearchUser()
 {
-    qDebug() << "search button clicked with username: " << ui->userNameEdit->text();
     if (ui->userNameEdit->text().isEmpty())
         return;
     std::vector<QString> users;

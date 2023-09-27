@@ -132,3 +132,44 @@ void BookDao::addBookAuthor(int bookID, int authorID)
     DatabaseManager::debugQuery(query);
 
 }
+
+int BookDao::countBooks(Person author)
+{
+    QSqlQuery query(mDatabase);
+    query.exec("SELECT COUNT(title) FROM book "
+               "INNER JOIN bookAuthor ON book.id = bookAuthor.bookID "
+               "INNER JOIN author ON bookAuthor.authorID  = author.id "
+               "WHERE author.firstName = '" + author.getFirstName() + "' AND author.lastName = '" + author.getLastName() + "'");
+    query.next();
+    return query.value("COUNT(title)").toInt();
+}
+
+void BookDao::removeAuthor(Person author)
+{
+    QSqlQuery query(mDatabase);
+    query.exec("DELETE FROM author WHERE firstName = '"+ author.getFirstName() + "' AND lastName = '" + author.getLastName() + "'");
+    DatabaseManager::debugQuery(query);
+}
+
+void BookDao::removeBook(Book* book)
+{
+    int numberOfBooks;
+    for (Person& person : book->getAuthors())
+    {
+        numberOfBooks = countBooks(person);
+        if (numberOfBooks == 1)
+            removeAuthor(person);
+    }
+
+    QSqlQuery query(mDatabase);
+    query.prepare("DELETE FROM book WHERE id = (:id)");
+    query.bindValue(":id", book->getId());
+    query.exec();
+
+    DatabaseManager::debugQuery(query);
+    query.prepare("DELETE FROM bookAuthor WHERE bookID = (:id)");
+    query.bindValue(":id", book->getId());
+    query.exec();
+
+    DatabaseManager::debugQuery(query);
+}

@@ -16,6 +16,8 @@ public:
     explicit BookWidget(QWidget *parent = nullptr, Book* book = nullptr);
     ~BookWidget();
 
+    Book* getBook();
+
 private:
     Ui::BookWidget *ui;
     Book* mBook;

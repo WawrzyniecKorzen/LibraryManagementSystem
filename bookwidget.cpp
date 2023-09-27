@@ -31,3 +31,8 @@ BookWidget::~BookWidget()
 {
     delete ui;
 }
+
+Book *BookWidget::getBook()
+{
+    return mBook;
+}

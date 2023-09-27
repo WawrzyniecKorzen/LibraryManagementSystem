@@ -167,6 +167,8 @@ void AdminDataWidget::onRemove()
 {
     if (mode == WidgetMode::Users)
         onRemoveUser();
+    else
+        onRemoveBook();
 }
 
 void AdminDataWidget::onRemoveUser()
@@ -186,4 +188,20 @@ void AdminDataWidget::onRemoveUser()
     }
     else
         QMessageBox::warning(this, "Cannot do that!", "You cannot remove admin account!", QMessageBox::Ok);
+}
+
+void AdminDataWidget::onRemoveBook()
+{
+    Book* book = bookSearch->findPickedBook();
+
+
+    QString message = "Are you sure to remove " + book->getTitle() + " by " + book->printAuthor() +"?";
+    int decision = QMessageBox::question(this, "Removing a book", message, QMessageBox::Abort | QMessageBox::Ok);
+    qDebug() << "return: " << decision;
+    if (decision == QMessageBox::Ok)
+    {
+        mDatabase.bookDao.removeBook(book); ;
+        bookSearch->removePickedBook();
+    }
+
 }

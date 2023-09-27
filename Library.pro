@@ -18,6 +18,7 @@ SOURCES += \
     changelogindialog.cpp \
     changepassworddialog.cpp \
     databasemanager.cpp \
+    editbookdialog.cpp \
     edituserdialog.cpp \
     librarydatawidget.cpp \
     login.cpp \
@@ -43,6 +44,7 @@ HEADERS += \
     changelogindialog.h \
     changepassworddialog.h \
     databasemanager.h \
+    editbookdialog.h \
     edituserdialog.h \
     librarydatawidget.h \
     login.h \
@@ -64,6 +66,7 @@ FORMS += \
     bookwidget.ui \
     changelogindialog.ui \
     changepassworddialog.ui \
+    editbookdialog.ui \
     edituserdialog.ui \
     librarydatawidget.ui \
     login.ui \

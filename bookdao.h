@@ -24,6 +24,10 @@ public:
     int addAuthor(Person author);
     void addBookAuthor(int bookID, int authorID);
 
+    int countBooks(Person author);
+    void removeAuthor(Person author);
+    void removeBook(Book* book);
+
 
 private:
     QSqlDatabase& mDatabase;

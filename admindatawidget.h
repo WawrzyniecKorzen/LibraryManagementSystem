@@ -50,6 +50,7 @@ public slots:
 
     void onRemove();
     void onRemoveUser();
+    void onRemoveBook();
 
 private:
     Ui::AdminDataWidget *ui;
