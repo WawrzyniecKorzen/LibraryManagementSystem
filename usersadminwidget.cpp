@@ -54,7 +54,7 @@ User *UsersAdminWidget::findPickedUser()
         qDebug() << "null pointer passed";
         return nullptr;
     }
-    QRadioButton* radio;
+    QRadioButton* radio = nullptr;
     for (QRadioButton* button : widgetList)
     {
         if (button->isChecked())
@@ -64,12 +64,14 @@ User *UsersAdminWidget::findPickedUser()
         }
     }
 
+    if (radio == nullptr)
+        return nullptr;
     return userListMap.value(radio)->getUser();
 }
 
 void UsersAdminWidget::removePickedUser()
 {
-    QRadioButton* radio;
+    QRadioButton* radio = nullptr;
     int i;
     for (i = 0; i < widgetList.size(); i++)
     {
@@ -80,6 +82,9 @@ void UsersAdminWidget::removePickedUser()
             break;
         }
     }
+
+    if (radio == nullptr)
+        return;
     widgetList.erase(widgetList.begin()+i);
     UserWidget* userWidget = userListMap.value(radio);
     userListMap.remove(radio);

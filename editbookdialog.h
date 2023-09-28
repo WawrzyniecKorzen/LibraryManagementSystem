@@ -20,6 +20,11 @@ public:
 public slots:
 
     void onNewTitle();
+    void onNewPublicationYear();
+    void onNumberOfCopies();
+
+    void onSave();
+    void onClearChanges();
     void onCancel();
 
 

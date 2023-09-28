@@ -173,3 +173,25 @@ void BookDao::removeBook(Book* book)
 
     DatabaseManager::debugQuery(query);
 }
+
+void BookDao::changeTitle(int id, QString newTitle)
+{
+    QSqlQuery query(mDatabase);
+    query.exec("UPDATE book SET title = '" + newTitle + "' WHERE id = " + QString::number(id));
+    DatabaseManager::debugQuery(query);
+
+}
+
+void BookDao::changePublicationYear(int id, int year)
+{
+    QSqlQuery query(mDatabase);
+    query.exec("UPDATE book SET publicationYear = '" + QString::number(year) + "' WHERE id = " + QString::number(id));
+    DatabaseManager::debugQuery(query);
+}
+
+void BookDao::changeNumberOfCopies(int id, int copies)
+{
+    QSqlQuery query(mDatabase);
+    query.exec("UPDATE book SET copies = '" + QString::number(copies) + "' WHERE id = " + QString::number(id));
+    DatabaseManager::debugQuery(query);
+}

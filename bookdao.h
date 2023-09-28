@@ -28,6 +28,10 @@ public:
     void removeAuthor(Person author);
     void removeBook(Book* book);
 
+    void changeTitle(int id, QString newTitle);
+    void changePublicationYear(int id, int year);
+    void changeNumberOfCopies(int id, int copies);
+
 
 private:
     QSqlDatabase& mDatabase;

@@ -157,7 +157,6 @@ void AdminDataWidget::onEdit()
 
 void AdminDataWidget::onEditUser()
 {
-    qDebug() << "edit user picked";
     User* user = usersWidget->findPickedUser();
     if (user !=nullptr)
     {
@@ -188,6 +187,9 @@ void AdminDataWidget::onRemoveUser()
 {
     User* user = usersWidget->findPickedUser();
 
+    if (user == nullptr)
+        return;
+
     if (user->getName() != "admin")
     {
         QString message = "Are you sure to remove " + user->getName() + " user?";
@@ -206,7 +208,8 @@ void AdminDataWidget::onRemoveUser()
 void AdminDataWidget::onRemoveBook()
 {
     Book* book = bookSearch->findPickedBook();
-
+    if (book == nullptr)
+        return;
 
     QString message = "Are you sure to remove " + book->getTitle() + " by " + book->printAuthor() +"?";
     int decision = QMessageBox::question(this, "Removing a book", message, QMessageBox::Abort | QMessageBox::Ok);

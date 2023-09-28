@@ -102,7 +102,7 @@ Book *SearchWidget::findPickedBook()
     {
         return nullptr;
     }
-    QRadioButton* radio;
+    QRadioButton* radio = nullptr;
     for (QRadioButton* button : widgetList)
     {
         if (button->isChecked())
@@ -111,14 +111,15 @@ Book *SearchWidget::findPickedBook()
             break;
         }
     }
-
+    if (radio == nullptr)
+        return nullptr;
     return bookListMap.value(radio)->getBook();
 }
 
 void SearchWidget::removePickedBook()
 {
 
-    QRadioButton* radio;
+    QRadioButton* radio = nullptr;
     int i;
     for (i = 0; i < widgetList.size(); i++)
     {
@@ -129,6 +130,9 @@ void SearchWidget::removePickedBook()
             break;
         }
     }
+
+    if (radio != nullptr)
+    {
     widgetList.erase(widgetList.begin()+i);
     BookWidget* bookWidget = bookListMap.value(radio);
     bookListMap.remove(radio);
@@ -137,4 +141,5 @@ void SearchWidget::removePickedBook()
 
     radio->deleteLater();
     bookWidget->deleteLater();
+    }
 }
