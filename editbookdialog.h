@@ -18,6 +18,8 @@ public:
     ~EditBookDialog();
 
 public slots:
+
+    void onNewTitle();
     void onCancel();
 
 
