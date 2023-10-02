@@ -3,6 +3,7 @@
 
 #include <QDialog>
 
+
 #include "databasemanager.h"
 
 namespace Ui {
@@ -17,9 +18,14 @@ public:
     explicit EditBookDialog(QWidget *parent, DatabaseManager& database, Book* book, User* admin);
     ~EditBookDialog();
 
+    void initializeAuthors();
+    void setAuthors();
+
 public slots:
 
     void onNewTitle();
+    void onChangeAuthor();
+    void onAddAuthor();
     void onNewPublicationYear();
     void onNumberOfCopies();
 
@@ -33,6 +39,7 @@ private:
     DatabaseManager& mDatabase;
     Book* mBook;
     User* mAdmin;
+    std::vector<Person>* mAuthors;
 };
 
 #endif // EDITBOOKDIALOG_H

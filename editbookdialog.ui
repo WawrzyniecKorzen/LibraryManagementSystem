@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>550</width>
-    <height>300</height>
+    <height>350</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -16,17 +16,37 @@
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
     <layout class="QGridLayout" name="gridLayout">
-     <item row="7" column="3">
-      <widget class="QPushButton" name="cancelButton">
+     <item row="7" column="0">
+      <widget class="QLabel" name="newCopiesLabel">
        <property name="text">
-        <string>Cancel</string>
+        <string>New number of copies</string>
        </property>
       </widget>
      </item>
-     <item row="1" column="0">
-      <widget class="QLabel" name="newTitleLabel">
+     <item row="2" column="3">
+      <widget class="QPushButton" name="changeAuthorsButton">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Minimum" vsizetype="MinimumExpanding">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
        <property name="text">
-        <string>New Title</string>
+        <string>Change Author</string>
+       </property>
+      </widget>
+     </item>
+     <item row="8" column="2">
+      <widget class="QPushButton" name="clearButton">
+       <property name="text">
+        <string>Clear Changes</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="1" colspan="2">
+      <widget class="QLabel" name="bookTitleLabel">
+       <property name="text">
+        <string/>
        </property>
       </widget>
      </item>
@@ -43,80 +63,53 @@
        </property>
       </widget>
      </item>
-     <item row="2" column="3">
-      <widget class="QPushButton" name="changeAuthorsButton">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Minimum" vsizetype="MinimumExpanding">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
+     <item row="7" column="3">
+      <widget class="QPushButton" name="changeCopiesButton">
        <property name="text">
-        <string>Change Authors</string>
+        <string>Change copies</string>
        </property>
       </widget>
      </item>
-     <item row="2" column="1" colspan="2">
-      <widget class="QLabel" name="authorListLabel">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Preferred" vsizetype="MinimumExpanding">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="text">
-        <string/>
-       </property>
-      </widget>
-     </item>
-     <item row="5" column="0">
-      <widget class="QLabel" name="numberLabel">
-       <property name="text">
-        <string>number of copies</string>
-       </property>
-      </widget>
-     </item>
-     <item row="3" column="1" colspan="2">
+     <item row="4" column="1" colspan="2">
       <widget class="QLabel" name="yearLabel">
        <property name="text">
         <string/>
        </property>
       </widget>
      </item>
-     <item row="7" column="1">
+     <item row="5" column="1" colspan="2">
+      <widget class="QLineEdit" name="newPublicationEdit"/>
+     </item>
+     <item row="8" column="1">
       <widget class="QPushButton" name="saveButton">
        <property name="text">
         <string>Save Changes</string>
        </property>
       </widget>
      </item>
-     <item row="7" column="2">
-      <widget class="QPushButton" name="clearButton">
+     <item row="6" column="0">
+      <widget class="QLabel" name="numberLabel">
        <property name="text">
-        <string>Clear Changes</string>
+        <string>number of copies</string>
        </property>
       </widget>
      </item>
-     <item row="3" column="0">
+     <item row="4" column="0">
       <widget class="QLabel" name="publicationLabel">
        <property name="text">
         <string>Publication year</string>
        </property>
       </widget>
      </item>
-     <item row="5" column="1" colspan="2">
-      <widget class="QLabel" name="copiesLabel">
+     <item row="5" column="0">
+      <widget class="QLabel" name="newPublicationLabel">
        <property name="text">
-        <string/>
+        <string>New publication year</string>
        </property>
       </widget>
      </item>
-     <item row="0" column="1" colspan="2">
-      <widget class="QLabel" name="bookTitleLabel">
-       <property name="text">
-        <string/>
-       </property>
-      </widget>
+     <item row="2" column="1" colspan="2">
+      <widget class="QListWidget" name="authorsList"/>
      </item>
      <item row="0" column="0">
       <widget class="QLabel" name="titleLabel">
@@ -125,31 +118,27 @@
        </property>
       </widget>
      </item>
-     <item row="4" column="0">
-      <widget class="QLabel" name="newPublicationLabel">
+     <item row="1" column="0">
+      <widget class="QLabel" name="newTitleLabel">
        <property name="text">
-        <string>New publication year</string>
+        <string>New Title</string>
        </property>
       </widget>
      </item>
-     <item row="6" column="0">
-      <widget class="QLabel" name="newCopiesLabel">
+     <item row="7" column="1" colspan="2">
+      <widget class="QLineEdit" name="newCopiesEdit"/>
+     </item>
+     <item row="6" column="1" colspan="2">
+      <widget class="QLabel" name="copiesLabel">
        <property name="text">
-        <string>New number of copies</string>
+        <string/>
        </property>
       </widget>
      </item>
-     <item row="6" column="3">
-      <widget class="QPushButton" name="changeCopiesButton">
+     <item row="8" column="3">
+      <widget class="QPushButton" name="cancelButton">
        <property name="text">
-        <string>Change copies</string>
-       </property>
-      </widget>
-     </item>
-     <item row="4" column="3">
-      <widget class="QPushButton" name="changeYearButton">
-       <property name="text">
-        <string>Change year</string>
+        <string>Cancel</string>
        </property>
       </widget>
      </item>
@@ -160,14 +149,29 @@
        </property>
       </widget>
      </item>
+     <item row="5" column="3">
+      <widget class="QPushButton" name="changeYearButton">
+       <property name="text">
+        <string>Change year</string>
+       </property>
+      </widget>
+     </item>
      <item row="1" column="1" colspan="2">
       <widget class="QLineEdit" name="newTitleEdit"/>
      </item>
-     <item row="4" column="1" colspan="2">
-      <widget class="QLineEdit" name="newPublicationEdit"/>
+     <item row="3" column="3">
+      <widget class="QPushButton" name="removeAuthorButton">
+       <property name="text">
+        <string>Remove Author</string>
+       </property>
+      </widget>
      </item>
-     <item row="6" column="1" colspan="2">
-      <widget class="QLineEdit" name="newCopiesEdit"/>
+     <item row="3" column="2">
+      <widget class="QPushButton" name="addAuthorButton">
+       <property name="text">
+        <string>Add Author</string>
+       </property>
+      </widget>
      </item>
     </layout>
    </item>

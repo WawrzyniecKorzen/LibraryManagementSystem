@@ -20,6 +20,7 @@ public:
     QString getLastName();
 
     QString getFullName();
+    bool isEqual(Person &person);
 
 private:
     QString firstName;

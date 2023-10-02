@@ -44,5 +44,13 @@ QString Person::getFullName()
     return firstName + " " + lastName;
 }
 
+bool Person::isEqual(Person &person)
+{
+    bool result = false;
+    if (firstName == person.getFirstName() && lastName == person.getLastName())
+        result = true;
+    return result;
+}
+
 
 

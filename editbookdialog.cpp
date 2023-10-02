@@ -3,6 +3,9 @@
 
 #include <QDebug>
 #include <QMessageBox>
+#include <QInputDialog>
+
+#include "addauthordialog.h"
 
 EditBookDialog::EditBookDialog(QWidget *parent, DatabaseManager& database, Book* book, User* admin) :
     QDialog(parent),
@@ -10,7 +13,8 @@ EditBookDialog::EditBookDialog(QWidget *parent, DatabaseManager& database, Book*
 {
     ui->setupUi(this);
     ui->bookTitleLabel->setText(mBook->getTitle());
-    ui->authorListLabel->setText(mBook->printAuthor());
+    initializeAuthors();
+    setAuthors();
     ui->yearLabel->setText(QString::number(mBook->getPublicationYear()));
     ui->copiesLabel->setText(QString::number(mBook->getCopies()));
 
@@ -19,6 +23,7 @@ EditBookDialog::EditBookDialog(QWidget *parent, DatabaseManager& database, Book*
     QObject::connect(ui->changeTitleButton, &QPushButton::clicked, this, &EditBookDialog::onNewTitle);
     QObject::connect(ui->changeYearButton, &QPushButton::clicked, this, &EditBookDialog::onNewPublicationYear);
     QObject::connect(ui->changeCopiesButton, &QPushButton::clicked, this, &EditBookDialog::onNumberOfCopies);
+    QObject::connect(ui->addAuthorButton, &QPushButton::clicked, this, &EditBookDialog::onAddAuthor);
 
     QObject::connect(ui->saveButton, &QPushButton::clicked, this, &EditBookDialog::onSave);
     QObject::connect(ui->clearButton, &QPushButton::clicked, this, &EditBookDialog::onClearChanges);
@@ -28,6 +33,28 @@ EditBookDialog::EditBookDialog(QWidget *parent, DatabaseManager& database, Book*
 EditBookDialog::~EditBookDialog()
 {
     delete ui;
+    delete mAuthors;
+}
+
+void EditBookDialog::initializeAuthors()
+{
+    std::vector<Person> authors = mBook->getAuthors();
+    mAuthors = new std::vector<Person>();
+    for (Person& author : authors)
+    {
+        mAuthors->push_back(author);
+    }
+}
+
+void EditBookDialog::setAuthors()
+{
+
+    ui->authorsList->clear();
+
+    for (Person& author : (*mAuthors))
+    {
+        ui->authorsList->addItem(author.getFullName());
+    }
 }
 
 void EditBookDialog::onNewTitle()
@@ -44,6 +71,17 @@ void EditBookDialog::onNewTitle()
         ui->newTitleEdit->clear();
         ui->bookTitleLabel->setStyleSheet("QLabel { color : red; }");
     }
+}
+
+void EditBookDialog::onChangeAuthor()
+{
+
+}
+
+void EditBookDialog::onAddAuthor()
+{
+    AddAuthorDialog* addDialog = new AddAuthorDialog(this, mDatabase, mAuthors);
+    addDialog->show();
 }
 
 void EditBookDialog::onNewPublicationYear()
@@ -113,7 +151,7 @@ void EditBookDialog::onClearChanges()
     ui->bookTitleLabel->setText(mBook->getTitle());
     ui->bookTitleLabel->setStyleSheet("QLabel { color : black; }");
 
-    ui->authorListLabel->setText(mBook->printAuthor());
+    setAuthors();
 
     ui->yearLabel->setText(QString::number(mBook->getPublicationYear()));
     ui->yearLabel->setStyleSheet("QLabel { color : black; }");
