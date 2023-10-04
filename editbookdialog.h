@@ -2,6 +2,8 @@
 #define EDITBOOKDIALOG_H
 
 #include <QDialog>
+#include <QHash>
+#include <QListWidgetItem>
 
 
 #include "databasemanager.h"
@@ -20,6 +22,8 @@ public:
 
     void initializeAuthors();
     void setAuthors();
+
+    QHash<QListWidgetItem*, Person> itemNameMap;
 
 public slots:
 

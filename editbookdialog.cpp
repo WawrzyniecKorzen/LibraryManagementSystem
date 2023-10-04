@@ -4,6 +4,7 @@
 #include <QDebug>
 #include <QMessageBox>
 #include <QInputDialog>
+#include <algorithm>
 
 #include "addauthordialog.h"
 
@@ -13,6 +14,7 @@ EditBookDialog::EditBookDialog(QWidget *parent, DatabaseManager& database, Book*
 {
     ui->setupUi(this);
     ui->bookTitleLabel->setText(mBook->getTitle());
+    mAuthors = new std::vector<Person>();
     initializeAuthors();
     setAuthors();
     ui->yearLabel->setText(QString::number(mBook->getPublicationYear()));
@@ -25,6 +27,7 @@ EditBookDialog::EditBookDialog(QWidget *parent, DatabaseManager& database, Book*
     QObject::connect(ui->changeCopiesButton, &QPushButton::clicked, this, &EditBookDialog::onNumberOfCopies);
     QObject::connect(ui->addAuthorButton, &QPushButton::clicked, this, &EditBookDialog::onAddAuthor);
     QObject::connect(ui->changeAuthorsButton, &QPushButton::clicked, this, &EditBookDialog::onChangeAuthor);
+    QObject::connect(ui->removeAuthorButton, &QPushButton::clicked, this, &EditBookDialog::onRemoveAuthor);
 
     QObject::connect(ui->saveButton, &QPushButton::clicked, this, &EditBookDialog::onSave);
     QObject::connect(ui->clearButton, &QPushButton::clicked, this, &EditBookDialog::onClearChanges);
@@ -43,7 +46,6 @@ EditBookDialog::~EditBookDialog()
 void EditBookDialog::initializeAuthors()
 {
     std::vector<Person> authors = mBook->getAuthors();
-    mAuthors = new std::vector<Person>();
     for (Person& author : authors)
     {
         mAuthors->push_back(author);
@@ -57,7 +59,10 @@ void EditBookDialog::setAuthors()
 
     for (Person& author : (*mAuthors))
     {
-        ui->authorsList->addItem(author.getFullName());
+        QListWidgetItem* item = new QListWidgetItem(author.getFullName());
+        ui->authorsList->addItem(item);
+        itemNameMap.insert(item, author);
+
     }
 }
 
@@ -91,7 +96,15 @@ void EditBookDialog::onAddAuthor()
 
 void EditBookDialog::onRemoveAuthor()
 {
-
+    Person author = itemNameMap.value(ui->authorsList->currentItem());
+    int result = QMessageBox::warning(this, "Delete author", "Are you sure you want to delete author " + author.getFullName() + "?",
+                                      QMessageBox::Ok | QMessageBox::Abort);
+    if (result == QMessageBox::Ok)
+    {
+        auto it = std::remove_if(mAuthors->begin(), mAuthors->end(), [author](Person& person){return author.isEqual(person);});
+        mAuthors->erase(it, mAuthors->end());
+        setAuthors();
+    }
 }
 
 void EditBookDialog::onNewPublicationYear()
@@ -167,7 +180,12 @@ void EditBookDialog::onClearChanges()
 {
     ui->bookTitleLabel->setText(mBook->getTitle());
     ui->bookTitleLabel->setStyleSheet("QLabel { color : black; }");
+    ui->authorsList->clear();
 
+    itemNameMap.clear();
+    mAuthors->clear();
+
+    initializeAuthors();
     setAuthors();
 
     ui->yearLabel->setText(QString::number(mBook->getPublicationYear()));
@@ -179,7 +197,7 @@ void EditBookDialog::onClearChanges()
 
 void EditBookDialog::onCancel()
 {
-
+    itemNameMap.clear();
     this->close();
     this->deleteLater();
 }

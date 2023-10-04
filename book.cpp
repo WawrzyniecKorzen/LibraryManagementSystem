@@ -123,7 +123,7 @@ bool Book::subtractCopy()
         return false;
 }
 
-std::vector<Person> Book::compareAuthors(Book &book)
+std::vector<Person> Book::compareAuthors(Book& book)
 {
     std::vector<Person> notMatchingAuthors = authors;
 

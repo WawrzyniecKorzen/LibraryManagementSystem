@@ -35,7 +35,6 @@ void AddAuthorDialog::onAdd()
 
     mAuthor = new Person(ui->firstNameEdit->text(), ui->lastNamEdit->text());
     bool repetition = false;
-    int id;
 
     for (Person& author : (*mAuthors))
     {
@@ -57,7 +56,6 @@ void AddAuthorDialog::onAdd()
     }
     onCancel();
 
-    //Check if the author already exists in the database and act accordingly to the result;
 
 }
 
