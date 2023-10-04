@@ -7,6 +7,7 @@
 #include <algorithm>
 
 #include "addauthordialog.h"
+#include "changeauthordialog.h"
 
 EditBookDialog::EditBookDialog(QWidget *parent, DatabaseManager& database, Book* book, User* admin) :
     QDialog(parent),
@@ -66,6 +67,19 @@ void EditBookDialog::setAuthors()
     }
 }
 
+void EditBookDialog::editAuthor(Person &oldAuthor, Person &newAuthor)
+{
+    for (Person& author : *mAuthors)
+    {
+        if (oldAuthor.isEqual(author))
+        {
+            author = newAuthor;
+        }
+
+    }
+
+}
+
 void EditBookDialog::onNewTitle()
 {
     if (ui->newTitleEdit->text().isEmpty())
@@ -84,13 +98,13 @@ void EditBookDialog::onNewTitle()
 
 void EditBookDialog::onChangeAuthor()
 {
-    for (Person& person : *mAuthors)
-        qDebug() << person.getFullName() << "\n";
+    ChangeAuthorDialog* changeDialog = new ChangeAuthorDialog(this, itemNameMap.value(ui->authorsList->currentItem()));
+    changeDialog->show();
 }
 
 void EditBookDialog::onAddAuthor()
 {
-    AddAuthorDialog* addDialog = new AddAuthorDialog(this, mDatabase, mAuthors);
+    AddAuthorDialog* addDialog = new AddAuthorDialog(this, mAuthors);
     addDialog->show();
 }
 

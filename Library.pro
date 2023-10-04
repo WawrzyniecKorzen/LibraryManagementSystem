@@ -16,6 +16,7 @@ SOURCES += \
     book.cpp \
     bookdao.cpp \
     bookwidget.cpp \
+    changeauthordialog.cpp \
     changelogindialog.cpp \
     changepassworddialog.cpp \
     databasemanager.cpp \
@@ -43,6 +44,7 @@ HEADERS += \
     book.h \
     bookdao.h \
     bookwidget.h \
+    changeauthordialog.h \
     changelogindialog.h \
     changepassworddialog.h \
     databasemanager.h \
@@ -67,6 +69,7 @@ FORMS += \
     adduserdialog.ui \
     admindatawidget.ui \
     bookwidget.ui \
+    changeauthordialog.ui \
     changelogindialog.ui \
     changepassworddialog.ui \
     editbookdialog.ui \

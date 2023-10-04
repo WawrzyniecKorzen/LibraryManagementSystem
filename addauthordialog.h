@@ -16,7 +16,7 @@ class AddAuthorDialog : public QDialog
     Q_OBJECT
 
 public:
-    explicit AddAuthorDialog(QWidget *parent, DatabaseManager& database, std::vector<Person>* authors);
+    explicit AddAuthorDialog(QWidget *parent, std::vector<Person>* authors);
     ~AddAuthorDialog();
 
 public slots:
@@ -27,7 +27,6 @@ public slots:
 
 private:
     Ui::AddAuthorDialog *ui;
-    DatabaseManager& mDatabase;
     std::vector<Person>* mAuthors;
     Person* mAuthor;
 };

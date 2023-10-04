@@ -22,6 +22,7 @@ public:
 
     void initializeAuthors();
     void setAuthors();
+    void editAuthor(Person& oldAuthor, Person& newAuthor);
 
     QHash<QListWidgetItem*, Person> itemNameMap;
 

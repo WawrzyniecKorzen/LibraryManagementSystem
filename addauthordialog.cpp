@@ -6,9 +6,9 @@
 #include "editbookdialog.h"
 
 
-AddAuthorDialog::AddAuthorDialog(QWidget *parent, DatabaseManager& database, std::vector<Person> *authors) :
+AddAuthorDialog::AddAuthorDialog(QWidget *parent, std::vector<Person> *authors) :
     QDialog(parent),
-    ui(new Ui::AddAuthorDialog), mDatabase(database), mAuthors(authors)
+    ui(new Ui::AddAuthorDialog), mAuthors(authors)
 {
     ui->setupUi(this);
 
