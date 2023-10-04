@@ -35,7 +35,7 @@ void AddAuthorDialog::onAdd()
 
     mAuthor = new Person(ui->firstNameEdit->text(), ui->lastNamEdit->text());
     bool repetition = false;
-    //int id;
+    int id;
 
     for (Person& author : (*mAuthors))
     {
@@ -48,7 +48,7 @@ void AddAuthorDialog::onAdd()
     }
     if (repetition)
     {
-        QMessageBox::warning(this, "Wrong input", "The Author  provided already exists and is listed as one of the Authors of this book!", QMessageBox::Ok);
+        QMessageBox::warning(this, "Wrong input", "The Author provided already exists and is listed as one of the Authors of this book!", QMessageBox::Ok);
         onClear();
     }
     else

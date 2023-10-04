@@ -21,8 +21,12 @@ public:
 
     void addBook(Book book);
     int checkAuthorExists(Person author);
+    void updateAuthors(Book book);
+    void removeAuthors(std::vector<Person> authors);
     int addAuthor(Person author);
     void addBookAuthor(int bookID, int authorID);
+    void updateBookAuthors(int bookID, std::vector<Person> removedAuthors);
+    void changeBookData(Book book);
 
     int countBooks(Person author);
     void removeAuthor(Person author);

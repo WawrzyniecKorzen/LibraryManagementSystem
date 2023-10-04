@@ -26,6 +26,7 @@ public slots:
     void onNewTitle();
     void onChangeAuthor();
     void onAddAuthor();
+    void onRemoveAuthor();
     void onNewPublicationYear();
     void onNumberOfCopies();
 

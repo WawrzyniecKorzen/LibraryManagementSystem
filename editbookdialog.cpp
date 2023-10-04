@@ -24,10 +24,14 @@ EditBookDialog::EditBookDialog(QWidget *parent, DatabaseManager& database, Book*
     QObject::connect(ui->changeYearButton, &QPushButton::clicked, this, &EditBookDialog::onNewPublicationYear);
     QObject::connect(ui->changeCopiesButton, &QPushButton::clicked, this, &EditBookDialog::onNumberOfCopies);
     QObject::connect(ui->addAuthorButton, &QPushButton::clicked, this, &EditBookDialog::onAddAuthor);
+    QObject::connect(ui->changeAuthorsButton, &QPushButton::clicked, this, &EditBookDialog::onChangeAuthor);
 
     QObject::connect(ui->saveButton, &QPushButton::clicked, this, &EditBookDialog::onSave);
     QObject::connect(ui->clearButton, &QPushButton::clicked, this, &EditBookDialog::onClearChanges);
     QObject::connect(ui->cancelButton, &QPushButton::clicked, this, &EditBookDialog::onCancel);
+
+    for (Person& person : *mAuthors)
+        qDebug() << person.getFullName() << "\n";
 }
 
 EditBookDialog::~EditBookDialog()
@@ -75,13 +79,19 @@ void EditBookDialog::onNewTitle()
 
 void EditBookDialog::onChangeAuthor()
 {
-
+    for (Person& person : *mAuthors)
+        qDebug() << person.getFullName() << "\n";
 }
 
 void EditBookDialog::onAddAuthor()
 {
     AddAuthorDialog* addDialog = new AddAuthorDialog(this, mDatabase, mAuthors);
     addDialog->show();
+}
+
+void EditBookDialog::onRemoveAuthor()
+{
+
 }
 
 void EditBookDialog::onNewPublicationYear()
@@ -134,15 +144,22 @@ void EditBookDialog::onSave()
     if (result == QMessageBox::Abort)
         return;
 
-    if (mBook->getTitle() != ui->bookTitleLabel->text())
-        mDatabase.bookDao.changeTitle(mBook->getId(), ui->bookTitleLabel->text());
+    Book newBook = *mBook;
 
-    if (mBook->getPublicationYear() != ui->yearLabel->text().toInt())
-        mDatabase.bookDao.changePublicationYear(mBook->getId(), ui->yearLabel->text().toInt());
+    if (newBook.getTitle() != ui->bookTitleLabel->text())
+        newBook.setTitle(ui->bookTitleLabel->text());
 
-    if (mBook->getCopies() != ui->copiesLabel->text().toInt())
-        mDatabase.bookDao.changeNumberOfCopies(mBook->getId(), ui->copiesLabel->text().toInt());
+    if (newBook.getPublicationYear() != ui->yearLabel->text().toInt())
+        newBook.setPublicationYear(ui->yearLabel->text().toInt());
 
+    if (newBook.getCopies() != ui->copiesLabel->text().toInt())
+        newBook.setCopies(ui->copiesLabel->text().toInt());
+    newBook.setAuthors(*mAuthors);
+
+    std::vector<Person> authorsToRemove = mBook->compareAuthors(newBook);
+    mDatabase.bookDao.updateBookAuthors(mBook->getId(), authorsToRemove);
+    mDatabase.bookDao.removeAuthors(authorsToRemove);
+    mDatabase.bookDao.changeBookData(newBook);
     onCancel();
 }
 

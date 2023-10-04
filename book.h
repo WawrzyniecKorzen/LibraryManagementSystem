@@ -12,11 +12,15 @@ class Book
 {
 public:
     Book(int id_num = -1, QString booktitle = "", std::vector<Person> author = std::vector<Person>(), int publication = -1, int noCopies = -1);
+    Book(const Book &b);
+
+    void operator=(const Book &b);
     ~Book();
 
     void setId(int id_num);
     void setTitle(QString booktitle);
     void setAuthor(Person author);
+    void setAuthors(std::vector<Person> authorsList);
     void setPublicationYear(int publication);
     void setCopies(int noCopies);
 
@@ -29,6 +33,8 @@ public:
 
     void addCopy();
     bool subtractCopy();
+
+    std::vector<Person> compareAuthors(Book& book);
 
 
 private:

@@ -16,11 +16,11 @@ public:
 
     void setFirstName(QString first);
     void setLastName(QString last);
-    QString getFirstName();
-    QString getLastName();
+    QString getFirstName() const;
+    QString getLastName() const;
 
     QString getFullName();
-    bool isEqual(Person &person);
+    bool isEqual(const Person person) const;
 
 private:
     QString firstName;

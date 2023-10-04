@@ -73,18 +73,7 @@ void BookDao::addBook(Book book)
     query.next();
     book.setId(query.value("id").toInt());
 
-    int authorID = Id::NOT_EXIST;
-    std::vector<Person> authors = book.getAuthors();
-    for (Person& author : authors)
-    {
-        authorID = checkAuthorExists(author);
-
-        if (authorID ==Id::NOT_EXIST)
-            authorID = addAuthor(author);
-
-        addBookAuthor(book.getId(), authorID);
-
-    }
+    updateAuthors(book);
 
 }
 
@@ -104,6 +93,38 @@ int BookDao::checkAuthorExists(Person author)
     qDebug() << "obtained id: " << result;
     DatabaseManager::debugQuery(query);
     return result;
+}
+
+void BookDao::updateAuthors(Book book)
+{
+    int authorID = Id::NOT_EXIST;
+    std::vector<Person> authorsToAdd = book.compareAuthors(*getBookDataTitle(book.getTitle()));
+    for (Person& author : authorsToAdd)
+    {
+        authorID = checkAuthorExists(author);
+
+        if (authorID ==Id::NOT_EXIST)
+            authorID = addAuthor(author);
+
+        addBookAuthor(book.getId(), authorID);
+
+    }
+}
+
+void BookDao::removeAuthors(std::vector<Person> authors)
+{
+    int authorID;
+    int titlesNumber;
+
+    for (Person& author : authors)
+    {
+        authorID = checkAuthorExists(author);
+        titlesNumber = countBooks(author);
+
+        if (authorID != Id::NOT_EXIST && titlesNumber == 0)
+            removeAuthor(author);
+    }
+
 }
 
 int BookDao::addAuthor(Person author)
@@ -133,6 +154,34 @@ void BookDao::addBookAuthor(int bookID, int authorID)
 
 }
 
+void BookDao::updateBookAuthors(int bookID, std::vector<Person> removedAuthors)
+{
+    QSqlQuery query(mDatabase);
+
+    for (Person& author : removedAuthors)
+    {
+        int authorID = checkAuthorExists(author);
+        query.exec("DELETE FROM bookAuthor WHERE bookID = " + QString::number(bookID) +
+                   " AND authorID = " + QString::number(authorID));
+        DatabaseManager::debugQuery(query);
+
+    }
+
+}
+
+void BookDao::changeBookData(Book book)
+{
+    QSqlQuery query(mDatabase);
+    query.exec("UPDATE book"
+               "SET title = " + book.getTitle() + ", "
+               "publicationYear = " + QString::number(book.getPublicationYear()) + ", "
+               "copies = " + QString::number(book.getCopies()) + ", "
+               "WHERE id = " + QString::number(book.getId()));
+    DatabaseManager::debugQuery(query);
+
+    updateAuthors(book);
+}
+
 int BookDao::countBooks(Person author)
 {
     QSqlQuery query(mDatabase);
@@ -153,13 +202,6 @@ void BookDao::removeAuthor(Person author)
 
 void BookDao::removeBook(Book* book)
 {
-    int numberOfBooks;
-    for (Person& person : book->getAuthors())
-    {
-        numberOfBooks = countBooks(person);
-        if (numberOfBooks == 1)
-            removeAuthor(person);
-    }
 
     QSqlQuery query(mDatabase);
     query.prepare("DELETE FROM book WHERE id = (:id)");
@@ -172,6 +214,9 @@ void BookDao::removeBook(Book* book)
     query.exec();
 
     DatabaseManager::debugQuery(query);
+
+    std::vector<Person> authorsToRemove = book->getAuthors();
+    removeAuthors(authorsToRemove);
 }
 
 void BookDao::changeTitle(int id, QString newTitle)
