@@ -47,9 +47,9 @@ libraryDataWidget::libraryDataWidget(QWidget *parent, DatabaseManager& database)
 
 
     Book* book = new Book();
-    book->setTitle("Wojna peloponeska");
+    book->setTitle("History of the Peloponnesian War");
     book->setPublicationYear(2010);
-    book->setAuthor(Person("Tukidydes", "Grek"));
+    book->setAuthor(Person("Thucydides", "Athenian"));
     book->setCopies(2);
     BookWidget* bookWidget = new BookWidget(this, book);
 

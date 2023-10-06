@@ -89,6 +89,7 @@ void SearchWidget::addBookWidget(Book *book)
     BookWidget* bookWidget = new BookWidget(bookList, book);
     layout->addWidget(radio);
     layout->addWidget(bookWidget);
+    layout->addSpacerItem(new QSpacerItem(0,0,QSizePolicy::Expanding, QSizePolicy::Expanding));
     QVBoxLayout* listLayout = qobject_cast<QVBoxLayout*>(bookList->layout());
     listLayout->addLayout(layout);
 

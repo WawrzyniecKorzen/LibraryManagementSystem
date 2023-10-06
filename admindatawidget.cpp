@@ -82,10 +82,11 @@ void AdminDataWidget::setToolBar()
     toolBar = new QWidget(this);
     QVBoxLayout* toolLayout = new QVBoxLayout(toolBar);
 
-    QPushButton* searchButton = new QPushButton(toolBar);
-    searchButton->setText("Search");
-    toolLayout->addWidget(searchButton);
-
+    /*
+    QPushButton* clearButton = new QPushButton(toolBar);
+    clearButton->setText("Clear");
+    toolLayout->addWidget(clearButton);
+    */
     QPushButton* editButton = new QPushButton(toolBar);
     editButton->setText("Edit");
     toolLayout->addWidget(editButton);

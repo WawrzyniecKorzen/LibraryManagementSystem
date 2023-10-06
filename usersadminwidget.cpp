@@ -27,8 +27,11 @@ UsersAdminWidget::~UsersAdminWidget()
 void UsersAdminWidget::setUserList()
 {
     userList = new QWidget(this);
-    userList->setLayout(new QVBoxLayout(userList));
+    userList->setLayout(new QVBoxLayout());
     ui->verticalLayout->insertWidget(1,userList);
+
+    widgetList.clear();
+    userListMap.clear();
 }
 
 void UsersAdminWidget::addUserWidget(User *user)

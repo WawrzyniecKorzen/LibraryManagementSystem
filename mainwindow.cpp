@@ -57,7 +57,7 @@ void MainWindow::logOut()
 void MainWindow::setMemberAccount()
 {
     libraryWidget = new libraryDataWidget(this, mDb);
-    libraryWidget->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+    //libraryWidget->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     ui->centralwidget->layout()->addWidget(libraryWidget);
 }
 
