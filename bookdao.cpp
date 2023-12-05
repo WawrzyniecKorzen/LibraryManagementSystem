@@ -27,6 +27,7 @@ Book *BookDao::getBookDataTitle(QString title)
     book->setId(query.value("id").toInt());
     book->setTitle(query.value("title").toString());
     book->setPublicationYear(query.value("publicationYear").toInt());
+    book->setAvailable(query.value("available").toInt());
     book->setCopies(query.value("copies").toInt());
 
     query.exec("SELECT firstName, lastName FROM book "
@@ -64,8 +65,9 @@ void BookDao::addBook(Book book)
 {
 
     QSqlQuery query(mDatabase);
-    query.exec("INSERT INTO book (title, publicationYear, copies) "
-               "VALUES('" + book.getTitle() + "', '" + QString::number(book.getPublicationYear()) + "', '"+ QString::number(book.getCopies()) + "')");
+    query.exec("INSERT INTO book (title, publicationYear, available, copies) "
+               "VALUES('" + book.getTitle() + "', '" + QString::number(book.getPublicationYear()) + "', '"+ QString::number(book.getAvailable()) +
+               "', '"+ QString::number(book.getCopies()) + "')");
     DatabaseManager::debugQuery(query);
     query.clear();
 
@@ -175,6 +177,7 @@ void BookDao::changeBookData(Book book)
     query.exec("UPDATE book"
                "SET title = " + book.getTitle() + ", "
                "publicationYear = " + QString::number(book.getPublicationYear()) + ", "
+               "available = " + QString::number(book.getAvailable()) + ", "
                "copies = " + QString::number(book.getCopies()) + ", "
                "WHERE id = " + QString::number(book.getId()));
     DatabaseManager::debugQuery(query);
@@ -234,9 +237,22 @@ void BookDao::changePublicationYear(int id, int year)
     DatabaseManager::debugQuery(query);
 }
 
+void BookDao::changeNumberOfAvailable(int id, int available)
+{
+    QSqlQuery query(mDatabase);
+    query.exec("SELECT copies FROM book WHERE id = " + QString::number(id));
+    if (available >=0 && available <= query.value("copies").toInt())
+    {
+        query.exec("UPDATE book SET available = '" + QString::number(available) + "' WHERE id = " + QString::number(id));
+    }
+    DatabaseManager::debugQuery(query);
+}
+
 void BookDao::changeNumberOfCopies(int id, int copies)
 {
     QSqlQuery query(mDatabase);
-    query.exec("UPDATE book SET copies = '" + QString::number(copies) + "' WHERE id = " + QString::number(id));
+    query.exec("SELECT available FROM book WHERE id = " + QString::number(id));
+    if (query.value("available").toInt() <= copies)
+        query.exec("UPDATE book SET copies = '" + QString::number(copies) + "' WHERE id = " + QString::number(id));
     DatabaseManager::debugQuery(query);
 }

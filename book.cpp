@@ -4,8 +4,8 @@
 #include <algorithm>
 
 
-Book::Book(int id_num, QString booktitle, std::vector<Person> author, int publication, int noCopies) :
-    id(id_num), title(booktitle), authors(author), publicationYear(publication), copies(noCopies)
+Book::Book(int id_num, QString booktitle, std::vector<Person> author, int publication, int noAvailable, int noCopies) :
+    id(id_num), title(booktitle), authors(author), publicationYear(publication), available(noAvailable), copies(noCopies)
 {
 
 }
@@ -16,6 +16,7 @@ Book::Book(const Book &b)
     title = b.title;
     authors = b.authors;
     publicationYear = b.publicationYear;
+    available = b.available;
     copies = b.copies;
 }
 
@@ -25,6 +26,7 @@ void Book::operator=(const Book &b)
     title = b.title;
     authors = b.authors;
     publicationYear = b.publicationYear;
+    available = b.available;
     copies = b.copies;
 }
 
@@ -60,6 +62,11 @@ void Book::setAuthors(std::vector<Person> authorsList)
 void Book::setPublicationYear(int publication)
 {
     publicationYear = publication;
+}
+
+void Book::setAvailable(int noAvailable)
+{
+    available = noAvailable;
 }
 
 void Book::setCopies(int noCopies)
@@ -102,6 +109,11 @@ int Book::getPublicationYear()
     return publicationYear;
 }
 
+int Book::getAvailable()
+{
+    return available;
+}
+
 int Book::getCopies()
 {
     return copies;
@@ -114,9 +126,9 @@ void Book::addCopy()
 
 bool Book::subtractCopy()
 {
-    if (copies > 0)
+    if (available > 0)
     {
-        copies--;
+        available--;
         return true;
     }
     else

@@ -34,6 +34,7 @@ public:
 
     void changeTitle(int id, QString newTitle);
     void changePublicationYear(int id, int year);
+    void changeNumberOfAvailable(int id, int available);
     void changeNumberOfCopies(int id, int copies);
 
 

@@ -55,18 +55,18 @@ void DatabaseManager::initialiseBook()
 {
 
     QSqlQuery query(*mDatabase);
-    query.exec("CREATE TABLE book (id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT, publicationYear INTEGER, copies INTEGER)");
+    query.exec("CREATE TABLE book (id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT, publicationYear INTEGER, available INTEGER, copies INTEGER)");
     DatabaseManager::debugQuery(query);
-    query.exec("INSERT INTO book (title, publicationYear, copies) "
-               "VALUES('The Lord Of The Rings', 2000, 5)");
+    query.exec("INSERT INTO book (title, publicationYear, available, copies) "
+               "VALUES('The Lord Of The Rings', 2000, 5, 5)");
     DatabaseManager::debugQuery(query);
-    query.exec("INSERT INTO book (title, publicationYear, copies) "
-               "VALUES('Silmarillion', 2002, 3)");
+    query.exec("INSERT INTO book (title, publicationYear, available, copies) "
+               "VALUES('Silmarillion', 2002, 3, 3)");
     DatabaseManager::debugQuery(query);
-    query.exec("INSERT INTO book (title, publicationYear, copies) "
-               "VALUES('Surely Youre Joking, Mr. Feynman!: Adventures of a Curious Character', 2018, 10)");
-    query.exec("INSERT INTO book (title, publicationYear, copies) "
-               "VALUES('An Introduction To Quantum Field Theory', 1995, 1)");
+    query.exec("INSERT INTO book (title, publicationYear, available, copies) "
+               "VALUES('Surely Youre Joking, Mr. Feynman!: Adventures of a Curious Character', 2018, 10, 10)");
+    query.exec("INSERT INTO book (title, publicationYear, available, copies) "
+               "VALUES('An Introduction To Quantum Field Theory', 1995, 1, 1)");
 
     DatabaseManager::debugQuery(query);
 }

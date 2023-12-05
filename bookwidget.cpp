@@ -12,7 +12,7 @@ BookWidget::BookWidget(QWidget *parent, Book *book) :
     ui->titleLabel->setWordWrap(true);
     ui->authorName->setText(mBook->printAuthor());
     ui->publicationNumber->setText(QString::number(mBook->getPublicationYear()));
-    ui->copiesNumber->setText(QString::number(mBook->getCopies()));
+    ui->copiesNumber->setText(QString::number(mBook->getAvailable()) + "/" + QString::number(mBook->getCopies()));
 
     ui->titleLabel->setSizePolicy(QSizePolicy ::Fixed , QSizePolicy ::Expanding );
     ui->authorName->setSizePolicy(QSizePolicy ::Fixed , QSizePolicy ::Expanding );
