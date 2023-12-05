@@ -83,6 +83,7 @@ void AddBookDialog::onAddBook()
     for (Person& author : authorList)
         book.setAuthor(author);
     book.setPublicationYear(ui->publicationEdit->text().toInt());
+    book.setAvailable(ui->copiesEdit->text().toInt());
     book.setCopies(ui->copiesEdit->text().toInt());
     mDatabase.bookDao.addBook(book);
     onCancel();
