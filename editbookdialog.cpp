@@ -19,6 +19,7 @@ EditBookDialog::EditBookDialog(QWidget *parent, DatabaseManager& database, Book*
     initializeAuthors();
     setAuthors();
     ui->yearLabel->setText(QString::number(mBook->getPublicationYear()));
+    ui->availableNumberLabel->setText(QString::number(mBook->getAvailable()));
     ui->copiesLabel->setText(QString::number(mBook->getCopies()));
 
     this->setWindowTitle("Edit book data");
@@ -146,7 +147,15 @@ void EditBookDialog::onNumberOfCopies()
 
     if (ui->newCopiesEdit->text().toInt() <0)
     {
-        QMessageBox::warning(this, "Number of copies error", "The input is lesser than 0.");
+        QMessageBox::warning(this, "Number of copies error", "The input is smaller than 0.");
+        ui->newCopiesEdit->clear();
+        return;
+    }
+
+    //checking if new number is greater than number of available copies
+    if (ui->newCopiesEdit->text().toInt() < ui->copiesLabel->text().toInt() - ui->availableNumberLabel->text().toInt())
+    {
+        QMessageBox::warning(this, "Number of copies error", "The input is smaller than number of currently loaned books.");
         ui->newCopiesEdit->clear();
         return;
     }
