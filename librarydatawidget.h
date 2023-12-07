@@ -7,6 +7,7 @@
 #include <QVBoxLayout>
 #include <QStackedWidget>
 
+#include "user.h"
 #include "book.h"
 #include "databasemanager.h"
 #include "searchwidget.h"
@@ -20,7 +21,7 @@ class libraryDataWidget : public QWidget
     Q_OBJECT
 
 public:
-    explicit libraryDataWidget(QWidget *parent, DatabaseManager& database);
+    explicit libraryDataWidget(QWidget *parent, DatabaseManager& database, User* user);
     ~libraryDataWidget();
 
     void demo();
@@ -36,6 +37,7 @@ private:
     QWidget* tabBar;
     QWidget* mWidget;
     SearchWidget* searchWidget;
+    User* mUser;
 };
 
 #endif // LIBRARYDATAWIDGET_H

@@ -3,6 +3,7 @@
 
 #include <QWidget>
 #include <QRadioButton>
+#include <QPushButton>
 #include <QHash>
 #include <vector>
 
@@ -27,6 +28,7 @@ public:
     void onSearchButton();
     void onTitleRadio();
     void onAuthorRadio();
+    void onReserveButton();
     void setBookList();
 
     void addBookWidget(Book* book);
@@ -38,6 +40,7 @@ private:
     Ui::SearchWidget *ui;
     DatabaseManager& mDatabase;
     QWidget* bookList;
+    QPushButton* reserveButton;
 };
 
 #endif // SEARCHWIDGET_H

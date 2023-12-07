@@ -9,10 +9,11 @@
 #include <QPushButton>
 #include <QSpacerItem>
 
-libraryDataWidget::libraryDataWidget(QWidget *parent, DatabaseManager& database) :
+libraryDataWidget::libraryDataWidget(QWidget *parent, DatabaseManager& database, User* user) :
     QWidget(parent),
     ui(new Ui::libraryDataWidget),
-    mDatabase(database)
+    mDatabase(database),
+    mUser(user)
 {
     ui->setupUi(this);
 
@@ -50,6 +51,7 @@ libraryDataWidget::libraryDataWidget(QWidget *parent, DatabaseManager& database)
     book->setTitle("History of the Peloponnesian War");
     book->setPublicationYear(2010);
     book->setAuthor(Person("Thucydides", "Athenian"));
+    book->setAvailable(1);
     book->setCopies(2);
     BookWidget* bookWidget = new BookWidget(this, book);
 

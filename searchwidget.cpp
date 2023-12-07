@@ -41,7 +41,6 @@ void SearchWidget::onSearchButton()
     {
         if (ui->authorEdit->text().isEmpty())
             return;
-        qDebug() << "search button else branch";
         titles = mDatabase.findBookAuthors(ui->authorEdit->text());
     }
     delete bookList;
@@ -55,6 +54,16 @@ void SearchWidget::onSearchButton()
         addBookWidget(book);
 
     }
+    QHBoxLayout* reserveLayout = new QHBoxLayout(bookList);
+    reserveLayout->addSpacerItem(new QSpacerItem(0,0,QSizePolicy::Expanding, QSizePolicy::Expanding));
+
+    reserveButton = new QPushButton("Reserve selected book", this);
+    reserveLayout->addWidget(reserveButton);
+
+    QVBoxLayout* listLayout = qobject_cast<QVBoxLayout*>(bookList->layout());
+    listLayout->addLayout(reserveLayout);
+
+    QObject::connect(reserveButton, &QPushButton::clicked, this, &SearchWidget::onReserveButton);
 
     ui->titleEdit->clear();
     ui->authorEdit->clear();
@@ -70,6 +79,11 @@ void SearchWidget::onAuthorRadio()
 {
     ui->authorEdit->setDisabled(false);
     ui->titleEdit->setDisabled(true);
+}
+
+void SearchWidget::onReserveButton()
+{
+    qDebug() << "reservation clicked!";
 }
 
 void SearchWidget::setBookList()
