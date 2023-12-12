@@ -8,6 +8,7 @@
 #include <vector>
 
 #include "databasemanager.h"
+#include "user.h"
 #include "bookwidget.h"
 
 namespace Ui {
@@ -19,7 +20,7 @@ class SearchWidget : public QWidget
     Q_OBJECT
 
 public:
-    explicit SearchWidget(QWidget *parent, DatabaseManager& database);
+    explicit SearchWidget(QWidget *parent, DatabaseManager& database, User* user);
     ~SearchWidget();
 
     std::vector<QRadioButton*> widgetList;
@@ -35,10 +36,12 @@ public:
 
     Book* findPickedBook();
     void removePickedBook();
+    void reserveBook(Book* book);
 
 private:
     Ui::SearchWidget *ui;
     DatabaseManager& mDatabase;
+    User* mUser;
     QWidget* bookList;
     QPushButton* reserveButton;
 };

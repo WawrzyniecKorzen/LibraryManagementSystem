@@ -3,11 +3,13 @@
 
 
 #include <QDebug>
+#include <QMessageBox>
 
-SearchWidget::SearchWidget(QWidget *parent, DatabaseManager& database) :
+SearchWidget::SearchWidget(QWidget *parent, DatabaseManager& database, User* user) :
     QWidget(parent),
     ui(new Ui::SearchWidget),
-    mDatabase(database)
+    mDatabase(database),
+    mUser(user)
 {
     ui->setupUi(this);
     ui->titleRadio->setChecked(true);
@@ -83,7 +85,14 @@ void SearchWidget::onAuthorRadio()
 
 void SearchWidget::onReserveButton()
 {
-    qDebug() << "reservation clicked!";
+    Book* book = findPickedBook();
+    if(book != nullptr)
+    {
+        QString message = "Do you want to reserve \"" + book->getTitle() + "\" by " + book->printAuthor() + "?";
+        int decision = QMessageBox::question(this, "Book reservation", message, QMessageBox::Ok, QMessageBox::No);
+        if (decision == QMessageBox::Ok)
+            qDebug() << "reserve book";
+    }
 }
 
 void SearchWidget::setBookList()
@@ -157,4 +166,9 @@ void SearchWidget::removePickedBook()
     radio->deleteLater();
     bookWidget->deleteLater();
     }
+}
+
+void SearchWidget::reserveBook(Book *book)
+{
+
 }

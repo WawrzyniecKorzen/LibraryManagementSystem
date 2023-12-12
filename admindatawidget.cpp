@@ -33,7 +33,7 @@ AdminDataWidget::AdminDataWidget(QWidget *parent, DatabaseManager& database, Use
 
     usersWidget = new UsersAdminWidget(this, mDatabase);
     usersWidget->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::MinimumExpanding);
-    bookSearch = new SearchWidget(this, mDatabase);
+    bookSearch = new SearchWidget(this, mDatabase, mAdmin);
     bookSearch->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::MinimumExpanding);
     stackedPanel->addWidget(usersWidget);
     stackedPanel->addWidget(bookSearch);

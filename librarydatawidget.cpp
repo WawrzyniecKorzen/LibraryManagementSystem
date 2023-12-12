@@ -63,7 +63,7 @@ libraryDataWidget::libraryDataWidget(QWidget *parent, DatabaseManager& database,
     ui->scrollArea->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
 
-    searchWidget = new SearchWidget(this, mDatabase);
+    searchWidget = new SearchWidget(this, mDatabase, mUser);
     searchWidget->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::MinimumExpanding);
 
 

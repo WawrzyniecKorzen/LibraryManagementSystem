@@ -17,6 +17,7 @@ public:
 
     User *getUserData(QString name);
     std::vector<QString> getUserNames(QString name);
+    std::shared_ptr<User> getUserDataId(int id);
 
     bool findUserName(QString name);
     void addUser(User* user, QString password);

@@ -5,6 +5,7 @@
 #include "book.h"
 #include <QSqlDatabase>
 #include <vector>
+#include <memory>
 
 
 class BookDao
@@ -18,6 +19,7 @@ public:
 
     Book *getBookDataTitle(QString title);
     std::vector<QString> getBookTitles();
+    std::shared_ptr<Book> getBookDataId(int bookID);
 
     void addBook(Book book);
     int checkAuthorExists(Person author);
@@ -36,6 +38,7 @@ public:
     void changePublicationYear(int id, int year);
     void changeNumberOfAvailable(int id, int available);
     void changeNumberOfCopies(int id, int copies);
+
 
 
 private:

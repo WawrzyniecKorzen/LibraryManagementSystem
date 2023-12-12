@@ -61,6 +61,36 @@ std::vector<QString> BookDao::getBookTitles()
 
 }
 
+std::shared_ptr<Book> BookDao::getBookDataId(int bookID)
+{
+    QSqlQuery query(mDatabase);
+    query.exec("SELECT * FROM book WHERE id =" + QString::number(bookID));
+    std::shared_ptr<Book> book = std::make_shared<Book>(Book());
+
+    //may be replaced later??
+    book->setId(query.value("id").toInt());
+    book->setTitle(query.value("title").toString());
+    book->setPublicationYear(query.value("publicationYear").toInt());
+    book->setAvailable(query.value("available").toInt());
+    book->setCopies(query.value("copies").toInt());
+
+    query.exec("SELECT firstName, lastName FROM book "
+               "INNER JOIN bookAuthor ON book.id = bookAuthor.bookID "
+               "INNER JOIN author ON bookAuthor.authorID  = author.id "
+               "WHERE title = '" + book->getTitle() + "'");
+    while (query.next())
+    {
+        Person p;
+        QString temp = query.value("firstName").toString();
+        p.setFirstName(temp);
+        temp = query.value("lastName").toString();
+        p.setLastName(temp);
+        book->setAuthor(p);
+    }
+
+    return book;
+}
+
 void BookDao::addBook(Book book)
 {
 

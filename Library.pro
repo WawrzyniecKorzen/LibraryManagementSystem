@@ -28,6 +28,8 @@ SOURCES += \
     main.cpp \
     mainwindow.cpp \
     person.cpp \
+    reservation.cpp \
+    reservationdao.cpp \
     searchwidget.cpp \
     sha256.cpp \
     user.cpp \
@@ -55,6 +57,8 @@ HEADERS += \
     logindao.h \
     mainwindow.h \
     person.h \
+    reservation.h \
+    reservationdao.h \
     searchwidget.h \
     sha256.h \
     user.h \

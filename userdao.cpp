@@ -45,6 +45,22 @@ std::vector<QString> UserDao::getUserNames(QString name)
     return users;
 }
 
+std::shared_ptr<User> UserDao::getUserDataId(int id)
+{
+    QSqlQuery query(mDatabase);
+    query.exec("SELECT * FROM login WHERE id = '" + QString::number(id) + "'");
+    DatabaseManager::debugQuery(query);
+    query.next();
+    std::shared_ptr<User> user;
+    qDebug() << query.value("id").toInt();
+    user->setId(query.value("id").toInt());
+    user->setName(query.value("name").toString());
+
+    user->setJoined(UserDao::toQDate(query.value("joined").toString()));
+    user->setStatus(query.value("status").toInt());
+    return user;
+}
+
 bool UserDao::findUserName(QString name)
 {
     bool result = false;

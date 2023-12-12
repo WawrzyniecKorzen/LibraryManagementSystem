@@ -7,6 +7,7 @@
 #include "logindao.h"
 #include "userdao.h"
 #include "bookdao.h"
+#include "reservationdao.h"
 #include <vector>
 
 
@@ -28,10 +29,11 @@ public:
     void initialiseBook();
     void initialiseBookAuthor();
     void initialiseAuthor();
+    void initialiseReservation();
+    void initialiseLoan();
 
     std::vector<QString> findBookTitles(QString title);
     std::vector<QString> findBookAuthors(QString name);
-
 
 protected:
     DatabaseManager(const QString& path = FILENAME);
@@ -45,6 +47,7 @@ public:
     LoginDao loginDao;
     UserDao userDao;
     BookDao bookDao;
+    ReservationDao reservationDao;
 };
 
 #endif // DATABASEMANAGER_H

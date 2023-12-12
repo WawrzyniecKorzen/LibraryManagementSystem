@@ -36,6 +36,8 @@ void DatabaseManager::init()
     initialiseBook();
     initialiseAuthor();
     initialiseBookAuthor();
+    initialiseReservation();
+    initialiseLoan();
 }
 
 void DatabaseManager::initialiseLogin()
@@ -106,6 +108,20 @@ void DatabaseManager::initialiseAuthor()
 
 }
 
+void DatabaseManager::initialiseReservation()
+{
+    QSqlQuery query(*mDatabase);
+    query.exec("CREATE TABLE reservation (id INTEGER PRIMARY KEY AUTOINCREMENT, bookID INTEGER, memberID INTEGER, reservationDate TEXT)");
+    DatabaseManager::debugQuery(query);
+}
+
+void DatabaseManager::initialiseLoan()
+{
+    QSqlQuery query(*mDatabase);
+    query.exec("CREATE TABLE loan (id INTEGER PRIMARY KEY AUTOINCREMENT, bookID INTEGER, memberID INTEGER, loanStartDate TEXT)");
+    DatabaseManager::debugQuery(query);
+}
+
 std::vector<QString> DatabaseManager::findBookTitles(QString title)
 {
     std::vector<QString> titles;
@@ -137,10 +153,10 @@ std::vector<QString> DatabaseManager::findBookAuthors(QString name)
 }
 
 
-
 DatabaseManager::DatabaseManager(const QString &path) :
     mDatabase(new QSqlDatabase(QSqlDatabase::addDatabase("QSQLITE"))),
-    loginDao(*mDatabase), userDao(*mDatabase), bookDao(*mDatabase)
+    loginDao(*mDatabase), userDao(*mDatabase), bookDao(*mDatabase),
+    reservationDao(*mDatabase, std::make_shared<BookDao>(bookDao), std::make_shared<UserDao>(userDao))
 {
     mDatabase->setDatabaseName(path);
 
