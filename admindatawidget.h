@@ -12,6 +12,8 @@
 #include "usersadminwidget.h"
 #include "searchwidget.h"
 #include "userwidget.h"
+#include "reservationadminwidget.h"
+#include "reservationwidget.h"
 
 namespace Ui {
 class AdminDataWidget;
@@ -31,7 +33,7 @@ public:
     void setToolBar();
 
     enum class WidgetMode {
-        Users, Books
+        Users, Books, Reservations
     };
 
 
@@ -40,6 +42,7 @@ public:
 public slots:
     void onUsers();
     void onBooks();
+    void onReservations();
 
     void onAdd();
     void onAddUser();
@@ -64,6 +67,7 @@ private:
     QScrollArea* scrollArea;
     SearchWidget* bookSearch;
     WidgetMode mode;
+    ReservationAdminWidget* reservationsWidget;
 };
 
 #endif // ADMINDATAWIDGET_H

@@ -35,8 +35,10 @@ AdminDataWidget::AdminDataWidget(QWidget *parent, DatabaseManager& database, Use
     usersWidget->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::MinimumExpanding);
     bookSearch = new SearchWidget(this, mDatabase, mAdmin);
     bookSearch->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::MinimumExpanding);
+    reservationsWidget = new ReservationAdminWidget(this, mDatabase);
     stackedPanel->addWidget(usersWidget);
     stackedPanel->addWidget(bookSearch);
+    stackedPanel->addWidget(reservationsWidget);
 
     stackedPanel->setCurrentWidget(usersWidget);
 
@@ -69,12 +71,19 @@ void AdminDataWidget::setTabBar()
     booksButton->setAutoExclusive(true);
     tabBar->layout()->addWidget(booksButton);
 
+    QPushButton* reservationsButton = new QPushButton(tabBar);
+    reservationsButton->setText("Reservations");
+    reservationsButton->setCheckable(true);
+    reservationsButton->setAutoExclusive(true);
+    tabBar->layout()->addWidget(reservationsButton);
+
     tabLayout->addStretch();
 
     mode = WidgetMode::Users;
 
     QObject::connect(usersButton,&QPushButton::clicked, this, &AdminDataWidget::onUsers);
     QObject::connect(booksButton, &QPushButton::clicked, this, &AdminDataWidget::onBooks);
+    QObject::connect(reservationsButton, &QPushButton::clicked, this, &AdminDataWidget::onReservations);
 }
 
 void AdminDataWidget::setToolBar()
@@ -126,6 +135,12 @@ void AdminDataWidget::onBooks()
     stackedPanel->setCurrentWidget(bookSearch);
 
 
+}
+
+void AdminDataWidget::onReservations()
+{
+    mode = WidgetMode::Reservations;
+    stackedPanel->setCurrentWidget(reservationsWidget);
 }
 
 void AdminDataWidget::onAdd()

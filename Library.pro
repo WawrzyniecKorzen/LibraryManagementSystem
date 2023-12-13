@@ -29,6 +29,7 @@ SOURCES += \
     mainwindow.cpp \
     person.cpp \
     reservation.cpp \
+    reservationadminwidget.cpp \
     reservationdao.cpp \
     reservationwidget.cpp \
     searchwidget.cpp \
@@ -59,6 +60,7 @@ HEADERS += \
     mainwindow.h \
     person.h \
     reservation.h \
+    reservationadminwidget.h \
     reservationdao.h \
     reservationwidget.h \
     searchwidget.h \
@@ -83,6 +85,7 @@ FORMS += \
     librarydatawidget.ui \
     login.ui \
     mainwindow.ui \
+    reservationadminwidget.ui \
     reservationwidget.ui \
     searchwidget.ui \
     userdatawidget.ui \
