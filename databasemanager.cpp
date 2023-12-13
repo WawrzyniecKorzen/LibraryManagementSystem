@@ -111,14 +111,14 @@ void DatabaseManager::initialiseAuthor()
 void DatabaseManager::initialiseReservation()
 {
     QSqlQuery query(*mDatabase);
-    query.exec("CREATE TABLE reservation (id INTEGER PRIMARY KEY AUTOINCREMENT, bookID INTEGER, memberID INTEGER, reservationDate TEXT)");
+    query.exec("CREATE TABLE reservation (id INTEGER PRIMARY KEY AUTOINCREMENT, bookID INTEGER, userID INTEGER, reservationDate TEXT)");
     DatabaseManager::debugQuery(query);
 }
 
 void DatabaseManager::initialiseLoan()
 {
     QSqlQuery query(*mDatabase);
-    query.exec("CREATE TABLE loan (id INTEGER PRIMARY KEY AUTOINCREMENT, bookID INTEGER, memberID INTEGER, loanStartDate TEXT)");
+    query.exec("CREATE TABLE loan (id INTEGER PRIMARY KEY AUTOINCREMENT, bookID INTEGER, userID INTEGER, loanStartDate TEXT)");
     DatabaseManager::debugQuery(query);
 }
 

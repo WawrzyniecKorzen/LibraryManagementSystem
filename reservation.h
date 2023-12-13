@@ -24,7 +24,7 @@ public:
 
     int getID();
     int getBookID();
-    int getMemberID();
+    int getUserID();
     std::shared_ptr<Book> getBook();
     std::shared_ptr<User> getUser();
     QDate getDate();
@@ -32,7 +32,7 @@ public:
 private:
     int id;
     int bookID;
-    int memberID;
+    int userID;
     QDate reservationDate;
     std::shared_ptr<Book> mBook;
     std::shared_ptr<User> mUser;

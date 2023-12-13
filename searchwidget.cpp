@@ -54,19 +54,20 @@ void SearchWidget::onSearchButton()
 
         Book* book = mDatabase.bookDao.getBookDataTitle(title);
         addBookWidget(book);
-
     }
-    QHBoxLayout* reserveLayout = new QHBoxLayout(bookList);
-    reserveLayout->addSpacerItem(new QSpacerItem(0,0,QSizePolicy::Expanding, QSizePolicy::Expanding));
+    if (titles.size() !=0)
+    {
+        QHBoxLayout* reserveLayout = new QHBoxLayout(bookList);
+        reserveLayout->addSpacerItem(new QSpacerItem(0,0,QSizePolicy::Expanding, QSizePolicy::Expanding));
 
-    reserveButton = new QPushButton("Reserve selected book", this);
-    reserveLayout->addWidget(reserveButton);
+        reserveButton = new QPushButton("Reserve selected book", this);
+        reserveLayout->addWidget(reserveButton);
 
-    QVBoxLayout* listLayout = qobject_cast<QVBoxLayout*>(bookList->layout());
-    listLayout->addLayout(reserveLayout);
+        QVBoxLayout* listLayout = qobject_cast<QVBoxLayout*>(bookList->layout());
+        listLayout->addLayout(reserveLayout);
 
-    QObject::connect(reserveButton, &QPushButton::clicked, this, &SearchWidget::onReserveButton);
-
+        QObject::connect(reserveButton, &QPushButton::clicked, this, &SearchWidget::onReserveButton);
+    }
     ui->titleEdit->clear();
     ui->authorEdit->clear();
 }
@@ -86,12 +87,12 @@ void SearchWidget::onAuthorRadio()
 void SearchWidget::onReserveButton()
 {
     Book* book = findPickedBook();
-    if(book != nullptr)
+    if(book != nullptr && book->getAvailable() > 0)
     {
         QString message = "Do you want to reserve \"" + book->getTitle() + "\" by " + book->printAuthor() + "?";
         int decision = QMessageBox::question(this, "Book reservation", message, QMessageBox::Ok, QMessageBox::No);
         if (decision == QMessageBox::Ok)
-            qDebug() << "reserve book";
+            reserveBook(book);
     }
 }
 
@@ -170,5 +171,16 @@ void SearchWidget::removePickedBook()
 
 void SearchWidget::reserveBook(Book *book)
 {
+    //check if this reservation is already done
 
+    Reservation reservation;
+    reservation.setBookID(book->getId());
+    reservation.setUserID(mUser->getId());
+    reservation.setDate(QDate::currentDate());
+    reservation.setUser(std::make_shared<User>(*mUser));
+    reservation.setBook(std::make_shared<Book>(*book));
+    if(mDatabase.reservationDao.checkReservation(reservation.getBookID(), reservation.getUserID()))
+        QMessageBox::warning(this, "Reservation error", "This book is already reservaed by you", QMessageBox::Ok);
+    else
+        mDatabase.reservationDao.addReservation(reservation);
 }

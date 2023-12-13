@@ -6,7 +6,7 @@
 Reservation::Reservation(int reservationId, int bookId, int userId, QDate date, std::shared_ptr<Book> book, std::shared_ptr<User> user) :
     id(reservationId),
     bookID(bookId),
-    memberID(userId),
+    userID(userId),
     reservationDate(date),
     mBook(book),
     mUser(user)
@@ -31,7 +31,7 @@ void Reservation::setBookID(int bookId)
 
 void Reservation::setUserID(int userId)
 {
-    memberID = userId;
+    userID = userId;
 }
 
 void Reservation::setDate(QDate date)
@@ -59,9 +59,9 @@ int Reservation::getBookID()
     return bookID;
 }
 
-int Reservation::getMemberID()
+int Reservation::getUserID()
 {
-    return memberID;
+    return userID;
 }
 
 std::shared_ptr<Book> Reservation::getBook()

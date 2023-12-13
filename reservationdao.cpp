@@ -18,11 +18,14 @@ ReservationDao::~ReservationDao()
 
 void ReservationDao::addReservation(Reservation reservation)
 {
-    QSqlQuery query(mDatabase);
-    query.exec("INSERT INTO reservation (bookID, memberID, reservationDate) "
-               "VALUES (" + QString::number(reservation.getBook()->getId()) + ", " + QString::number(reservation.getUser()->getId()) + ", "
-               + reservation.getDate().toString("dd.MM.yyyy") + ")");
-    DatabaseManager::debugQuery(query);
+    if (!checkReservation(reservation.getBookID(), reservation.getUserID()))
+    {
+        QSqlQuery query(mDatabase);
+        query.exec("INSERT INTO reservation (bookID, userID, reservationDate) "
+               "VALUES (" + QString::number(reservation.getBook()->getId()) + ", " + QString::number(reservation.getUser()->getId()) + ", '"
+               + reservation.getDate().toString("dd.MM.yyyy") + "')");
+        DatabaseManager::debugQuery(query);
+    }
 }
 
 std::unique_ptr<std::vector<std::shared_ptr<Reservation> > > ReservationDao::getReservations(int number)
@@ -39,13 +42,22 @@ std::unique_ptr<std::vector<std::shared_ptr<Reservation> > > ReservationDao::get
         reservationPtr->setUserID(query.value("userID").toInt());
 
         reservationPtr->setBook(mBookDao->getBookDataId(reservationPtr->getBookID()));
-        reservationPtr->setUser(mUserDao->getUserDataId(reservationPtr->getMemberID()));
+        reservationPtr->setUser(mUserDao->getUserDataId(reservationPtr->getUserID()));
         reservationsVector.push_back(reservationPtr);
     }
     return std::make_unique<std::vector<std::shared_ptr<Reservation>>>(reservationsVector);
 
 
 
+}
+
+bool ReservationDao::checkReservation(int bookID, int userID)
+{
+    QSqlQuery query(mDatabase);
+    query.exec("SELECT EXISTS(SELECT * from reservation WHERE (bookID = " + QString::number(bookID) +
+               " AND userID = " + QString::number(userID) + "))");
+    query.next();
+    return query.value(0).toInt();
 }
 
 

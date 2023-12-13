@@ -21,6 +21,7 @@ public:
     void addReservation(Reservation reservation);
     void removeReservation(int reservationID);
     std::unique_ptr<std::vector<std::shared_ptr<Reservation>>> getReservations(int number = 5);
+    bool checkReservation(int bookID, int userID);
 
 private:
     QDate toQDate(QString date);
