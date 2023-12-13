@@ -25,6 +25,7 @@ void ReservationDao::addReservation(Reservation reservation)
                "VALUES (" + QString::number(reservation.getBook()->getId()) + ", " + QString::number(reservation.getUser()->getId()) + ", '"
                + reservation.getDate().toString("dd.MM.yyyy") + "')");
         DatabaseManager::debugQuery(query);
+        mBookDao->reserveBook(reservation.getBookID());
     }
 }
 

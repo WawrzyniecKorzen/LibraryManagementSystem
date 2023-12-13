@@ -12,6 +12,7 @@
 #include "databasemanager.h"
 #include "searchwidget.h"
 
+
 namespace Ui {
 class libraryDataWidget;
 }

@@ -39,6 +39,9 @@ public:
     void changeNumberOfAvailable(int id, int available);
     void changeNumberOfCopies(int id, int copies);
 
+    void reserveBook(int bookID);
+    void returnBook(int bookID);
+
 
 
 private:
