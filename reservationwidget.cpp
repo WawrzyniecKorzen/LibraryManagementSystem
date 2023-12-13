@@ -10,7 +10,7 @@ ReservationWidget::ReservationWidget(QWidget *parent, std::shared_ptr<Reservatio
     ui->dateLabel->setText(mReservation->getDate().toString("dd.mm.yyyy"));
     ui->userNameLabel->setText(mReservation->getUser()->getName());
     ui->bookTitleLabel->setText(mReservation->getBook()->getTitle());
-    ui->authorsLabel->setText(mReservation->getBook()->getAuthors());
+    ui->authorsLabel->setText(mReservation->getBook()->printAuthor());
 
 }
 
