@@ -11,7 +11,7 @@ ReservationWidget::ReservationWidget(QWidget *parent, std::shared_ptr<Reservatio
     ui->userNameLabel->setText(mReservation->getUser()->getName());
     ui->bookTitleLabel->setText(mReservation->getBook()->getTitle());
     ui->authorsLabel->setText(mReservation->getBook()->printAuthor());
-
+    qDebug() << "Reservation widget created!";
 }
 
 

@@ -66,7 +66,7 @@ std::shared_ptr<Book> BookDao::getBookDataId(int bookID)
     QSqlQuery query(mDatabase);
     query.exec("SELECT * FROM book WHERE id =" + QString::number(bookID));
     std::shared_ptr<Book> book = std::make_shared<Book>(Book());
-
+    query.next();
     //may be replaced later??
     book->setId(query.value("id").toInt());
     book->setTitle(query.value("title").toString());

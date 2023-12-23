@@ -29,11 +29,10 @@ void ReservationDao::addReservation(Reservation reservation)
     }
 }
 
-std::unique_ptr<std::vector<std::shared_ptr<Reservation> > > ReservationDao::getReservations(int number)
+std::vector<std::shared_ptr<Reservation> >  ReservationDao::getReservations(int number)
 {
     QSqlQuery query(mDatabase);
     query.exec("SELECT * FROM reservation LIMIT " + QString::number(number) + ";");
-
     std::vector<std::shared_ptr<Reservation>> reservationsVector;
     while(query.next())
     {
@@ -41,15 +40,17 @@ std::unique_ptr<std::vector<std::shared_ptr<Reservation> > > ReservationDao::get
         reservationPtr->setID(query.value("id").toInt());
         reservationPtr->setBookID(query.value("bookID").toInt());
         reservationPtr->setUserID(query.value("userID").toInt());
-
-        reservationPtr->setBook(mBookDao->getBookDataId(reservationPtr->getBookID()));
-        reservationPtr->setUser(mUserDao->getUserDataId(reservationPtr->getUserID()));
         reservationsVector.push_back(reservationPtr);
     }
-    return std::make_unique<std::vector<std::shared_ptr<Reservation>>>(reservationsVector);
+    qDebug() << QString::number(reservationsVector[0]->getBookID());
+    for (std::shared_ptr<Reservation> reservation : reservationsVector)
+        reservation->setBook(mBookDao->getBookDataId(reservation->getBookID()));
+    qDebug() << "books iterated";
+    for (std::shared_ptr<Reservation> reservation : reservationsVector)
+        reservation->setUser((mUserDao->getUserDataId(reservation->getUserID())));
+    qDebug() << "users iterated";
 
-
-
+    return reservationsVector;
 }
 
 bool ReservationDao::checkReservation(int bookID, int userID)

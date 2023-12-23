@@ -51,7 +51,7 @@ std::shared_ptr<User> UserDao::getUserDataId(int id)
     query.exec("SELECT * FROM login WHERE id = '" + QString::number(id) + "'");
     DatabaseManager::debugQuery(query);
     query.next();
-    std::shared_ptr<User> user;
+    std::shared_ptr<User> user = std::make_shared<User>();
     qDebug() << query.value("id").toInt();
     user->setId(query.value("id").toInt());
     user->setName(query.value("name").toString());
