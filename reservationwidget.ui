@@ -23,45 +23,10 @@
    </item>
    <item>
     <layout class="QGridLayout" name="gridLayout">
-     <item row="3" column="0">
-      <widget class="QLabel" name="bookAuthorLabel">
-       <property name="text">
-        <string>Author(s)</string>
-       </property>
-      </widget>
-     </item>
-     <item row="4" column="1">
-      <widget class="QPushButton" name="acceptButton">
-       <property name="text">
-        <string>Accept</string>
-       </property>
-      </widget>
-     </item>
-     <item row="2" column="1" colspan="2">
-      <widget class="QLabel" name="bookTitleLabel">
+     <item row="3" column="1" colspan="2">
+      <widget class="QLabel" name="authorsLabel">
        <property name="text">
         <string/>
-       </property>
-      </widget>
-     </item>
-     <item row="1" column="0">
-      <widget class="QLabel" name="userLabel">
-       <property name="text">
-        <string>User</string>
-       </property>
-      </widget>
-     </item>
-     <item row="2" column="0">
-      <widget class="QLabel" name="bookLabel">
-       <property name="text">
-        <string>Book title</string>
-       </property>
-      </widget>
-     </item>
-     <item row="4" column="2">
-      <widget class="QPushButton" name="rejectButton">
-       <property name="text">
-        <string>Reject</string>
        </property>
       </widget>
      </item>
@@ -72,10 +37,10 @@
        </property>
       </widget>
      </item>
-     <item row="0" column="0">
-      <widget class="QLabel" name="reservationDateLabel">
+     <item row="2" column="1" colspan="2">
+      <widget class="QLabel" name="bookTitleLabel">
        <property name="text">
-        <string>Reservation date:</string>
+        <string/>
        </property>
       </widget>
      </item>
@@ -86,10 +51,31 @@
        </property>
       </widget>
      </item>
-     <item row="3" column="1" colspan="2">
-      <widget class="QLabel" name="authorsLabel">
+     <item row="3" column="0">
+      <widget class="QLabel" name="bookAuthorLabel">
        <property name="text">
-        <string/>
+        <string>Author(s)</string>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="0">
+      <widget class="QLabel" name="bookLabel">
+       <property name="text">
+        <string>Book title</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="0">
+      <widget class="QLabel" name="userLabel">
+       <property name="text">
+        <string>User</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="0">
+      <widget class="QLabel" name="reservationDateLabel">
+       <property name="text">
+        <string>Reservation date:</string>
        </property>
       </widget>
      </item>

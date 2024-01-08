@@ -40,6 +40,7 @@ std::vector<std::shared_ptr<Reservation> >  ReservationDao::getReservations(int 
         reservationPtr->setID(query.value("id").toInt());
         reservationPtr->setBookID(query.value("bookID").toInt());
         reservationPtr->setUserID(query.value("userID").toInt());
+        reservationPtr->setDate(QDate::fromString(query.value("reservationDate").toString(),"dd.MM.yyyy"));
         reservationsVector.push_back(reservationPtr);
     }
     qDebug() << QString::number(reservationsVector[0]->getBookID());

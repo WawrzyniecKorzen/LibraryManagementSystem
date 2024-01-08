@@ -7,15 +7,19 @@ ReservationWidget::ReservationWidget(QWidget *parent, std::shared_ptr<Reservatio
     mReservation(reservation)
 {
     ui->setupUi(this);
-    ui->dateLabel->setText(mReservation->getDate().toString("dd.mm.yyyy"));
+    ui->dateLabel->setText(mReservation->getDate().toString("dd.MM.yyyy"));
     ui->userNameLabel->setText(mReservation->getUser()->getName());
     ui->bookTitleLabel->setText(mReservation->getBook()->getTitle());
     ui->authorsLabel->setText(mReservation->getBook()->printAuthor());
-    qDebug() << "Reservation widget created!";
 }
 
 
 ReservationWidget::~ReservationWidget()
 {
     delete ui;
+}
+
+std::shared_ptr<Reservation> ReservationWidget::getReservation()
+{
+    return mReservation;
 }
