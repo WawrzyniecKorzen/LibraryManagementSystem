@@ -4,7 +4,7 @@
 
 
 Loan::Loan(int loanId, int bookId, int userId, QDate date, std::shared_ptr<Book> book, std::shared_ptr<User> user) :
-    id(loanId), bookID(bookId), userID(userId), loanStartDate(date), mBook(book), mUser(User)
+    id(loanId), bookID(bookId), userID(userId), loanStartDate(date), mBook(book), mUser(user)
 {
 
 }
