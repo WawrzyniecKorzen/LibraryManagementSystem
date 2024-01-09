@@ -1,5 +1,6 @@
 #include "reservationadminwidget.h"
 #include "ui_reservationadminwidget.h"
+#include <QMessageBox>
 
 ReservationAdminWidget::ReservationAdminWidget(QWidget *parent, DatabaseManager& database) :
     QWidget(parent),
@@ -26,16 +27,24 @@ void ReservationAdminWidget::initializeReservationListWidget()
 void ReservationAdminWidget::addReservationWidget(std::shared_ptr<Reservation> reservation)
 {
     QHBoxLayout* layout = new QHBoxLayout(reservationListWidget);
-    QRadioButton* radio = new QRadioButton(reservationListWidget);
+    QPushButton* accept = new QPushButton("Accept", reservationListWidget);
+    QPushButton* reject = new QPushButton("Reject", reservationListWidget);
     ReservationWidget* reservationWidget = new ReservationWidget(reservationListWidget, reservation);
-    layout->addWidget(radio);
+
     layout->addWidget(reservationWidget);
+    layout->addWidget(accept);
+    layout->addWidget(reject);
     layout->addSpacerItem(new QSpacerItem(0,0,QSizePolicy::Expanding, QSizePolicy::Expanding));
     QVBoxLayout* listLayout = qobject_cast<QVBoxLayout*>(reservationListWidget->layout());
     listLayout->addLayout(layout);
 
-    widgetList.push_back(radio);
-    reservationListMap.insert(radio, reservationWidget);
+    acceptButtons.push_back(accept);
+    rejectButtons.push_back(reject);
+    reservationAcceptListMap.insert(accept, reservationWidget);
+    reservationRejectListMap.insert(reject, reservationWidget);
+
+    QObject::connect(accept, &QPushButton::clicked, this, &ReservationAdminWidget::onAccept);
+    QObject::connect(reject, &QPushButton::clicked, this, &ReservationAdminWidget::onReject);
 }
 
 void ReservationAdminWidget::onGetReservations()
@@ -49,17 +58,27 @@ void ReservationAdminWidget::onGetReservations()
     {
         addReservationWidget(reservation);
     }
-    /*if ((*reservationsPtr).size() !=0)
+}
+
+void ReservationAdminWidget::onAccept()
+{
+    QPushButton* button = (QPushButton*)QObject::sender();
+    ReservationWidget* reservation = reservationAcceptListMap.value(button);
+    int id = reservation->getReservation()->getID();
+    QMessageBox::warning(this, QString::number(id), "Accept clicked", QMessageBox::Ok);
+}
+
+void ReservationAdminWidget::onReject()
+{
+    QPushButton* button = (QPushButton*)QObject::sender();
+    std::shared_ptr<Reservation> reservation = reservationRejectListMap.value(button)->getReservation();
+
+    QString message = "Are you shure to reject reservation of book \"" + reservation->getBook()->getTitle() + "\" requested by user"
+        " " + reservation->getUser()->getName() + "?\nIf accepted the reservation will be deleted.";
+   if (QMessageBox::warning(this, "Are you shure", message, QMessageBox::Ok, QMessageBox::No) == QMessageBox::Ok)
     {
-        QHBoxLayout* reserveLayout = new QHBoxLayout(reservationListWidget);
-        reserveLayout->addSpacerItem(new QSpacerItem(0,0,QSizePolicy::Expanding, QSizePolicy::Expanding));
-
-        reserveButton = new QPushButton("Reserve selected book", this);
-        reserveLayout->addWidget(reserveButton);
-
-        QVBoxLayout* listLayout = qobject_cast<QVBoxLayout*>(reservationListWidget->layout());
-        listLayout->addLayout(reserveLayout);
-
-        //QObject::connect(reserveButton, &QPushButton::clicked, this, &SearchWidget::onReserveButton);
-    }*/
+        qDebug() << "Ok clicked";
+        mDatabase.reservationDao.removeReservation(reservation->getID());
+        onGetReservations();
+    }
 }

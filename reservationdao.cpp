@@ -29,6 +29,18 @@ void ReservationDao::addReservation(Reservation reservation)
     }
 }
 
+void ReservationDao::removeReservation(int reservationID)
+{
+    QSqlQuery query(mDatabase);
+    query.exec("SELECT bookID FROM reservation WHERE id = " + QString::number(reservationID));
+    query.next();
+    int bookID = query.value("bookID").toInt();
+    query.prepare("DELETE FROM reservation WHERE id = (:id)");
+    query.bindValue(":id", reservationID);
+    query.exec();
+    mBookDao->returnBook(bookID);
+}
+
 std::vector<std::shared_ptr<Reservation> >  ReservationDao::getReservations(int number)
 {
     QSqlQuery query(mDatabase);

@@ -20,19 +20,23 @@ public:
     explicit ReservationAdminWidget(QWidget *parent, DatabaseManager& database);
     ~ReservationAdminWidget();
 
-    std::vector<QRadioButton*> widgetList;
-    QMap<QRadioButton*, ReservationWidget*> reservationListMap;
+    std::vector<QPushButton*> acceptButtons;
+    std::vector<QPushButton*> rejectButtons;
+    QMap<QPushButton*, ReservationWidget*> reservationAcceptListMap;
+    QMap<QPushButton*, ReservationWidget*> reservationRejectListMap;
 
     void initializeReservationListWidget();
     void addReservationWidget(std::shared_ptr<Reservation> reservation);
     void onGetReservations();
+    void onAccept();
+    void onReject();
 
 
 private:
     Ui::ReservationAdminWidget *ui;
     DatabaseManager& mDatabase;
     QWidget* reservationListWidget;
-    QPushButton* reserveButton;
+    QPushButton* activeButton;
 };
 
 #endif // RESERVATIONADMINWIDGET_H

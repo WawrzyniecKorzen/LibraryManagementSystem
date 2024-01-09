@@ -292,7 +292,6 @@ void BookDao::changeNumberOfCopies(int id, int copies)
 void BookDao::reserveBook(int bookID)
 {
     int numberAvailable = getBookDataId(bookID)->getAvailable();
-    qDebug() << numberAvailable;
     if(numberAvailable >0)
     {
         changeNumberOfAvailable(bookID, numberAvailable-1);

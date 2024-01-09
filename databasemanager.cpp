@@ -63,7 +63,7 @@ void DatabaseManager::initialiseBook()
                "VALUES('The Lord Of The Rings', 2000, 5, 5)");
     DatabaseManager::debugQuery(query);
     query.exec("INSERT INTO book (title, publicationYear, available, copies) "
-               "VALUES('Silmarillion', 2002, 3, 3)");
+               "VALUES('Silmarillion', 2002, 3, 4)");
     DatabaseManager::debugQuery(query);
     query.exec("INSERT INTO book (title, publicationYear, available, copies) "
                "VALUES('Surely Youre Joking, Mr. Feynman!: Adventures of a Curious Character', 2018, 10, 10)");
