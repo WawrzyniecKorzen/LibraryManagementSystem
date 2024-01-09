@@ -68,7 +68,7 @@ void DatabaseManager::initialiseBook()
     query.exec("INSERT INTO book (title, publicationYear, available, copies) "
                "VALUES('Surely Youre Joking, Mr. Feynman!: Adventures of a Curious Character', 2018, 10, 10)");
     query.exec("INSERT INTO book (title, publicationYear, available, copies) "
-               "VALUES('An Introduction To Quantum Field Theory', 1995, 1, 1)");
+               "VALUES('An Introduction To Quantum Field Theory', 1995, 1, 2)");
 
     DatabaseManager::debugQuery(query);
 }
@@ -110,15 +110,23 @@ void DatabaseManager::initialiseAuthor()
 
 void DatabaseManager::initialiseReservation()
 {
+    QDate date = QDate::currentDate();
     QSqlQuery query(*mDatabase);
     query.exec("CREATE TABLE reservation (id INTEGER PRIMARY KEY AUTOINCREMENT, bookID INTEGER, userID INTEGER, reservationDate TEXT)");
+    DatabaseManager::debugQuery(query);
+    query.exec("INSERT INTO reservation (bookID, userID, reservationDate) "
+               "VALUES(2, 1, '" + date.toString("dd.MM.yyyy") +"')");
     DatabaseManager::debugQuery(query);
 }
 
 void DatabaseManager::initialiseLoan()
 {
+    QDate date = QDate::currentDate();
     QSqlQuery query(*mDatabase);
     query.exec("CREATE TABLE loan (id INTEGER PRIMARY KEY AUTOINCREMENT, bookID INTEGER, userID INTEGER, loanStartDate TEXT)");
+    DatabaseManager::debugQuery(query);
+    query.exec("INSERT INTO loan (bookID, userID, loanStartDate) "
+               "VALUES(4, 2, '" + date.toString("dd.MM.yyyy") +"')");
     DatabaseManager::debugQuery(query);
 }
 

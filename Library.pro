@@ -23,6 +23,7 @@ SOURCES += \
     editbookdialog.cpp \
     edituserdialog.cpp \
     librarydatawidget.cpp \
+    loan.cpp \
     login.cpp \
     logindao.cpp \
     main.cpp \
@@ -55,6 +56,7 @@ HEADERS += \
     editbookdialog.h \
     edituserdialog.h \
     librarydatawidget.h \
+    loan.h \
     login.h \
     logindao.h \
     mainwindow.h \
