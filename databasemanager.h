@@ -8,6 +8,7 @@
 #include "userdao.h"
 #include "bookdao.h"
 #include "reservationdao.h"
+#include "loandao.h"
 #include <vector>
 
 
@@ -48,6 +49,7 @@ public:
     UserDao userDao;
     BookDao bookDao;
     ReservationDao reservationDao;
+    LoanDao loanDao;
 };
 
 #endif // DATABASEMANAGER_H

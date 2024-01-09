@@ -164,7 +164,8 @@ std::vector<QString> DatabaseManager::findBookAuthors(QString name)
 DatabaseManager::DatabaseManager(const QString &path) :
     mDatabase(new QSqlDatabase(QSqlDatabase::addDatabase("QSQLITE"))),
     loginDao(*mDatabase), userDao(*mDatabase), bookDao(*mDatabase),
-    reservationDao(*mDatabase, std::make_shared<BookDao>(bookDao), std::make_shared<UserDao>(userDao))
+    reservationDao(*mDatabase, std::make_shared<BookDao>(bookDao), std::make_shared<UserDao>(userDao)),
+    loanDao(*mDatabase, std::make_shared<BookDao>(bookDao), std::make_shared<UserDao>(userDao))
 {
     mDatabase->setDatabaseName(path);
 
