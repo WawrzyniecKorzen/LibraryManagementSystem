@@ -42,22 +42,14 @@ libraryDataWidget::libraryDataWidget(QWidget *parent, DatabaseManager& database,
     QVBoxLayout* lay = qobject_cast<QVBoxLayout*>(this->layout());
     lay->insertWidget(0, tabBar);
 
-    mWidget = new QWidget(this);
-    mWidget->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding);
-    mWidget->setLayout(new QVBoxLayout(mWidget));
+    mLoans = new QWidget(this);
+    mLoans->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding);
+    mLoans->setLayout(new QVBoxLayout(mLoans));
 
 
-    Book* book = new Book();
-    book->setTitle("History of the Peloponnesian War");
-    book->setPublicationYear(2010);
-    book->setAuthor(Person("Thucydides", "Athenian"));
-    book->setAvailable(1);
-    book->setCopies(2);
-    BookWidget* bookWidget = new BookWidget(this, book);
 
-    mWidget->layout()->addWidget(bookWidget);
     QSpacerItem* spacer = new QSpacerItem(0,0, QSizePolicy::Expanding, QSizePolicy::Expanding);
-    mWidget->layout()->addItem(spacer);
+    mLoans->layout()->addItem(spacer);
 
     ui->scrollArea->setWidgetResizable(true);
     ui->scrollArea->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
@@ -68,7 +60,7 @@ libraryDataWidget::libraryDataWidget(QWidget *parent, DatabaseManager& database,
 
 
 
-    stackedPanel->addWidget(mWidget);
+    stackedPanel->addWidget(mLoans);
     stackedPanel->addWidget(searchWidget);
     ui->scrollArea->setWidget(stackedPanel);
 
@@ -84,28 +76,10 @@ libraryDataWidget::~libraryDataWidget()
     delete ui;
 }
 
-void libraryDataWidget::demo()
-{
-    std::vector<QString> titles = mDatabase.bookDao.getBookTitles();
-
-    for (QString& title : titles)
-    {
-        books.push_back(mDatabase.bookDao.getBookDataTitle(title));
-    }
-    for (auto it = books.begin(); it != books.end(); it++)
-    {
-        BookWidget* book = new BookWidget(this, *it);
-
-        mWidget->layout()->addWidget(book);
-    }
-
-
-
-}
 
 void libraryDataWidget::onMyBooks()
 {
-    stackedPanel->setCurrentWidget(mWidget);
+    stackedPanel->setCurrentWidget(mLoans);
 
 }
 

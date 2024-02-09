@@ -25,7 +25,7 @@ public:
     explicit libraryDataWidget(QWidget *parent, DatabaseManager& database, User* user);
     ~libraryDataWidget();
 
-    void demo();
+    void setMLoans();
 
     void onMyBooks();
     void onMySearch();
@@ -33,10 +33,10 @@ public:
 private:
     Ui::libraryDataWidget *ui;
     DatabaseManager& mDatabase;
-    std::vector<Book*> books;
+    std::unique_ptr<std::vector<std::shared_ptr<Loan>> loans;
     QStackedWidget* stackedPanel;
     QWidget* tabBar;
-    QWidget* mWidget;
+    QWidget* mLoans;
     SearchWidget* searchWidget;
     User* mUser;
 };

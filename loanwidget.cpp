@@ -10,7 +10,7 @@ LoanWidget::LoanWidget(QWidget *parent,  std::shared_ptr<Loan> loan) :
     ui->userNameLabel->setText(mLoan->getUser()->getName());
     ui->loanStartDateTextLabel->setText(mLoan->getStartDate().toString("dd.MM.yyyy"));
     ui->titleTextLabel->setText(mLoan->getBook()->getTitle());
-    ui->authorNamesLabel->setText(mLoan->getBook()->getAuthors());
+    ui->authorNamesLabel->setText(mLoan->getBook()->printAuthor());
 }
 
 
