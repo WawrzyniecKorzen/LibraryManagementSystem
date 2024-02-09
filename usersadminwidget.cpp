@@ -32,6 +32,8 @@ void UsersAdminWidget::setUserList()
 
     widgetList.clear();
     userListMap.clear();
+    manageBooksButtons.clear();
+    manageBooksButtonsMap.clear();
 }
 
 void UsersAdminWidget::addUserWidget(User *user)
@@ -47,6 +49,20 @@ void UsersAdminWidget::addUserWidget(User *user)
 
     widgetList.push_back(radio);
     userListMap.insert(radio, userWidget);
+
+    QPushButton* manage = new QPushButton("Manage Users Books", userList);
+    manageBooksButtons.push_back(manage);
+    manageBooksButtonsMap.insert(manage, user);
+    QHBoxLayout* buttonLayout = new QHBoxLayout(userList);
+    buttonLayout->addSpacerItem(new QSpacerItem(0,0,QSizePolicy::Expanding, QSizePolicy::Expanding));
+    buttonLayout->addWidget(manage);
+    listLayout->addLayout(buttonLayout);
+
+    QFrame* line = new QFrame();
+    line->setFrameShape(QFrame::HLine);
+    line->setFrameShadow(QFrame::Sunken);
+    listLayout->addWidget(line);
+
 }
 
 User *UsersAdminWidget::findPickedUser()

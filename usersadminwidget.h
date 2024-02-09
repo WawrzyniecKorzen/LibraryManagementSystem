@@ -4,6 +4,7 @@
 #include <QWidget>
 #include <QRadioButton>
 #include <QHash>
+#include <QPushButton>
 
 #include "databasemanager.h"
 #include "userwidget.h"
@@ -25,6 +26,9 @@ public:
 
     std::vector<QRadioButton*> widgetList;
     QHash<QRadioButton*, UserWidget*> userListMap;
+
+    std::vector<QPushButton*> manageBooksButtons;
+    QMap<QPushButton*, User*> manageBooksButtonsMap;
 
     User *findPickedUser();
     void removePickedUser();
