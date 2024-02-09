@@ -25,6 +25,7 @@ SOURCES += \
     librarydatawidget.cpp \
     loan.cpp \
     loandao.cpp \
+    loanwidget.cpp \
     login.cpp \
     logindao.cpp \
     main.cpp \
@@ -59,6 +60,7 @@ HEADERS += \
     librarydatawidget.h \
     loan.h \
     loandao.h \
+    loanwidget.h \
     login.h \
     logindao.h \
     mainwindow.h \
@@ -87,6 +89,7 @@ FORMS += \
     editbookdialog.ui \
     edituserdialog.ui \
     librarydatawidget.ui \
+    loanwidget.ui \
     login.ui \
     mainwindow.ui \
     reservationadminwidget.ui \
