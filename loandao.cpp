@@ -98,6 +98,19 @@ bool LoanDao::checkLoan(int bookID, int userID)
     return query.value(0).toInt();
 }
 
+std::vector<QString> LoanDao::getUsersBookTitles(int userID)
+{
+    std::vector<QString> titlesVector;
+    QSqlQuery query(mDatabase);
+    query.exec("SELECT title FROM loan INNER JOIN book ON loan.bookID=book.id WHERE userID = " + QString::number(userID) + ";");
+
+    while (query.next())
+    {
+        titlesVector.push_back(query.value("title").toString());
+    }
+    return titlesVector;
+}
+
 
 
 

@@ -47,19 +47,7 @@ Book *BookDao::getBookDataTitle(QString title)
     return book;
 }
 
-std::vector<QString> BookDao::getBookTitles()
-{
-    std::vector<QString> titles;
 
-    QSqlQuery query(mDatabase);
-    query.exec("SELECT title FROM book LIMIT 5");
-    while (query.next())
-    {
-        titles.push_back(query.value("title").toString());
-    }
-    return titles;
-
-}
 
 std::shared_ptr<Book> BookDao::getBookDataId(int bookID)
 {

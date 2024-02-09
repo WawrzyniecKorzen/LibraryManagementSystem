@@ -25,6 +25,8 @@ public:
     std::vector<std::shared_ptr<Loan>> getUsersLoans(int id);
     bool checkLoan(int bookID, int userID);
 
+    std::vector<QString> getUsersBookTitles(int userID);
+
 private:
     QDate toQDate(QString date);
 private:

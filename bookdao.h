@@ -18,7 +18,6 @@ public:
     ~BookDao();
 
     Book *getBookDataTitle(QString title);
-    std::vector<QString> getBookTitles();
     std::shared_ptr<Book> getBookDataId(int bookID);
 
     void addBook(Book book);

@@ -36,9 +36,10 @@ void UsersAdminWidget::setUserList()
 
 void UsersAdminWidget::addUserWidget(User *user)
 {
+    std::vector<QString> titles = mDatabase.loanDao.getUsersBookTitles(user->getId());
     QHBoxLayout* layout = new QHBoxLayout(userList);
     QRadioButton* radio = new QRadioButton(userList);
-    UserWidget* userWidget = new UserWidget(userList, user);
+    UserWidget* userWidget = new UserWidget(userList, user, titles);
     layout->addWidget(radio);
     layout->addWidget(userWidget);
     QVBoxLayout* listLayout = qobject_cast<QVBoxLayout*>(userList->layout());
