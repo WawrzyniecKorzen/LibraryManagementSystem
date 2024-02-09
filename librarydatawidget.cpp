@@ -2,6 +2,7 @@
 #include "ui_librarydatawidget.h"
 
 #include "bookwidget.h"
+#include "loanwidget.h"
 
 #include <QVBoxLayout>
 #include <QScrollArea>
@@ -46,6 +47,8 @@ libraryDataWidget::libraryDataWidget(QWidget *parent, DatabaseManager& database,
     mLoans->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding);
     mLoans->setLayout(new QVBoxLayout(mLoans));
 
+    loansVector = mDatabase.loanDao.getUsersLoans(mUser->getId());
+    setLoans();
 
 
     QSpacerItem* spacer = new QSpacerItem(0,0, QSizePolicy::Expanding, QSizePolicy::Expanding);
@@ -74,6 +77,16 @@ libraryDataWidget::libraryDataWidget(QWidget *parent, DatabaseManager& database,
 libraryDataWidget::~libraryDataWidget()
 {
     delete ui;
+}
+
+void libraryDataWidget::setLoans()
+{
+    QVBoxLayout* layout = (QVBoxLayout*)mLoans->layout();
+    for (std::shared_ptr<Loan> loan : loansVector)
+    {
+        LoanWidget* loanWidget = new LoanWidget(mLoans, loan);
+        layout->addWidget(loanWidget);
+    }
 }
 
 

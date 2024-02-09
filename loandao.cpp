@@ -66,6 +66,29 @@ std::vector<std::shared_ptr<Loan> >  LoanDao::getLoans(int number)
     return loansVector;
 }
 
+std::vector<std::shared_ptr<Loan> > LoanDao::getUsersLoans(int id)
+{
+    QSqlQuery query(mDatabase);
+    std::vector<std::shared_ptr<Loan> > loansVector;
+    query.exec("SELECT * FROM loan WHERE userID = " + QString::number(id) +";");
+    while (query.next())
+    {
+        std::shared_ptr<Loan> loanPtr = std::make_shared<Loan>(Loan());
+        loanPtr->setID(query.value("id").toInt());
+        loanPtr->setBookID(query.value("bookID").toInt());
+        loanPtr->setUserID(query.value("userID").toInt());
+        loanPtr->setStartDate(QDate::fromString(query.value("loanStartDate").toString(),"dd.MM.yyyy"));
+        loansVector.push_back(loanPtr);
+    }
+    for (std::shared_ptr<Loan> loan : loansVector)
+        loan->setBook(mBookDao->getBookDataId(loan->getBookID()));
+
+    for (std::shared_ptr<Loan> loan : loansVector)
+        loan->setUser((mUserDao->getUserDataId(loan->getUserID())));
+
+    return loansVector;
+}
+
 bool LoanDao::checkLoan(int bookID, int userID)
 {
     QSqlQuery query(mDatabase);

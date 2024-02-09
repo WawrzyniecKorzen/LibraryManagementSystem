@@ -22,6 +22,7 @@ public:
     void addLoan(Loan loan);
     void removeLoan(int loanID);
     std::vector<std::shared_ptr<Loan>> getLoans(int number = 5);
+    std::vector<std::shared_ptr<Loan>> getUsersLoans(int id);
     bool checkLoan(int bookID, int userID);
 
 private:
