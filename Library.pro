@@ -40,6 +40,7 @@ SOURCES += \
     user.cpp \
     userdao.cpp \
     userdatawidget.cpp \
+    userloansdialog.cpp \
     usersadminwidget.cpp \
     userwidget.cpp
 
@@ -74,6 +75,7 @@ HEADERS += \
     user.h \
     userdao.h \
     userdatawidget.h \
+    userloansdialog.h \
     usersadminwidget.h \
     userwidget.h
 
@@ -96,6 +98,7 @@ FORMS += \
     reservationwidget.ui \
     searchwidget.ui \
     userdatawidget.ui \
+    userloansdialog.ui \
     usersadminwidget.ui \
     userwidget.ui
 

@@ -9,7 +9,7 @@ ReservationAdminWidget::ReservationAdminWidget(QWidget *parent, DatabaseManager&
     ui->setupUi(this);
     initializeReservationListWidget();
     QObject::connect(ui->loadReservationsButton, &QPushButton::clicked, this, &ReservationAdminWidget::onGetReservations);
-    //onGetReservations();
+    onGetReservations();
 }
 
 ReservationAdminWidget::~ReservationAdminWidget()
@@ -54,12 +54,10 @@ void ReservationAdminWidget::addReservationWidget(std::shared_ptr<Reservation> r
 
 void ReservationAdminWidget::onGetReservations()
 {
-    qDebug() << "onGetReservations";
     delete reservationListWidget;
     initializeReservationListWidget();
     mDatabase.reservationDao.getReservations();
     std::vector<std::shared_ptr<Reservation>> reservations = mDatabase.reservationDao.getReservations();
-    qDebug() << "taken " << QString::number(reservations.size());
     for (std::shared_ptr<Reservation> &reservation : reservations)
     {
         addReservationWidget(reservation);
@@ -70,7 +68,6 @@ void ReservationAdminWidget::onAccept()
 {
     QPushButton* button = (QPushButton*)QObject::sender();
     std::shared_ptr<Reservation> reservation = reservationAcceptListMap.value(button)->getReservation();
-    //ReservationWidget* reservation = reservationAcceptListMap.value(button);
     QString message = "Are you shure to accept reservation of book \"" + reservation->getBook()->getTitle() + "\" requested by user"
                       " " + reservation->getUser()->getName() + "?\nIf accepted the book will be loaned.";
     if (QMessageBox::warning(this, "Accept clicked", message, QMessageBox::Ok, QMessageBox::No) == QMessageBox::Ok)

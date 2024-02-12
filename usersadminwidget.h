@@ -8,6 +8,7 @@
 
 #include "databasemanager.h"
 #include "userwidget.h"
+#include "userloansdialog.h"
 
 namespace Ui {
 class UsersAdminWidget;
@@ -32,6 +33,8 @@ public:
 
     User *findPickedUser();
     void removePickedUser();
+
+    void onManageBooks();
 
 public slots:
     void onSearchUser();

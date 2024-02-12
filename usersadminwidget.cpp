@@ -57,6 +57,7 @@ void UsersAdminWidget::addUserWidget(User *user)
     buttonLayout->addSpacerItem(new QSpacerItem(0,0,QSizePolicy::Expanding, QSizePolicy::Expanding));
     buttonLayout->addWidget(manage);
     listLayout->addLayout(buttonLayout);
+    QObject::connect(manage, &QPushButton::clicked, this, &UsersAdminWidget::onManageBooks);
 
     QFrame* line = new QFrame();
     line->setFrameShape(QFrame::HLine);
@@ -113,6 +114,12 @@ void UsersAdminWidget::removePickedUser()
 
     radio->deleteLater();
     userWidget->deleteLater();
+}
+
+void UsersAdminWidget::onManageBooks()
+{
+    UserLoansDialog* dialog = new UserLoansDialog(this);
+    dialog->show();
 }
 
 void UsersAdminWidget::onSearchUser()
