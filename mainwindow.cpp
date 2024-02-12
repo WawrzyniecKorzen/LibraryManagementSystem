@@ -7,6 +7,7 @@
 #include <QHBoxLayout>
 #include <QPushButton>
 #include <QScrollArea>
+#include <QScreen>
 
 MainWindow::MainWindow(QWidget *parent)
     :  QMainWindow(parent),
@@ -24,6 +25,11 @@ MainWindow::MainWindow(QWidget *parent)
 
     ui->centralwidget->layout()->addWidget(userWidget);
 
+    QScreen *screen = QGuiApplication::primaryScreen();
+    QRect  screenGeometry = screen->geometry();
+    int height = screenGeometry.height();
+    int width = screenGeometry.width();
+    this->resize(width*0.7, height*0.7);
 
     this->show();
     QObject::connect(userWidget, &UserDataWidget::logOutClicked, this, &MainWindow::logOut);
