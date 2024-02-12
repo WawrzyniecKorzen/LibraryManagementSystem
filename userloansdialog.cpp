@@ -1,5 +1,6 @@
 #include "userloansdialog.h"
 #include "ui_userloansdialog.h"
+#include <QMessageBox>
 
 UserLoansDialog::UserLoansDialog(DatabaseManager& database, QWidget *parent, User* user) :
     mDatabase(database), QDialog(parent),  mUser(user),
@@ -50,6 +51,14 @@ void UserLoansDialog::initialiseBooks()
 void UserLoansDialog::onReturnButton()
 {
     qDebug() << "Return clicked!";
+    QPushButton* button = qobject_cast<QPushButton*>(sender());
+
+    QString message = "Are you sure to return book " + buttonLoanMap.value(button)->getLoan()->getBook()->getTitle() + "?";
+    if (QMessageBox::warning(this, "Returning book", message, QMessageBox::Ok, QMessageBox::No) == QMessageBox::Ok)
+    {
+        mDatabase.loanDao.removeLoan(buttonLoanMap.value(button)->getLoan()->getID());
+        initialiseBooks();
+    }
 }
 
 void UserLoansDialog::onCloseButton()
