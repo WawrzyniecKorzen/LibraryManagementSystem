@@ -22,10 +22,9 @@ void LoanDao::addLoan(Loan loan)
     {
         QSqlQuery query(mDatabase);
         query.exec("INSERT INTO loan (bookID, userID, loanStartDate) "
-                   "VALUES (" + QString::number(loan.getBook()->getId()) + ", " + QString::number(loan.getUser()->getId()) + ", '"
+                   "VALUES (" + QString::number(loan.getBookID()) + ", " + QString::number(loan.getUserID()) + ", '"
                    + loan.getStartDate().toString("dd.MM.yyyy") + "')");
         DatabaseManager::debugQuery(query);
-        mBookDao->reserveBook(loan.getBookID()); // to be written?
     }
 }
 

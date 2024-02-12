@@ -19,7 +19,7 @@ public:
     ~ReservationDao();
 
     void addReservation(Reservation reservation);
-    void removeReservation(int reservationID);
+    void removeReservation(int reservationID, int mode = 1);
     std::vector<std::shared_ptr<Reservation>> getReservations(int number = 5);
     bool checkReservation(int bookID, int userID);
 

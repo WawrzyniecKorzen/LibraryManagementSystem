@@ -9,6 +9,7 @@ ReservationAdminWidget::ReservationAdminWidget(QWidget *parent, DatabaseManager&
     ui->setupUi(this);
     initializeReservationListWidget();
     QObject::connect(ui->loadReservationsButton, &QPushButton::clicked, this, &ReservationAdminWidget::onGetReservations);
+    //onGetReservations();
 }
 
 ReservationAdminWidget::~ReservationAdminWidget()
@@ -22,6 +23,10 @@ void ReservationAdminWidget::initializeReservationListWidget()
     reservationListWidget = new QWidget(this);
     reservationListWidget->setLayout(new QVBoxLayout());
     ui->verticalLayout->insertWidget(1, reservationListWidget);
+    acceptButtons.clear();
+    rejectButtons.clear();
+    reservationAcceptListMap.clear();
+    reservationRejectListMap.clear();
 }
 
 void ReservationAdminWidget::addReservationWidget(std::shared_ptr<Reservation> reservation)
@@ -52,6 +57,7 @@ void ReservationAdminWidget::onGetReservations()
     qDebug() << "onGetReservations";
     delete reservationListWidget;
     initializeReservationListWidget();
+    mDatabase.reservationDao.getReservations();
     std::vector<std::shared_ptr<Reservation>> reservations = mDatabase.reservationDao.getReservations();
     qDebug() << "taken " << QString::number(reservations.size());
     for (std::shared_ptr<Reservation> &reservation : reservations)
@@ -63,9 +69,20 @@ void ReservationAdminWidget::onGetReservations()
 void ReservationAdminWidget::onAccept()
 {
     QPushButton* button = (QPushButton*)QObject::sender();
-    ReservationWidget* reservation = reservationAcceptListMap.value(button);
-    int id = reservation->getReservation()->getID();
-    QMessageBox::warning(this, QString::number(id), "Accept clicked", QMessageBox::Ok);
+    std::shared_ptr<Reservation> reservation = reservationAcceptListMap.value(button)->getReservation();
+    //ReservationWidget* reservation = reservationAcceptListMap.value(button);
+    QString message = "Are you shure to accept reservation of book \"" + reservation->getBook()->getTitle() + "\" requested by user"
+                      " " + reservation->getUser()->getName() + "?\nIf accepted the book will be loaned.";
+    if (QMessageBox::warning(this, "Accept clicked", message, QMessageBox::Ok, QMessageBox::No) == QMessageBox::Ok)
+    {
+        Loan loan;
+        loan.setUserID(reservation->getUserID());
+        loan.setBookID(reservation->getBookID());
+        loan.setStartDate(QDate::currentDate());
+        mDatabase.loanDao.addLoan(loan);
+        mDatabase.reservationDao.removeReservation(reservation->getID(), 0);
+        onGetReservations();
+    }
 }
 
 void ReservationAdminWidget::onReject()
@@ -75,9 +92,8 @@ void ReservationAdminWidget::onReject()
 
     QString message = "Are you shure to reject reservation of book \"" + reservation->getBook()->getTitle() + "\" requested by user"
         " " + reservation->getUser()->getName() + "?\nIf accepted the reservation will be deleted.";
-   if (QMessageBox::warning(this, "Are you shure", message, QMessageBox::Ok, QMessageBox::No) == QMessageBox::Ok)
+   if (QMessageBox::warning(this, "Reject clicked", message, QMessageBox::Ok, QMessageBox::No) == QMessageBox::Ok)
     {
-        qDebug() << "Ok clicked";
         mDatabase.reservationDao.removeReservation(reservation->getID());
         onGetReservations();
     }

@@ -29,7 +29,7 @@ void ReservationDao::addReservation(Reservation reservation)
     }
 }
 
-void ReservationDao::removeReservation(int reservationID)
+void ReservationDao::removeReservation(int reservationID, int mode)
 {
     QSqlQuery query(mDatabase);
     query.exec("SELECT bookID FROM reservation WHERE id = " + QString::number(reservationID));
@@ -38,7 +38,9 @@ void ReservationDao::removeReservation(int reservationID)
     query.prepare("DELETE FROM reservation WHERE id = (:id)");
     query.bindValue(":id", reservationID);
     query.exec();
-    mBookDao->returnBook(bookID);
+
+    if (mode)
+        mBookDao->returnBook(bookID);
 }
 
 std::vector<std::shared_ptr<Reservation> >  ReservationDao::getReservations(int number)
@@ -55,7 +57,6 @@ std::vector<std::shared_ptr<Reservation> >  ReservationDao::getReservations(int 
         reservationPtr->setDate(QDate::fromString(query.value("reservationDate").toString(),"dd.MM.yyyy"));
         reservationsVector.push_back(reservationPtr);
     }
-    qDebug() << QString::number(reservationsVector[0]->getBookID());
     for (std::shared_ptr<Reservation> reservation : reservationsVector)
         reservation->setBook(mBookDao->getBookDataId(reservation->getBookID()));
     qDebug() << "books iterated";
