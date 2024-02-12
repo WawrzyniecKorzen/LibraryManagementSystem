@@ -68,7 +68,6 @@ void UsersAdminWidget::addUserWidget(User *user)
 
 User *UsersAdminWidget::findPickedUser()
 {
-    qDebug() << "list size: "<<widgetList.size();
 
     if (widgetList.size() == 0)
     {
@@ -118,7 +117,9 @@ void UsersAdminWidget::removePickedUser()
 
 void UsersAdminWidget::onManageBooks()
 {
-    UserLoansDialog* dialog = new UserLoansDialog(this);
+    QPushButton* button = qobject_cast<QPushButton*>(sender());
+    User* user = manageBooksButtonsMap.value(button);
+    UserLoansDialog* dialog = new UserLoansDialog(mDatabase, this, user);
     dialog->show();
 }
 

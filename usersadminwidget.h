@@ -29,7 +29,7 @@ public:
     QHash<QRadioButton*, UserWidget*> userListMap;
 
     std::vector<QPushButton*> manageBooksButtons;
-    QMap<QPushButton*, User*> manageBooksButtonsMap;
+    QHash<QPushButton*, User*> manageBooksButtonsMap;
 
     User *findPickedUser();
     void removePickedUser();
